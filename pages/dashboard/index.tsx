@@ -14,7 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {MoreVertical} from "lucide-react";
+import {MoreVertical, PlusIcon} from "lucide-react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -103,7 +103,7 @@ export default function Dashboard(props: DashboardProps) {
                                         {decks.map((deck) => (
                                             <div className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>
                                                 <div className={"dark:bg-primary-black border border-gray-200 bg-white rounded-md w-full mt-2"}>
-                                                    <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4 "}>
+                                                    <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                         <div className={"flex flex-row items-center"}>
                                                             <div className="bg-black rounded-md p-3">
                                                             {/*    <Image src={`https://ui-avatars.com/api/?name=${deck.name}&size=128&color=fff&background=000`} alt={"Deck icon"} width={64} height={64} className={"h-9 w-9 rounded-md"} />*/}
@@ -148,15 +148,17 @@ export default function Dashboard(props: DashboardProps) {
                                             </div>
                                         ))}
 
-                                        {decks.length === 0 && (
-                                            <div className={"col-span-6 sm:col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2"}>
-                                                <div className={"dark:bg-primary-black bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>
-                                                    <div className={"dark:bg-secondary-black rounded-md"}>
-                                                        <h1 className={"text-2xl font-bold"}>No decks</h1>
+                                        <div className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>
+                                            <Link href={"/dashboard/decks/new"}>
+                                                <div className={"dark:bg-primary-black cursor-pointer border-2 py-9 border-dashed border-gray-200 bg-white p-5 rounded-md w-full mt-2"}>
+                                                    <div className={"flex flex-col justify-center items-center"}>
+                                                        <PlusIcon className={"h-6 w-6"} />
+                                                        <p className={"font-medium"}>New Deck</p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        )}
+                                            </Link>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
