@@ -4,7 +4,6 @@ import {BookOpenIcon, CurrencyDollarIcon, CursorClickIcon, TrashIcon} from "@her
 import {getAuth} from "@clerk/nextjs/server";
 import {GetServerSideProps} from "next";
 import {prisma} from "@/lib/db";
-import {Prisma} from "@prisma/client";
 import Link from "next/link";
 
 import {
@@ -22,12 +21,17 @@ import {
     AlertDialogCancel,
     AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger
+    AlertDialogTitle
 } from "@/components/ui/alert-dialog";
 import {useState} from "react";
 import {deleteDeck} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
+
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime.js'
+import Image from "next/image";
+
+dayjs.extend(relativeTime)
 
 type DashboardProps = {
     decks: Deck[]
@@ -38,6 +42,14 @@ export default function Dashboard(props: DashboardProps) {
 
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
     const [selectedDeck, setSelectedDeck] = useState<string>("")
+
+    const mostRecentCard = decks.map((deck) => {
+        return deck.cards.sort((a, b) => {
+            return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
+        })[0]
+    }).sort((a, b) => {
+        return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
+    })[0]
 
     return (
         <>
@@ -94,10 +106,12 @@ export default function Dashboard(props: DashboardProps) {
                                                     <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4 "}>
                                                         <div className={"flex flex-row items-center"}>
                                                             <div className="bg-black rounded-md p-3">
-                                                                <BookOpenIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                                                            {/*    <Image src={`https://ui-avatars.com/api/?name=${deck.name}&size=128&color=fff&background=000`} alt={"Deck icon"} width={64} height={64} className={"h-9 w-9 rounded-md"} />*/}
+                                                                {/*<BookOpenIcon className="h-6 w-6 text-white" aria-hidden="true" />*/}
                                                                 {/*<icon className="h-6 w-6 text-white" aria-hidden="true" />*/}
+                                                                <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{deck.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</p>
                                                             </div>
-                                                            <p className="dark:text-gray-400 text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p>
+                                                            <Link href={"/dashboard/decks/"+deck.id}><p className="dark:text-gray-400 text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
                                                         </div>
 
                                                         <div className={"flex flex-row ml-auto"}>
@@ -108,7 +122,7 @@ export default function Dashboard(props: DashboardProps) {
                                                                 <DropdownMenuContent>
                                                                     <DropdownMenuLabel>Deck</DropdownMenuLabel>
                                                                     <DropdownMenuSeparator />
-                                                                    <Link href={"/"}><DropdownMenuItem className={"cursor-pointer"}><CursorClickIcon className={"h-4 mr-2 w-4"} /> Open</DropdownMenuItem></Link>
+                                                                    <Link href={"/dashboard/decks/"+deck.id}><DropdownMenuItem className={"cursor-pointer"}><CursorClickIcon className={"h-4 mr-2 w-4"} /> Open</DropdownMenuItem></Link>
                                                                     <DropdownMenuItem onClick={() => {setDeleteAlertOpen(true); setSelectedDeck(deck.id)}} className={"cursor-pointer"}>
                                                                         <TrashIcon className={"h-4 text-red-500 mr-2 w-4"} /> Delete
                                                                     </DropdownMenuItem>
@@ -127,7 +141,7 @@ export default function Dashboard(props: DashboardProps) {
 
                                                         <div className={"flex flex-row justify-between"}>
                                                             <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Last Modified</p>
-                                                            <p className={"dark:text-gray-400 pb-2 font-medium"}>Today</p>
+                                                            <p className={"dark:text-gray-400 pb-2 font-medium"}>{dayjs(mostRecentCard.dateModified).fromNow()}</p>
                                                         </div>
                                                     </div>
                                                 </div>

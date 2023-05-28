@@ -40,7 +40,7 @@ export default function Navbar() {
                 <SignedOut>
                     <Link href={"/"}>
                         <div className={"flex items-center"}>
-                            <h1 className={"font-bold text-xl text-main-white"}>Ticket AI</h1>
+                            <h1 className={"font-bold text-xl text-main-white"}>Anki Decks</h1>
                         </div>
                     </Link>
                     <SignInButton />
@@ -48,7 +48,7 @@ export default function Navbar() {
                 <ClerkLoading>
                     <Link href={"/"}>
                         <div className={"flex items-center"}>
-                            <h1 className={"font-bold text-xl text-main-white"}>Ticket AI</h1>
+                            <h1 className={"font-bold text-xl text-main-white"}>Anki Decks</h1>
                         </div>
                     </Link>
                     <SignInButton />

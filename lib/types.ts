@@ -3,6 +3,7 @@ type Deck = {
     user: string;
     name: string;
     cards: Card[];
+    dateCreated: Date;
 }
 
 type Card = {
