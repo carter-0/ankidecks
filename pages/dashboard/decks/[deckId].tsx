@@ -66,7 +66,7 @@ export default function Deck(props: DeckProps) {
                             <div className={"dark:bg-secondary-black "}>
                                 <h1 className={"text-2xl font-bold"}>Cards</h1>
                                 <div className={"flex flex-row"}>
-                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck '{deck.name}'</p>
+                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
                                 </div>
                                 <div className={"grid grid-cols-8 gap-4"}>
                                     {deck.cards.map((card: Card) => (

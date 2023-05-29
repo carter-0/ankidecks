@@ -100,8 +100,8 @@ export default function Dashboard(props: DashboardProps) {
                                     </div>
 
                                     <div className={"grid sg:grid-cols-1 grid-cols-2 gap-4"}>
-                                        {decks.map((deck) => (
-                                            <div className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>
+                                        {decks.map((deck, deckX) => (
+                                            <div key={deckX} className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>
                                                 <div className={"dark:bg-primary-black border border-gray-200 bg-white rounded-md w-full mt-2"}>
                                                     <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                         <div className={"flex flex-row items-center"}>

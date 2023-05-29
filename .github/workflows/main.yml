@@ -17,6 +17,6 @@ jobs:
             cd /home/ubuntu/projects/ankidecks
             git reset --hard HEAD
             git pull
-            npm run install
+            npm install
             npm run build
             sudo systemctl restart ankidecks

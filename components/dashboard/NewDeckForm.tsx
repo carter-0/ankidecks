@@ -7,7 +7,7 @@ export default function NewDeckForm() {
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-bold">New Deck</h2>
                     <p className="text-sm text-gray-500 font-medium">
-                         You won't be charged until you add cards.
+                         You won&apos;t be charged until you add cards.
                     </p>
 
                     <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -217,7 +217,7 @@ export default function NewDeckForm() {
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">
-                        We'll always let you know about important changes, but you pick what else you want to hear about.
+                        We&apos;ll always let you know about important changes, but you pick what else you want to hear about.
                     </p>
 
                     <div className="mt-10 space-y-10">
