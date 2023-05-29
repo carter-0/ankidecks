@@ -2,7 +2,18 @@
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
 import Link from "next/link";
 
-export default function SecondNavbar({pages}) {
+type Page = {
+    name: string
+    href: string
+}
+
+type SecondNavbarProps = {
+    pages: Page[]
+}
+
+export default function SecondNavbar(props: SecondNavbarProps) {
+    const { pages } = props
+
     return (
         <div className={"p-4 bg-white shadow rounded-md"}>
             <nav className="flex" aria-label="Breadcrumb">

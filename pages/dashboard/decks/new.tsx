@@ -10,9 +10,9 @@ export default function NewDeck() {
             <main className={"flex flex-col items-center dark:text-white text-black"}>
                 <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
                     <SecondNavbar pages={[
-                        { name: 'Dashboard', href: '/dashboard', current: false },
-                        { name: 'Decks', href: '/dashboard', current: false },
-                        { name: 'New', href: '/dashboard/decks/new', current: true },
+                        { name: 'Dashboard', href: '/dashboard' },
+                        { name: 'Decks', href: '/dashboard' },
+                        { name: 'New', href: '/dashboard/decks/new' },
                     ]} />
 
                     <div className={"dark:bg-primary-black bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>

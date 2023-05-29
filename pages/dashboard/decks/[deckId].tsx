@@ -100,14 +100,22 @@ export const getServerSideProps: (ctx: any) => Promise<{ redirect: { permanent: 
         };
     }
 
-    const deck: Deck = await prisma.deck.findFirst({
+    const deck = await prisma.deck.findFirst({
         where: {
             id: ctx.query.deckId
         },
         include: {
             cards: true
         }
-    })
+    }) as Deck | null;
+
+    if (!deck) {
+        return {
+            redirect: {
+                destination: "/dashboard",
+            }
+        }
+    }
 
     if (deck.user !== userId) {
         return {

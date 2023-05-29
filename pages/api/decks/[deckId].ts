@@ -2,19 +2,24 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {getAuth} from "@clerk/nextjs/server";
 import {prisma} from "@/lib/db";
 
-async function get(req, res, userId) {
-    const { deckId } = req.query
+async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
+    const { deckId } = req.query as { deckId: string }
 
     if (!deckId) {
         res.status(400).json({ success: false, error: "Missing deckId" });
         return;
     }
 
-    let deck: Deck = await prisma.deck.findUnique({
+    let deck = await prisma.deck.findUnique({
         where: {
             id: deckId
         }
-    })
+    }) as Deck | null
+
+    if (!deck) {
+        res.status(404).json({ success: false, error: "Deck not found" });
+        return;
+    }
 
     if (deck.user !== userId) {
         res.status(401).json({ success: false, error: "Unauthorized" });
@@ -24,25 +29,30 @@ async function get(req, res, userId) {
     res.status(200).json({success: true, deck: deck});
 }
 
-async function post(req, res, userId) {
-    const { deckId } = req.query
+async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
+    const { deckId } = req.query as { deckId: string }
 
     res.end(`Deck: ${deckId}`)
 }
 
-async function del(req, res, userId) {
-    const { deckId } = req.query
+async function del(req: NextApiRequest, res: NextApiResponse, userId: string) {
+    const { deckId } = req.query as { deckId: string }
 
     if (!deckId) {
         res.status(400).json({ success: false, error: "Missing deckId" });
         return;
     }
 
-    let deck: Deck = await prisma.deck.findUnique({
+    let deck = await prisma.deck.findUnique({
         where: {
             id: deckId
         }
-    })
+    }) as Deck | null
+
+    if (!deck) {
+        res.status(404).json({ success: false, error: "Deck not found" });
+        return;
+    }
 
     if (deck.user !== userId) {
         res.status(401).json({ success: false, error: "Unauthorized" });
