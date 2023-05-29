@@ -36,7 +36,7 @@ export default function Deck(props: DeckProps) {
                             <Image alt={"Artist image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
                             <div className={"dark:bg-primary-black w-full p-4"}>
-                                <h1 className={"text-2xl truncate font-bold"}>{deck.name}</h1>
+                                <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
                                 <div className={"flex flex-row"}>
                                     <p className={"truncate text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
                                 </div>
@@ -55,7 +55,7 @@ export default function Deck(props: DeckProps) {
                         </div>
 
                         <div className={"pt-5"}>
-                            <div className={"flex flex-row max-w-7xl -mx-5"}>
+                            <div className={"lg:flex lg:flex-row max-w-7xl -mx-5"}>
                                 <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
                                 <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
                                 <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
@@ -68,7 +68,7 @@ export default function Deck(props: DeckProps) {
                                 <div className={"flex flex-row"}>
                                     <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
                                 </div>
-                                <div className={"grid grid-cols-8 gap-4"}>
+                                <div className={"grid grid-cols-2 lg:grid-cols-8 gap-4"}>
                                     {deck.cards.map((card: Card) => (
                                         <div key={card.id} className={"flex flex-col items-center justify-center"}>
                                             <div className={"flex flex-col items-center justify-center"}>
