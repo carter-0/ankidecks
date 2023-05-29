@@ -1,0 +1,22 @@
+name: deploy on oracle cloud
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu/projects/ankidecks
+            git reset --hard HEAD
+            git pull
+            npm install
+            npm build
+            sudo systemctl restart ankidecks
