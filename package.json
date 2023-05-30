@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.18.4",
+    "@dqbd/tiktoken": "^1.0.7",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "v1",
     "@prisma/client": "4.14.1",

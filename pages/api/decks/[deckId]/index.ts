@@ -4,7 +4,7 @@ import {prisma} from "@/lib/db";
 
 async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
     const { deckId } = req.query as { deckId: string }
-    const { includeCards } = req.query as { includeCards: boolean }
+    const { includeCards } = req.query as { includeCards: string }
 
     if (!deckId) {
         res.status(400).json({ success: false, error: "Missing deckId" });
@@ -13,7 +13,7 @@ async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
 
     let deck: Deck | null;
 
-    if (includeCards) {
+    if (includeCards == "true") {
         deck = await prisma.deck.findUnique({
             where: {
                 id: deckId
@@ -44,7 +44,12 @@ async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
-    const { name } = JSON.parse(req.body) as { name: string }
+    const { name, public: pub } = JSON.parse(req.body) as { name: string, public: boolean }
+
+    if (typeof pub !== "boolean") {
+        res.status(400).json({ success: false, error: "Missing or invalid public" });
+        return;
+    }
 
     if (!name) {
         res.status(400).json({ success: false, error: "Missing name" });
@@ -59,7 +64,8 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
     const deckId = await prisma.deck.create({
         data: {
             name: name,
-            user: userId
+            user: userId,
+            public: pub
         }
     }).then(deck => deck.id)
 

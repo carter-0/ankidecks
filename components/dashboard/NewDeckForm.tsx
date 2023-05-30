@@ -1,7 +1,9 @@
-import { PhotographIcon, UserCircleIcon } from '@heroicons/react/solid'
 import {useState} from "react";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/router";
+import Toggle from "@/components/ui/toggle";
+import {cn} from "@/lib/utils";
+import {Switch} from "@headlessui/react";
 
 export default function NewDeckForm() {
     const router = useRouter();
@@ -9,6 +11,7 @@ export default function NewDeckForm() {
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
+        public: false,
     })
 
     const submit = () => {
@@ -18,23 +21,23 @@ export default function NewDeckForm() {
             body: JSON.stringify(formData),
         }).then((res) => {
             if (res.status === 200) {
-                const data = res.json() as {success: boolean, deckId?: string};
+                res.json().then((data: {success: boolean, deckId?: string}) => {
+                    if (data.success) {
+                        toast({
+                            title: 'Deck created!',
+                            description: 'You can now add cards to your deck.',
+                        })
 
-                if (data.success) {
-                    toast({
-                        title: 'Deck created!',
-                        description: 'You can now add cards to your deck.',
-                    })
+                        router.push(`/dashboard/decks/${data.deckId}`)
+                    } else {
+                        toast({
+                            title: 'Error',
+                            description: 'An error occurred while creating your deck.'
+                        })
 
-                    router.push(`/dashboard/decks/${data.deckId}`)
-                } else {
-                    toast({
-                        title: 'Error',
-                        description: 'An error occurred while creating your deck.'
-                    })
-
-                    setSubmitting(false);
-                }
+                        setSubmitting(false);
+                    }
+                })
             } else {
                 toast({
                     title: 'Error',
@@ -48,34 +51,38 @@ export default function NewDeckForm() {
 
     return (
         <>
-            <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-2xl font-bold">New Deck</h2>
-                    <p className="text-sm text-gray-500 font-medium">
-                         You won&apos;t be charged until you add cards.
-                    </p>
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="mt-5 md:col-span-3 md:mt-0">
+                    <div className="sm:overflow-hidden sm:rounded-md">
+                        <div className="space-y-6 px-0 sm:py-2">
+                            <div className="col-span-6 sm:col-span-3">
+                                <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    name="first-name"
+                                    id="first-name"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                    className="dark:bg-quaternary-black mt-1 block w-full rounded-md dark:text-white dark:border-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-green-500 sm:text-sm"
+                                />
+                            </div>
 
-                    <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div className="sm:col-span-4">
-                            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                                Name
-                            </label>
-                            <div className="mt-2">
-                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                        autoComplete="name"
-                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="Maths Chapter 4"
-                                    />
-                                </div>
+                            <div className="flex flex-col space-y-4">
+                                <Switch.Group as="div" className="flex items-center justify-between">
+                                    <span className="flex-grow flex flex-col">
+                                        <Switch.Label as="span" className="text-sm font-medium text-gray-900" passive>
+                                            Public
+                                        </Switch.Label>
+                                        <Switch.Description as="span" className="text-sm text-gray-500">
+                                            Make your deck public so that other users can see it.
+                                        </Switch.Description>
+                                    </span>
+                                    <Toggle enabled={formData.public} setEnabled={(enabled) => setFormData({...formData, public: enabled})} />
+                                </Switch.Group>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

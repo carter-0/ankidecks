@@ -4,6 +4,7 @@ type Deck = {
     name: string;
     cards: Card[];
     dateCreated: Date;
+    public: boolean;
 }
 
 type Card = {

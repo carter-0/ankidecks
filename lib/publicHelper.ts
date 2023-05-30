@@ -1,3 +1,5 @@
+import { get_encoding } from "@dqbd/tiktoken";
+
 export const deleteDeck = async (deckId: string) => {
     const response = await fetch(`/api/decks/${deckId}`, {
         method: "DELETE",
@@ -22,4 +24,17 @@ export const deleteCards = async (deckId: string, cardIds: string[]) => {
     })
 
     return { success: true }
+}
+
+export const getTokenEstimate = async (document: string) : Promise<{ success: boolean, tokens: number }> => {
+    const response = await fetch(`/api/token-estimate`, {
+        method: "POST",
+        body: JSON.stringify({ input: document })
+    })
+
+    if (!response.ok) {
+        throw new Error(response.statusText)
+    }
+
+    return response.json()
 }

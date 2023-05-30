@@ -16,6 +16,7 @@ model Deck {
   name String
   cards Card[]
   dateCreated DateTime @default(now())
+  public Boolean @default(false)
 }
 
 model Card {

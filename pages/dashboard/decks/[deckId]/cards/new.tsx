@@ -1,14 +1,16 @@
 import Navbar from "@/components/global/Navbar";
-import NewDeckForm from "@/components/dashboard/NewDeckForm";
 import SecondNavbar from "@/components/global/SecondNavbar";
-import {useRouter} from "next/router";
+import NewCardForm from "@/components/dashboard/NewCardForm";
+import {getAuth} from "@clerk/nextjs/server";
+import {prisma} from "@/lib/db";
+import Deck from "@/pages/dashboard/decks/[deckId]";
 
 type NewCardProps = {
-    deckId: string;
+    deck: Deck;
 }
 
 export default function NewCard(props: NewCardProps) {
-    const { deckId } = props;
+    const { deck } = props;
 
     return (
         <>
@@ -17,12 +19,12 @@ export default function NewCard(props: NewCardProps) {
             <main className={"flex flex-col items-center dark:text-white text-black"}>
                 <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
                     <SecondNavbar pages={[
-                        { name: deckId, href: `/dashboard/decks/${deckId}` },
-                        { name: 'New Card', href: `/dashboard/decks/${deckId}/cards/new` },
+                        { name: deck.name, href: `/dashboard/decks/${deck.id}` },
+                        { name: 'New Card', href: `/dashboard/decks/${deck.id}/cards/new` },
                     ]} />
 
                     <div className={"dark:bg-primary-black bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>
-                        <NewDeckForm />
+                        <NewCardForm deck={deck} />
                     </div>
                 </div>
             </main>
@@ -30,21 +32,43 @@ export default function NewCard(props: NewCardProps) {
     )
 }
 
-export const getServerSideProps = async (ctx) => {
-    const { deckId } = ctx.query as { deckId: string };
+export const getServerSideProps: (ctx: any) => Promise<{ redirect: { permanent: boolean; destination: string } } | { redirect: { destination: string } } | { props: {} }> = async (ctx: any) => {
+    const { userId } = getAuth(ctx.req);
 
-    if (!deckId) {
+    if (!userId) {
         return {
             redirect: {
-                destination: `/dashboard`,
+                destination: "/sign-in?redirect_url=" + ctx.resolvedUrl,
                 permanent: false,
+            },
+        };
+    }
+
+    const deck = await prisma.deck.findFirst({
+        where: {
+            id: ctx.query.deckId
+        }
+    }) as Deck | null;
+
+    if (!deck) {
+        return {
+            redirect: {
+                destination: "/dashboard",
+            }
+        }
+    }
+
+    if (deck.user !== userId) {
+        return {
+            redirect: {
+                destination: "/dashboard",
             }
         }
     }
 
     return {
         props: {
-            deckId
+            deck: JSON.parse(JSON.stringify(deck))
         }
     }
 }

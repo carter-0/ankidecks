@@ -43,10 +43,11 @@ import {useRouter} from "next/router";
 dayjs.extend(relativeTime)
 
 type DeckProps = {
+    card: Card,
     deck: Deck
 }
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -55,7 +56,6 @@ export default function Deck(props: DeckProps) {
     const router = useRouter();
 
     const [deleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false);
-
 
     const deleteCardsLocal = () => {
         deleteCards(deck.id, [card.id]).then(async (r) => {

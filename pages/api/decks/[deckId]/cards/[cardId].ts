@@ -34,7 +34,7 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
 }
 
 async function del(req: NextApiRequest, res: NextApiResponse, userId: string) {
-    const { deckId, cardId } = req.query as { deckId: string }
+    const { deckId, cardId } = req.query as { deckId: string, cardId: string }
 
     if (!deckId || !cardId) {
         res.status(400).json({ success: false, error: "Missing deckId or cardId" });
