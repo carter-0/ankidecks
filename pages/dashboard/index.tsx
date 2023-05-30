@@ -189,7 +189,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         include: {
             cards: true
         }
-    })
+    }) as Deck[] | null;
+
+    if (!decks) {
+        return {
+            props: {
+                decks: []
+            }
+        }
+    }
 
     return {
         props: {

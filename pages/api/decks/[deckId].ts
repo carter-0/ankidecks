@@ -30,9 +30,26 @@ async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
-    const { deckId } = req.query as { deckId: string }
+    const { name } = JSON.parse(req.body) as { name: string }
 
-    res.end(`Deck: ${deckId}`)
+    if (!name) {
+        res.status(400).json({ success: false, error: "Missing name" });
+        return;
+    }
+
+    if (name.length > 100 || name.length < 1) {
+        res.status(400).json({ success: false, error: "Name too long / short (1 < name < 100)" });
+        return;
+    }
+
+    const deckId = await prisma.deck.create({
+        data: {
+            name: name,
+            user: userId
+        }
+    }).then(deck => deck.id)
+
+    res.status(200).json({ success: true, deckId: deckId });
 }
 
 async function del(req: NextApiRequest, res: NextApiResponse, userId: string) {
