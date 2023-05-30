@@ -24,7 +24,10 @@ export default function NewCardForm(props: NewCardFormProps) {
     const [tokenEstimate, setTokenEstimate] = useState(0);
 
     useEffect(() => {
-        if (formData.source === '') return;
+        if (formData.source === '') {
+            setTokenEstimate(0);
+            return;
+        };
 
         getTokenEstimate(formData.source).then((tokens) => {
             setTokenEstimate(tokens.tokens);
@@ -69,7 +72,7 @@ export default function NewCardForm(props: NewCardFormProps) {
     return (
         <>
             <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
+                <div className="border-b border-gray-900/10 pb-5">
                     <h2 className="text-2xl font-bold">Add Cards to Deck &apos;{deck.name}&apos;</h2>
                     <p className="text-sm text-gray-500 font-medium">
                         Token estimates are not completely accurate.
@@ -201,6 +204,13 @@ export default function NewCardForm(props: NewCardFormProps) {
                     </div>
                 </div>
             </div>
+
+            <p className="block text-sm font-medium leading-6 pt-5 text-gray-900">
+                Token Estimate: {tokenEstimate}
+            </p>
+            <p className="block text-sm font-medium leading-6 text-gray-500">
+                This is an estimate of the number of tokens that will be used to create your flashcards.
+            </p>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <Link href={`/dashboard/decks/${deck.id}`} type="button" className="text-sm font-semibold leading-6 text-gray-900">

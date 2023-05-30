@@ -1,5 +1,3 @@
-import { get_encoding } from "@dqbd/tiktoken";
-
 export const deleteDeck = async (deckId: string) => {
     const response = await fetch(`/api/decks/${deckId}`, {
         method: "DELETE",
