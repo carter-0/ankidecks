@@ -18,5 +18,6 @@ jobs:
             git reset --hard HEAD
             git pull
             npm install
+            npx prisma generate
             npm run build
             sudo systemctl restart ankidecks
