@@ -14,7 +14,7 @@ module.exports = {
       },
       screens: {
         "sg": { "max": "1024px" },
-        "smp": { "max": "640px" },
+        "smpp": { "max": "640px" },
         'lgp': '420px',
         'llgp': '390px',
         'llmp': '500px',

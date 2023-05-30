@@ -4,17 +4,31 @@ import {prisma} from "@/lib/db";
 
 async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
     const { deckId } = req.query as { deckId: string }
+    const { includeCards } = req.query as { includeCards: boolean }
 
     if (!deckId) {
         res.status(400).json({ success: false, error: "Missing deckId" });
         return;
     }
 
-    let deck = await prisma.deck.findUnique({
-        where: {
-            id: deckId
-        }
-    }) as Deck | null
+    let deck: Deck | null;
+
+    if (includeCards) {
+        deck = await prisma.deck.findUnique({
+            where: {
+                id: deckId
+            },
+            include: {
+                cards: true
+            }
+        }) as Deck | null
+    } else {
+        deck = await prisma.deck.findUnique({
+            where: {
+                id: deckId
+            }
+        }) as Deck | null
+    }
 
     if (!deck) {
         res.status(404).json({ success: false, error: "Deck not found" });
