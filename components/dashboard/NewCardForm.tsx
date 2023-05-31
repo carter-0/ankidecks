@@ -36,9 +36,12 @@ export default function NewCardForm(props: NewCardFormProps) {
 
     const submit = () => {
         setSubmitting(true);
-        fetch('/api/decks/new', {
+        fetch(`/api/decks/${deck.id}/cards/new`, {
             method: 'POST',
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+                source: formData.source,
+                maximumCards: formData.maxCards,
+            }),
         }).then((res) => {
             if (res.status === 200) {
                 res.json().then((data: {success: boolean, deckId?: string}) => {

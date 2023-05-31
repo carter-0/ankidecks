@@ -17,3 +17,9 @@ type Card = {
     deckId?: string;
     deck?: Deck;
 }
+
+type RawCard = {
+    type: 'BASIC' | 'CLOZE';
+    question: string;
+    answer?: string;
+}

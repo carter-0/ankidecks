@@ -20,13 +20,13 @@ model Deck {
 }
 
 model Card {
-  id     String @id @unique @default(cuid())
-  deck   Deck   @relation(fields: [deckId], references: [id])
+  id     String         @id @unique @default(cuid())
+  deck   Deck           @relation(fields: [deckId], references: [id])
   deckId String
   type   CardType
-  front  String
-  back   String?
-  dateCreated DateTime @default(now())
+  front  String         @db.VarChar(4096)
+  back   String?        @db.VarChar(4096)
+  dateCreated DateTime  @default(now())
   dateModified DateTime @default(now())
 }
 

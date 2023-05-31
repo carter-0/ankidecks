@@ -35,10 +35,27 @@ async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
-    const { deckId, maximumCards, document } = req.query as { deckId: string, maximumCards: string, document: string }
+    const { deckId } = req.query as { deckId: string }
+    const { maximumCards, source } = JSON.parse(req.body) as { maximumCards: string, source: string }
 
     if (!deckId) {
         res.status(400).json({ success: false, error: "Missing deckId" });
+        return;
+    }
+
+    let deck = await prisma.deck.findUnique({
+        where: {
+            id: deckId
+        }
+    }) as Deck | null
+
+    if (!deck) {
+        res.status(404).json({ success: false, error: "Deck not found" });
+        return;
+    }
+
+    if (deck.user !== userId) {
+        res.status(401).json({ success: false, error: "Unauthorized" });
         return;
     }
 
@@ -47,16 +64,16 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
         return;
     }
 
-    if (!document) {
+    if (!source) {
         res.status(400).json({ success: false, error: "Missing document" });
         return;
     }
 
     const response = await chat.call([
+        new SystemChatMessage("You are a flashcard maker."),
         new HumanChatMessage(
-            `Given the following data, formulate flashcards that would be most beneficial when revised by the user with the goal of learning.
-You should follow ALL the following rules when generating an answer:
-- There will be CONTEXT for you to follow.
+            `Given the following data, make flashcards for me. You should follow these rules when making them:
+- There will be data for you to transform into flashcards
 - The final answer must always be a JSON list with the following structure:
     [
         {
@@ -69,21 +86,39 @@ You should follow ALL the following rules when generating an answer:
             "question": "The capital of Spain is {{c1::Madrid}}",
         }
     ]
-- Your primary goal is to generate flashcards.
-- The CONTEXT is a plain text document that contains the data intended to be made into flashcards.
-- Phrase Your Flashcards As Questions
-- Follow the Minimum Information Principle (Don't make the answers too complex to remember)
-- Use Cloze Deletions when appropriate
-- Use enumeration over lists.
-- Be Concise
+- Phrase your flashcards as questions
 
-CONTEXT: ${document}`
+data: ${source}`
         )
     ]);
 
-    const answer = response.text;
+    const answer = JSON.parse(response.text);
+    console.log(answer)
 
-    res.status(200).json({success: true, answer: answer});
+    for (const card of answer) {
+        card.type = card.type.toUpperCase() as 'CLOZE' | 'BASIC';
+
+        if (card.type == 'CLOZE') {
+            await prisma.card.create({
+                data: {
+                    deckId: deckId,
+                    front: card.question,
+                    type: card.type,
+                }
+            })
+        } else if (card.type == 'BASIC') {
+            await prisma.card.create({
+                data: {
+                    deckId: deckId,
+                    front: card.question,
+                    back: card.answer,
+                    type: card.type,
+                }
+            })
+        }
+    }
+
+    res.status(200).json({success: true, deckId: deckId});
 }
 
 async function del(req: NextApiRequest, res: NextApiResponse, userId: string) {
