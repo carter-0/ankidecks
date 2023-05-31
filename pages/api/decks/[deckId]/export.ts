@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     apkg
         .save()
-        .then(zip => {
+        .then((zip: BinaryData) => {
             res.setHeader('Content-Type', 'application/octet-stream');
             res.setHeader(`Content-Disposition`, `attachment; filename=${deck.name}.apkg`);
             res.write(zip, 'binary');
@@ -50,5 +50,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // fs.writeFileSync('./output.apkg', zip, 'binary');
             // console.log(`Package has been generated: output.pkg`);
         })
-        .catch(err => console.log(err.stack || err));
+        .catch((err: Error) => console.log(err.stack || err));
 }

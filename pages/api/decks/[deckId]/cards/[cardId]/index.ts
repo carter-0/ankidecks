@@ -82,12 +82,14 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
             "answer": "Paris"
         }
     ]
+- Nothing other than valid JSON is allowed in your response
 - Phrase your flashcards as questions
 
 data: ${source}`
         )
     ]);
 
+    console.log(response.text)
     const answer = JSON.parse(response.text);
     console.log(answer)
 
