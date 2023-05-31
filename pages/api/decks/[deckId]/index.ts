@@ -109,6 +109,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userId } = getAuth(req);
 
     if (!userId) {
+        console.log("USER IS NOT AUTH'D")
+        console.log(userId)
+        console.log(req)
+        console.log(getAuth(req))
         res.status(401).json({ success: false, error: "Unauthorized" });
         return;
     }
