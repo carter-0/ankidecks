@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { Menu, Transition } from '@headlessui/react'
 import {Fragment} from "react";
-import {ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
+import {ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton, useClerk} from "@clerk/nextjs";
 
 export default function Navbar() {
+    const clerk = useClerk()
+
     return (
         <nav className={"relative w-full dark:text-white"}>
             <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 flex w-full items-center justify-between bg-inherit py-4"}>
@@ -43,7 +45,9 @@ export default function Navbar() {
                             <h1 className={"font-bold text-xl text-main-white"}>Anki Decks</h1>
                         </div>
                     </Link>
-                    <SignInButton />
+                    <button onClick={() => clerk.openSignIn({})}>
+                        Sign Up
+                    </button>
                 </SignedOut>
                 <ClerkLoading>
                     <Link href={"/"}>
