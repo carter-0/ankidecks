@@ -2,7 +2,7 @@ import { withClerkMiddleware, getAuth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Set the paths that don't require the user to be signed in
+// Set the paths that require the user to be signed in
 const privatePaths = ['/dashboard']
 
 const isPublic = (path: string) => {
