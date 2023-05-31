@@ -9,7 +9,7 @@ import StatBox from "@/components/dashboard/StatBox";
 import {
     AlignJustify,
     AlignJustifyIcon,
-    CoinsIcon,
+    CoinsIcon, DownloadIcon,
     ListIcon,
     LucideAlignCenterHorizontal,
     MoreVertical
@@ -177,8 +177,9 @@ export default function Deck(props: DeckProps) {
                             {/* Solid secondary-black section with artist name and genres */}
                             <div className={"dark:bg-primary-black w-full p-4"}>
                                 <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
-                                <div className={"flex flex-row"}>
+                                <div className={"flex flex-col"}>
                                     <p className={"truncate text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
+                                    <Link className={"truncate w-6 text-black cursor-pointer"} href={`/api/decks/${deck.id}/export`} target={"_blank"}><DownloadIcon /></Link>
                                 </div>
                                 <div className={"flex items-center flex-row"}>
                                     {/*<SpotifyLink object="artist" spotify_id={spotify_id} platform={"desktop"} />*/}

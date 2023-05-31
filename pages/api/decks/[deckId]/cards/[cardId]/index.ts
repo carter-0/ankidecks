@@ -80,10 +80,6 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
             "type": "basic",
             "question": "What is the capital of France?",
             "answer": "Paris"
-        },
-        {
-            "type": "cloze",
-            "question": "The capital of Spain is {{c1::Madrid}}",
         }
     ]
 - Phrase your flashcards as questions
