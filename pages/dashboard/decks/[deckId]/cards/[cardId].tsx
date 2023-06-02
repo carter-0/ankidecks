@@ -5,27 +5,9 @@ import {prisma} from "@/lib/db";
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime.js'
-import StatBox from "@/components/dashboard/StatBox";
-import {
-    AlignJustify,
-    AlignJustifyIcon,
-    CoinsIcon,
-    ListIcon,
-    LucideAlignCenterHorizontal,
-    MoreVertical
-} from "lucide-react";
 import SecondNavbar from "@/components/global/SecondNavbar";
 import {useState} from "react";
 import Link from "next/link";
-import {
-    DropdownMenu,
-    DropdownMenuContent, DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import {CursorClickIcon, TrashIcon} from "@heroicons/react/outline";
-import {cn} from "@/lib/utils";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -35,9 +17,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle
 } from "@/components/ui/alert-dialog";
-import {deleteCards, deleteDeck} from "@/lib/publicHelper";
+import {deleteCards} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
-import {PlusIcon} from "@heroicons/react/solid";
 import {useRouter} from "next/router";
 
 dayjs.extend(relativeTime)
@@ -65,7 +46,7 @@ export default function Deck(props: DeckProps) {
                     description: "Your cards have been deleted.",
                 })
 
-                router.push(`/dashboard/decks/${deck.id}`)
+                await router.push(`/dashboard/decks/${deck.id}`)
             } else {
                 toast({
                     title: "Error",
@@ -110,10 +91,11 @@ export default function Deck(props: DeckProps) {
                             <Image alt={"Artist image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
                             <div className={"dark:bg-primary-black w-full p-4"}>
-                                <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{card.front}</h1>
+                                <h1 className={"sm:text-2xl text-lg overflow-wrap font-bold min-w-0"}>{card.front}</h1>
                                 <div className={"flex flex-row"}>
-                                    <p className={"truncate text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
+                                    <p className={"overflow-wrap text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
                                 </div>
+                                <p className={"overflow-wrap min-w-0 text-gray-500 sm:block hidden pt-0"}>Member of <Link href={"/dashboard/decks/"+deck.id} className={"font-bold"}>{deck.name}</Link></p>
                                 <div className={"flex items-center flex-row"}>
                                     {/*<SpotifyLink object="artist" spotify_id={spotify_id} platform={"desktop"} />*/}
                                     <div className={"ml-1 rounded-md p-1 flex flex-row"}>
@@ -128,14 +110,13 @@ export default function Deck(props: DeckProps) {
                             </div>
                         </div>
 
-                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
-                            <div className={"dark:bg-secondary-black "}>
-                                <div className={"flex flex-row items-center justify-between"}>
-                                    <h1 className={"text-2xl font-bold"}>Cards</h1>
-                                    <div className={"flex flex-row space-x-5"}>
-                                    </div>
+                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 pb-5 w-full pb-0 p-5"}>
+                            <div className={"dark:bg-secondary-black"}>
+                                <div className={"flex flex-col space-y-2 items-center justify-center"}>
+                                    <h1 className={"sm:text-2xl text-xl font-medium sm:max-w-[80%]"}>{card.front}</h1>
+                                    <span className={"w-full flex-grow bg-gray-200 dark:bg-gray-800 h-px ml-3"} />
+                                    <h1 className={"sm:text-2xl text-xl font-medium sm:max-w-[80%]"}>{card.back}</h1>
                                 </div>
-                                <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
                             </div>
                         </div>
 

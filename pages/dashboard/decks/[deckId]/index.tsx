@@ -229,6 +229,25 @@ export default function Deck(props: DeckProps) {
                                     </div>
                                 </div>
                                 <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
+                                    <div className={"grid grid-cols-1 gap-4 pb-5"}>
+                                        <div className={"col-span-1"}>
+                                            <Link href={`/dashboard/decks/${deck.id}/cards/new`}>
+                                                <div className={"dark:bg-primary-black border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>
+                                                    <div className={"flex flex-row items-center justify-center w-full py-3 p-5 px-4"}>
+                                                        <div className={"flex flex-row items-center justify-center w-full"}>
+                                                            <p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className={"flex items-center py-0 pb-3 p-5 px-4 sm:px-6"}>
+                                                        <div className={"flex flex-row items-center justify-center w-full"}>
+                                                            <PlusIcon className={"h-8 w-8"} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+
                                     {listView ? (
                                         <>
                                             <div className={"grid grid-cols-1 lg:grid-cols-1 gap-2 pb-5"}>
@@ -252,25 +271,6 @@ export default function Deck(props: DeckProps) {
                                         </>
                                     ) : (
                                         <>
-                                            <div className={"grid grid-cols-1 gap-4 pb-5"}>
-                                                <div className={"col-span-1"}>
-                                                    <Link href={`/dashboard/decks/${deck.id}/cards/new`}>
-                                                        <div className={"dark:bg-primary-black border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>
-                                                            <div className={"flex flex-row items-center justify-center w-full py-3 p-5 px-4"}>
-                                                                <div className={"flex flex-row items-center justify-center w-full"}>
-                                                                    <p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className={"flex items-center py-0 pb-3 p-5 px-4 sm:px-6"}>
-                                                                <div className={"flex flex-row items-center justify-center w-full"}>
-                                                                    <PlusIcon className={"h-8 w-8"} />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                </div>
-                                            </div>
-
                                             <div className={"grid smpp:grid-cols-1 grid-cols-2 lg:grid-cols-2 gap-4 pb-5"}>
                                                 {deck.cards.map((card: Card, cardX) => (
                                                     <div key={cardX} onClick={() => addCard(card.id)} className={cn("col-span-1", selectData.active ? 'cursor-pointer' : '')}>
