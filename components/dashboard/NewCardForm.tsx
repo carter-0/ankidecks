@@ -141,39 +141,6 @@ export default function NewCardForm(props: NewCardFormProps) {
                                         >
                                             Preview
                                         </Tab>
-
-                                        {/* These buttons are here simply as examples and don't actually do anything. */}
-                                        {selectedIndex === 0 ? (
-                                            <div className="ml-auto flex items-center space-x-5">
-                                                <div className="flex items-center">
-                                                    <button
-                                                        type="button"
-                                                        className="-m-2.5 w-10 h-10 rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500"
-                                                    >
-                                                        <span className="sr-only">Insert link</span>
-                                                        <LinkIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </button>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <button
-                                                        type="button"
-                                                        className="-m-2.5 w-10 h-10 rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500"
-                                                    >
-                                                        <span className="sr-only">Insert code</span>
-                                                        <CodeIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </button>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <button
-                                                        type="button"
-                                                        className="-m-2.5 w-10 h-10 rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500"
-                                                    >
-                                                        <span className="sr-only">Mention someone</span>
-                                                        <AtSymbolIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ) : null}
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
                                         <Tab.Panel className="p-0.5 -m-0.5 rounded-lg">
@@ -182,7 +149,12 @@ export default function NewCardForm(props: NewCardFormProps) {
                                             </label>
                                             <div>
                                                 <textarea
-                                                    rows={5}
+                                                    // rows={5}
+                                                    style={
+                                                        {
+                                                            height: document.getElementById('comment')?.scrollHeight + 'px',
+                                                        }
+                                                    }
                                                     name="comment"
                                                     id="comment"
                                                     value={formData.source}
