@@ -65,7 +65,7 @@ export default function DeckList(props: DeckListProps) {
                                             <h2 className={"text-3xl font-bold text-white sm:text-4xl"}>Create your own deck in seconds with AI</h2>
 
                                             <p className="mt-4 text-lg leading-6 text-white/80">
-                                                Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we'll do the rest.
+                                                Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we&apos;ll do the rest.
                                             </p>
 
                                             <div className={"flex mt-8 items-center w-full sm:w-auto flex-col sm:flex-row"}>

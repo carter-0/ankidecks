@@ -97,12 +97,13 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                             <Link
                                 href={`https://ankiweb.net/shared/info/${deck.ankiId}`}
                                 target={"_blank"}
+                                rel={"nofollow"}
                                 className="mt-10 block w-full rounded-md bg-teal-500 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                             >
                                 Download <DownloadIcon className={"inline-block h-4 w-4 ml-1"}/>
                             </Link>
                             <p className="mt-6 text-xs leading-5 text-gray-600">
-                                All decks are hosted on AnkiWeb. By downloading, you agree to their <Link target={"_blank"} href={"https://ankiweb.net/account/terms"} className={"text-teal-500 hover:text-teal-600"}>Terms of Service</Link>.
+                                All decks are hosted on AnkiWeb. By downloading, you agree to their <Link target={"_blank"} rel={"nofollow"} href={"https://ankiweb.net/account/terms"} className={"text-teal-500 hover:text-teal-600"}>Terms of Service</Link>.
                             </p>
                         </div>
                     </div>
@@ -118,7 +119,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                                     <h2 className={"text-3xl font-bold text-white sm:text-4xl"}>Create your own deck in seconds with AI</h2>
 
                                     <p className="mt-4 text-lg leading-6 text-white/80">
-                                        Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we'll do the rest.
+                                        Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we&apos;ll do the rest.
                                     </p>
 
                                     <div className={"flex mt-8 items-center w-full sm:w-auto flex-col sm:flex-row"}>
