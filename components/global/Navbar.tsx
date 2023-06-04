@@ -7,7 +7,7 @@ export default function Navbar() {
     const clerk = useClerk()
 
     return (
-        <nav className={"relative w-full dark:text-white"}>
+        <nav className={"bg-white shadow relative w-full dark:text-white"}>
             <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 flex w-full items-center justify-between bg-inherit py-4"}>
                 <SignedIn>
                     <Link href={"/dashboard"}>

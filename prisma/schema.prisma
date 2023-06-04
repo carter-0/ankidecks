@@ -30,6 +30,24 @@ model Card {
   dateModified DateTime @default(now())
 }
 
+model ScrapedTopics {
+  id   Int @id @default(autoincrement())
+  name String @db.VarChar(4096)
+  decks ScrapedDeck[]
+}
+
+model ScrapedDeck {
+  id   Int @id @default(autoincrement())
+  name String @db.VarChar(4096)
+  positiveRatings Int
+  negativeRatings Int
+  ankiId String @db.VarChar(4096)
+  cardCount Int
+  dateModified Int
+  topics ScrapedTopics[]
+  urlSafeName String @db.VarChar(4096)
+}
+
 enum CardType {
   BASIC
   CLOZE

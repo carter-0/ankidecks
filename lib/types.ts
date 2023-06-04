@@ -23,3 +23,21 @@ type RawCard = {
     question: string;
     answer?: string;
 }
+
+type ScrapedDeck = {
+    id: number;
+    name: string;
+    cardCount: number;
+    positiveRatings: number;
+    negativeRatings: number;
+    ankiId: string;
+    dateModified: number;
+    topics: ScrapedTopic[];
+    urlSafeName: string;
+}
+
+type ScrapedTopic = {
+    id: number;
+    name: string;
+    decks: ScrapedDeck[];
+}
