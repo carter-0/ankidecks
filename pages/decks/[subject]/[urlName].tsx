@@ -1,11 +1,12 @@
 import {prisma} from "@/lib/db";
 import Navbar from "@/components/global/Navbar";
-import SecondNavbar from "@/components/global/SecondNavbar";
 import Link from "next/link";
-import {ChevronRightIcon, DownloadIcon, HomeIcon, StarIcon} from "@heroicons/react/solid";
-import {ChevronDoubleRightIcon} from "@heroicons/react/outline";
-import DeckList from "@/components/decks/DeckList";
+import {ChevronRightIcon, DownloadIcon, StarIcon} from "@heroicons/react/solid";
 import Head from "next/head";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime)
 
 type ScrapedDeckProps = {
     deck: ScrapedDeck;
@@ -109,8 +110,23 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                     </div>
                 </div>
 
-                <li
-                    className={`cols-span-1 mt-24 sm:col-span-2 md:col-span-3 lg:col-span-4 bg-teal-500 text-white flex flex-col rounded-lg shadow divide-y divide-gray-200`}
+                <div>
+                    <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                        <div className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                            <dt className="text-sm font-medium text-gray-500 truncate">Ratings</dt>
+                            <dd className="mt-1 text-3xl font-semibold text-gray-900">{deck.positiveRatings+deck.negativeRatings}</dd>
+                        </div><div className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                            <dt className="text-sm font-medium text-gray-500 truncate">Cards</dt>
+                            <dd className="mt-1 text-3xl font-semibold text-gray-900">{deck.cardCount}</dd>
+                        </div><div className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                            <dt className="text-sm font-medium text-gray-500 truncate">Created</dt>
+                            <dd className="mt-1 text-3xl font-semibold text-gray-900">{dayjs(deck.dateModified*1000).fromNow()}</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div
+                    className={`cols-span-1 mt-8 sm:col-span-2 md:col-span-3 lg:col-span-4 bg-teal-500 text-white flex flex-col rounded-lg shadow divide-y divide-gray-200`}
                 >
                     <div className="max-w-7xl mx-auto">
                         <div className="bg-teal-500 rounded-lg shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
@@ -177,7 +193,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                             </div>
                         </div>
                     </div>
-                </li>
+                </div>
 
             </div>
         </>
@@ -215,6 +231,16 @@ export async function getStaticPaths() {
         };
     }
 
+    const decks = await prisma.scrapedDeck.findMany({
+        include: {
+            topics: true
+        }
+    }) as ScrapedDeck[];
+
+    const paths = decks.map((deck) => ({
+        params: { urlName: deck.urlSafeName, subject: deck.topics[0].name },
+    }));
+
     // { fallback: false } means other routes should 404
-    return { paths: [] as any, fallback: 'blocking' };
+    return { paths: paths as any, fallback: 'blocking' };
 }
