@@ -1,10 +1,11 @@
 import Navbar from "@/components/global/Navbar";
 import StatBox from "@/components/dashboard/StatBox";
-import {BookOpenIcon, CurrencyDollarIcon, CursorClickIcon, TrashIcon} from "@heroicons/react/outline";
+import {CurrencyDollarIcon, CursorClickIcon, TrashIcon} from "@heroicons/react/outline";
 import {getAuth} from "@clerk/nextjs/server";
 import {GetServerSideProps} from "next";
 import {prisma} from "@/lib/db";
 import Link from "next/link";
+import Cookies from 'cookies'
 
 import {
     DropdownMenu,
@@ -180,6 +181,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
                 permanent: false,
             },
         };
+    }
+
+    const cookies = new Cookies(ctx.req, ctx.res)
+
+    if (cookies.get("resumeDeck")) {
+        return {
+            redirect: {
+                destination: "/dashboard/resume-deck-creation",
+                permanent: false
+            }
+        }
     }
 
     const decks = await prisma.deck.findMany({

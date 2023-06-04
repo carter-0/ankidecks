@@ -21,9 +21,20 @@ const isPublic = (path: string) => {
 }
 
 export default withClerkMiddleware((request: NextRequest) => {
+    if (request.nextUrl.pathname.includes("/new-deck")) {
+        const { userId } = getAuth(request)
+
+        if (userId) {
+            return NextResponse.redirect(new URL('/dashboard/decks/new', request.url))
+        }
+
+        return NextResponse.next()
+    }
+
     if (isPublic(request.nextUrl.pathname)) {
         return NextResponse.next()
     }
+
     // if the user is not signed in redirect them to the sign-in page.
     const { userId } = getAuth(request)
 

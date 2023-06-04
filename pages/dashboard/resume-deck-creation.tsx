@@ -3,25 +3,11 @@ import {Switch, Tab} from "@headlessui/react";
 import {cn} from "@/lib/utils";
 import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
-import {useClerk} from "@clerk/nextjs";
-import cookieCutter from 'cookie-cutter'
+import Cookies from "cookies";
 
-export default function NewDeck() {
-    const clerk = useClerk()
+export default function ResumeDeckCreation(props: any) {
+    const [formData, setFormData] = useState(JSON.parse(atob(props.resumeDeck)))
 
-    const [formData, setFormData] = useState({
-        maxCards: 0,
-        source: '',
-        name: '',
-        public: false,
-    });
-
-    const generateDeck = () => {
-        cookieCutter.set('resumeDeck', btoa(JSON.stringify(formData)), {
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-        })
-        clerk.openSignUp();
-    }
 
     return (
         <>
@@ -191,7 +177,6 @@ export default function NewDeck() {
                         <div className="mt-6 flex items-center justify-end gap-x-6">
                             <button
                                 type="button"
-                                onClick={() => generateDeck()}
                                 className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Generate Deck ✨
@@ -202,4 +187,30 @@ export default function NewDeck() {
             </main>
         </>
     )
+}
+
+export async function getServerSideProps(context: any) {
+    const cookies = new Cookies(context.req, context.res)
+    let cookieLocal = cookies.get("resumeDeck")
+
+    console.log(cookieLocal)
+
+    if (!cookieLocal) {
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false,
+            },
+        }
+    }
+
+    cookieLocal = cookieLocal.replace(/%3D/g, "=")
+
+    cookies.set("resumeDeck", null, {maxAge: 0})
+
+    return {
+        props: {
+            resumeDeck: cookieLocal,
+        },
+    }
 }
