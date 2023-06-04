@@ -4,10 +4,50 @@ import {cn} from "@/lib/utils";
 import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
 import Cookies from "cookies";
+import {toast} from "@/components/ui/use-toast";
+import {useRouter} from "next/router";
 
 export default function ResumeDeckCreation(props: any) {
     const [formData, setFormData] = useState(JSON.parse(atob(props.resumeDeck)))
+    const router = useRouter()
 
+    const generateDeckAndCards = async () => {
+        await fetch("/api/decks/new", {
+            method: "POST",
+            body: JSON.stringify(formData),
+        }).then(async (res) => {
+            if (res.status === 200) {
+                console.log(res)
+                const data = await res.json() as { success: boolean, deckId?: string }
+                if (data.success) {
+                    const newRes = await fetch(`/api/decks/${data.deckId}/cards/new`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            maximumCards: formData.maxCards,
+                            source: formData.source,
+                        })
+                    })
+
+                    if (newRes.status === 200) {
+                        const newData = await newRes.json() as { success: boolean, cardId?: string }
+                        if (newData.success) {
+                            router.push(`/dashboard/decks/${data.deckId}`)
+                        } else {
+                            toast({
+                                title: 'Error',
+                                description: 'An error occurred while creating your card.'
+                            })
+                        }
+                    }
+                }
+            } else {
+                toast({
+                    title: 'Error',
+                    description: 'An error occurred while creating your deck.'
+                })
+            }
+        })
+    }
 
     return (
         <>
@@ -177,6 +217,7 @@ export default function ResumeDeckCreation(props: any) {
                         <div className="mt-6 flex items-center justify-end gap-x-6">
                             <button
                                 type="button"
+                                onClick={() => generateDeckAndCards()}
                                 className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Generate Deck ✨
