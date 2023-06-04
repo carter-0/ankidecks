@@ -5,6 +5,7 @@ import Link from "next/link";
 import {ChevronRightIcon, HomeIcon} from "@heroicons/react/solid";
 import {ChevronDoubleRightIcon} from "@heroicons/react/outline";
 import DeckList from "@/components/decks/DeckList";
+import Head from "next/head";
 
 type ScrapedDeckProps = {
     deck: ScrapedDeck;
@@ -19,6 +20,12 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
 
     return(
         <>
+            <Head>
+                <title>{deck.name} | {topic.charAt(0).toUpperCase() + topic.slice(1)} Anki Cards</title>
+                <meta key={"description"} name="description" content={"Download " + deck.name + " Anki deck for free."} />
+                <meta key={"og:title"} property="og:title" content={deck.name + " Anki Deck | " + topic.charAt(0).toUpperCase() + topic.slice(1)} />
+                <meta key={"og:description"} property="og:description" content={"Download " + deck.name + " Anki deck for free."} />
+            </Head>
             <Navbar />
 
             <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>

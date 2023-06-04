@@ -5,6 +5,7 @@ import Link from "next/link";
 import {ChevronRightIcon, HomeIcon} from "@heroicons/react/solid";
 import {ChevronDoubleRightIcon} from "@heroicons/react/outline";
 import DeckList from "@/components/decks/DeckList";
+import Head from "next/head";
 
 type ScrapedDecksProps = {
     topic: string;
@@ -22,19 +23,27 @@ const hashToNumber = (hash: string) => {
 
 const choices = [
     "Explore more than {quantity} top-rated {topic} Anki decks found online. Ideal for exam preparation or simply expanding your knowledge, these decks are available to use and download for free.",
-    "Browse through more than {quantity} excellently curated {topic} Anki decks online. Use them to boost your exam performance or simply to learn something new. All decks are accessible at no cost and downloadable to support your personal endeavors.",
-    "Find {quantity} exceptional {topic} Anki decks on the internet, serving as ideal resources for acing your exams or learning something exciting. Access and download these decks without any charge, for your individual use.",
-    "Discover over {quantity} extraordinary {topic} Anki decks on the internet. Make use of these resources to strengthen your exam results or simply learn something new. These decks are provided free of charge, ready for download and personal use.",
-    "Discover over {quantity} of the best {topic} Anki decks on the internet. You can use them to study for your exams, or just to learn something new. All decks are free to use and download for your personal use.",
+    "Browse through more than {quantity} excellently curated {topic} Anki decks. Use them to boost your exam performance or simply to learn something new. All decks are accessible at no cost and downloadable to support your personal endeavors.",
+    "Find {quantity} exceptional {topic} Anki decks, serving as ideal resources for acing your exams or learning something exciting. Access and download these decks without any charge, for your individual use.",
+    "Discover over {quantity} extraordinary {topic} Anki decks. Make use of these resources to strengthen your exam results or simply learn something new. These decks are provided free of charge, ready for download and personal use.",
+    "Discover over {quantity} of the best {topic} Anki decks. You can use them to study for your exams, or just to learn something new. All decks are free to use and download for your personal use.",
 ]
 
 export default function ScrapedDecks(props: ScrapedDecksProps) {
     const { topic, decks } = props;
+    const topicCaps = topic.split(/ /g).map(val => val[0].toUpperCase() + val.slice(1)).join(' ')
 
-    const heroText = choices[hashToNumber(topic)].replace("{quantity}", decks.length.toString()).replace("{topic}", topic.charAt(0).toUpperCase() + topic.slice(1));
+    const heroText = choices[hashToNumber(topic)].replace("{quantity}", decks.length.toString()).replace("{topic}", topicCaps);
 
     return(
         <>
+            <Head>
+                <title>Top {decks.length} {topicCaps} Anki Decks</title>
+                <meta key={"description"} name="description" content={"Explore more than "+decks.length+" top-rated "+topic+" Anki decks found online. Ideal for exam preparation or simply expanding your knowledge, these decks are available to use and download for free."} />
+                <meta key={"og:title"} property="og:title" content={topicCaps+" Anki Decks"} />
+                <meta key={"og:description"} property="og:description" content={"Explore more than "+decks.length+" top-rated "+topic+" Anki decks found online. Ideal for exam preparation or simply expanding your knowledge, these decks are available to use and download for free."} />
+            </Head>
+
             <Navbar />
 
             <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
@@ -69,7 +78,7 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                                         href={"/decks/"+topic.toLowerCase().replace(" ", "-")}
                                         className="ml-4 text-gray-500 hover:text-gray-700 line-clamp-2"
                                     >
-                                        {topic.charAt(0).toUpperCase() + topic.slice(1)}
+                                        {topicCaps}
                                     </Link>
                                 </div>
                             </li>
@@ -78,9 +87,9 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                 </div>
 
                 <div className={"max-w-3xl"}>
-                    <span className={"text-lg text-teal-500 font-bold"}>{topic.charAt(0).toUpperCase() + topic.slice(1)}</span>
+                    <span className={"text-lg text-teal-500 font-bold"}>{topicCaps}</span>
                     <h1 className={"mt-2 text-3xl font-bold tracking-tight text-primary-500 sm:text-4xl"}>
-                        Discover the best {topic.charAt(0).toUpperCase() + topic.slice(1)} Anki decks.
+                        Discover the best {topicCaps} Anki decks.
                     </h1>
 
                     <p className={"mt-3 text-lg text-gray-500"}>
@@ -89,7 +98,7 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                 </div>
 
                 <div className={"mt-12 sm:mt-16"}>
-                    <DeckList decks={decks} topic={topic.charAt(0).toUpperCase() + topic.slice(1)} />
+                    <DeckList decks={decks} topic={topicCaps} />
                 </div>
                 {JSON.stringify(props.decks)}
             </div>
