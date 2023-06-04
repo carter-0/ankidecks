@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Menu, Transition } from '@headlessui/react'
 import {Fragment} from "react";
 import {ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton, useClerk} from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function Navbar() {
     const clerk = useClerk()
@@ -12,7 +13,8 @@ export default function Navbar() {
                 <SignedIn>
                     <Link href={"/dashboard"}>
                         <div className={"flex items-center"}>
-                            <h1 className={"font-bold text-xl text-main-white"}>Anki Decks</h1>
+                            <Image className={"w-6 h-6"} src={"/assets/logo.png"} alt={"Anki Decks Logo"} width={40} height={40} priority={true} />
+                            <h1 className={"font-bold pt-0.5 text-xl text-main-white ml-3"}>Anki Decks</h1>
                         </div>
                     </Link>
 
