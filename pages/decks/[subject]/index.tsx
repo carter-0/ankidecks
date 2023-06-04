@@ -38,9 +38,9 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
     return(
         <>
             <Head>
-                <title>Top {decks.length} {topicCaps} Anki Decks</title>
+                <title>{`Top ${decks.length} ${topicCaps} Anki Decks`}</title>
                 <meta key={"description"} name="description" content={"Explore more than "+decks.length+" top-rated "+topic+" Anki decks found online. Ideal for exam preparation or simply expanding your knowledge, these decks are available to use and download for free."} />
-                <meta key={"og:title"} property="og:title" content={topicCaps+" Anki Decks"} />
+                <meta key={"og:title"} property="og:title" content={`Top ${decks.length} ${topicCaps} Anki Decks`} />
                 <meta key={"og:description"} property="og:description" content={"Explore more than "+decks.length+" top-rated "+topic+" Anki decks found online. Ideal for exam preparation or simply expanding your knowledge, these decks are available to use and download for free."} />
             </Head>
 

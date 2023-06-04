@@ -20,9 +20,9 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
     return(
         <>
             <Head>
-                <title>{deck.name} | {topicCaps} Anki Cards</title>
-                <meta key={"description"} name="description" content={"Download " + deck.name + " Anki deck for free."} />
-                <meta key={"og:title"} property="og:title" content={deck.name + " Anki Deck | " + topicCaps} />
+                <title>{`${deck.name} | ${topicCaps} Anki Cards`}</title>
+                <meta key={"description"} name="description" content={`Download ${deck.name} Anki deck for free.`} />
+                <meta key={"og:title"} property="og:title" content={`${deck.name} | ${topicCaps} Anki Cards`} />
                 <meta key={"og:description"} property="og:description" content={"Download " + deck.name + " Anki deck for free."} />
             </Head>
             <Navbar />
