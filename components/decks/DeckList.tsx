@@ -1,22 +1,5 @@
-/* This example requires Tailwind CSS v2.0+ */
-import {ArrowUpIcon, LinkIcon, MailIcon, PhoneIcon} from '@heroicons/react/solid'
-import {ArrowBigUp, ArrowUp} from "lucide-react";
+import {ArrowUpIcon, LinkIcon, StarIcon} from '@heroicons/react/solid'
 import Link from "next/link";
-import {useEffect, useState} from "react";
-import Image from "next/image";
-
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Paradigm Representative',
-        role: 'Admin',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    // More people...
-]
 
 const epochToDate = (seconds: number) => {
     const dateObj = new Date(seconds * 1000);
@@ -60,8 +43,6 @@ function getCols(width: number) {
     return 4;
 }
 
-// col-span-1 col-span-2 col-span-3 col-span-4
-
 export default function DeckList(props: DeckListProps) {
     const { decks, topic } = props;
 
@@ -73,39 +54,72 @@ export default function DeckList(props: DeckListProps) {
             {decks.map((deck, deckX) => (
                 <>
                     {breakpoint === deckX || deckX == decks.length ? (
-                        // SPAN FULL WIDTH OF GRID
                         <li
                             key={deck.id}
-                            className={`cols-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 bg-teal-500 text-white flex flex-col bg-white rounded-lg shadow divide-y divide-gray-200`}
+                            className={`cols-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 bg-teal-500 text-white flex flex-col rounded-lg shadow divide-y divide-gray-200`}
                         >
-                            <div className="bg-white">
-                                <div className="max-w-7xl mx-auto">
-                                    <div className="bg-teal-500 rounded-lg shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
-                                        <div className="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
-                                            <div className="lg:self-center">
-                                                <h2 className={"text-3xl font-bold text-white sm:text-4xl"}>Create your own deck in seconds with AI</h2>
+                            <div className="max-w-7xl mx-auto">
+                                <div className="bg-teal-500 rounded-lg shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
+                                    <div className="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
+                                        <div className="lg:self-center">
+                                            <h2 className={"text-3xl font-bold text-white sm:text-4xl"}>Create your own deck in seconds with AI</h2>
 
-                                                <p className="mt-4 text-lg leading-6 text-white/80">
-                                                    Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we'll do the rest.
-                                                </p>
+                                            <p className="mt-4 text-lg leading-6 text-white/80">
+                                                Convert your notes into an expertly-crafted optimised deck in seconds with our AI. Just paste your notes and we'll do the rest.
+                                            </p>
 
-                                                <div className={"flex flex-row"}>
-                                                    <Link
-                                                        href="/dashboard"
-                                                        className="mt-8 hover:scale-[1.05] transition-transform duration-200 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-white hover:bg-indigo-50"
-                                                    >
-                                                        Sign up for free
-                                                    </Link>
+                                            <div className={"flex mt-8 items-center w-full sm:w-auto flex-col sm:flex-row"}>
+                                                <Link
+                                                    href="/new-deck"
+                                                    className="hover:scale-[1.05] w-full sm:w-auto transition-transform duration-200 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-white hover:bg-indigo-50"
+                                                >
+                                                    Make my deck
+                                                </Link>
+
+                                                <div className="flex mt-3 sm:mt-0 sm:ml-3 p-1 -space-x-2 overflow-hidden">
+                                                    <img
+                                                        className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                                                        src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt=""
+                                                    />
+                                                    <img
+                                                        className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                                                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt=""
+                                                    />
+                                                    <img
+                                                        className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                                                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt=""
+                                                    />
+                                                    <img
+                                                        className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt=""
+                                                    />
+                                                    <img
+                                                        className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover"
+                                                        src="https://images.unsplash.com/photo-1590895340509-793cb98788c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"
+                                                        alt=""
+                                                    />
+                                                </div>
+
+                                                <div className="flex sm:ml-3">
+                                                    <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                                                    <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                                                    <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                                                    <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                                                    <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="-mt-6 aspect-w-5 aspect-h-3 md:aspect-w-2 md:aspect-h-1">
-                                            <img
-                                                className="transform translate-x-6 translate-y-6 rounded-md object-cover object-left-top sm:translate-x-16 lg:translate-y-20"
-                                                src="https://tailwindui.com/img/component-images/full-width-with-sidebar.jpg"
-                                                alt="App screenshot"
-                                            />
-                                        </div>
+                                    </div>
+                                    <div className="-mt-6 aspect-w-5 aspect-h-3 md:aspect-w-2 md:aspect-h-1">
+                                        <img
+                                            className="transform translate-x-6 translate-y-6 rounded-md object-cover object-left-top sm:translate-x-16 lg:translate-y-20"
+                                            src="https://tailwindui.com/img/component-images/full-width-with-sidebar.jpg"
+                                            alt="App screenshot"
+                                        />
                                     </div>
                                 </div>
                             </div>
