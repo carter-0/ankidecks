@@ -100,7 +100,6 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                 <div className={"mt-12 sm:mt-16"}>
                     <DeckList decks={decks} topic={topicCaps} />
                 </div>
-                {JSON.stringify(props.decks)}
             </div>
         </>
     )
@@ -116,8 +115,9 @@ export const getStaticProps: (ctx: any) => Promise<{ redirect: { permanent: bool
                 some: {
                     name: subject
                 }
-            }
-        }
+            },
+        },
+        take: 100,
     });
 
     return {

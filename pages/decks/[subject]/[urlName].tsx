@@ -15,15 +15,14 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
     const { deck } = props;
 
     const topic = deck.topics[0].name;
-
-    // const heroText = choices[hashToNumber(topic)].replace("{quantity}", decks.length.toString()).replace("{topic}", topic.charAt(0).toUpperCase() + topic.slice(1));
+    const topicCaps = topic.split(/ /g).map(val => val[0].toUpperCase() + val.slice(1)).join(' ')
 
     return(
         <>
             <Head>
-                <title>{deck.name} | {topic.charAt(0).toUpperCase() + topic.slice(1)} Anki Cards</title>
+                <title>{deck.name} | {topicCaps} Anki Cards</title>
                 <meta key={"description"} name="description" content={"Download " + deck.name + " Anki deck for free."} />
-                <meta key={"og:title"} property="og:title" content={deck.name + " Anki Deck | " + topic.charAt(0).toUpperCase() + topic.slice(1)} />
+                <meta key={"og:title"} property="og:title" content={deck.name + " Anki Deck | " + topicCaps} />
                 <meta key={"og:description"} property="og:description" content={"Download " + deck.name + " Anki deck for free."} />
             </Head>
             <Navbar />
@@ -60,7 +59,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                                         href={"/decks/"+topic.toLowerCase().replace(" ", "-")}
                                         className="ml-4 text-gray-500 hover:text-gray-700 line-clamp-2"
                                     >
-                                        {topic.charAt(0).toUpperCase() + topic.slice(1)}
+                                        {topicCaps}
                                     </Link>
                                 </div>
                             </li>
@@ -69,7 +68,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                 </div>
 
                 <div className={"max-w-3xl"}>
-                    <span className={"text-lg text-teal-500 font-bold"}>{topic.charAt(0).toUpperCase() + topic.slice(1)}</span>
+                    <span className={"text-lg text-teal-500 font-bold"}>{topicCaps}</span>
                     <h1 className={"mt-2 text-3xl font-bold tracking-tight text-primary-500 sm:text-4xl"}>
                         Discover the best {deck.name} Anki decks.
                     </h1>
@@ -80,7 +79,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                 </div>
 
                 <div className={"mt-12 sm:mt-16"}>
-                    {/*<DeckList decks={decks} topic={topic.charAt(0).toUpperCase() + topic.slice(1)} />*/}
+                    {/*<DeckList decks={decks} topic={topicCaps} />*/}
                 </div>
                 {/*{JSON.stringify(props.decks)}*/}
             </div>
