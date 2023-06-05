@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import {ArrowSmDownIcon, ArrowSmUpIcon, FireIcon} from "@heroicons/react/solid";
-
 type StatBoxProps = {
     title: string,
     value: string,
@@ -13,10 +9,10 @@ export default function StatBox(props: StatBoxProps) {
         <div className={"lg:w-[420px]"}>
             <dl className="mt-5 sg:grid sg:grid-cols-1 sg:gap-5 sm:grid-cols-2">
                 <div
-                    className="dark:bg-secondary-black relative mx-5 bg-white pt-5 px-4 pb-5 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+                    className="relative mx-5 bg-white pt-5 px-4 pb-5 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
                 >
                     <dt>
-                        <div className="absolute bg-black rounded-md p-3">
+                        <div className="absolute bg-teal-500 rounded-md p-3">
                             <props.icon className="h-6 w-6 text-white" aria-hidden="true" />
                             {/*<icon className="h-6 w-6 text-white" aria-hidden="true" />*/}
                         </div>

@@ -207,46 +207,54 @@ export default function Deck(props: DeckProps) {
                             <div className={"dark:bg-secondary-black "}>
                                 <div className={"flex flex-row items-center justify-between"}>
                                     <h1 className={"text-2xl font-bold"}>Cards</h1>
-                                    <div className={"flex flex-row space-x-5"}>
-                                        <div className={"cursor-pointer"}>
-                                            <p onClick={() => setSelectData(
-                                                {
-                                                    selected: [],
-                                                    active: !selectData.active,
-                                                }
-                                            )}>Toggle Select</p>
-                                        </div>
+                                    <div className={"flex flex-row items-center space-x-2 lg:space-x-5"}>
+                                        {/*<div className={"cursor-pointer hidden lg:block"}>*/}
+                                        {/*    <p className={"font-medium text-gray-500"} onClick={() => setSelectData(*/}
+                                        {/*        {*/}
+                                        {/*            selected: [],*/}
+                                        {/*            active: !selectData.active,*/}
+                                        {/*        }*/}
+                                        {/*    )}>Select Cards</p>*/}
+                                        {/*</div>*/}
 
-                                        <div className={"cursor-pointer"}>
-                                            {listView ? (
-                                                <svg onClick={() => setListView(false)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-                                                </svg>
-                                            ) : (
-                                                <AlignJustifyIcon onClick={() => setListView(true)} className={"h-6 w-6"} />
-                                            )}
-                                        </div>
+                                        {/*<div className={"cursor-pointer"}>*/}
+                                        {/*    {listView ? (*/}
+                                        {/*        <svg onClick={() => setListView(false)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">*/}
+                                        {/*            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />*/}
+                                        {/*        </svg>*/}
+                                        {/*    ) : (*/}
+                                        {/*        <AlignJustifyIcon onClick={() => setListView(true)} className={"h-6 w-6"} />*/}
+                                        {/*    )}*/}
+                                        {/*</div>*/}
+
+                                        <Link
+                                            type="button"
+                                            href={`/dashboard/decks/${deck.id}/cards/new`}
+                                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                        >
+                                            New Cards +
+                                        </Link>
                                     </div>
                                 </div>
                                 <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
-                                    <div className={"grid grid-cols-1 gap-4 pb-5"}>
-                                        <div className={"col-span-1"}>
-                                            <Link href={`/dashboard/decks/${deck.id}/cards/new`}>
-                                                <div className={"dark:bg-primary-black border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>
-                                                    <div className={"flex flex-row items-center justify-center w-full py-3 p-5 px-4"}>
-                                                        <div className={"flex flex-row items-center justify-center w-full"}>
-                                                            <p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className={"flex items-center py-0 pb-3 p-5 px-4 sm:px-6"}>
-                                                        <div className={"flex flex-row items-center justify-center w-full"}>
-                                                            <PlusIcon className={"h-8 w-8"} />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
+                                    {/*<div className={"grid grid-cols-1 gap-4 pb-5"}>*/}
+                                    {/*    <div className={"col-span-1"}>*/}
+                                    {/*        <Link href={`/dashboard/decks/${deck.id}/cards/new`}>*/}
+                                    {/*            <div className={"dark:bg-primary-black border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>*/}
+                                    {/*                <div className={"flex flex-row items-center justify-center w-full py-3 p-5 px-4"}>*/}
+                                    {/*                    <div className={"flex flex-row items-center justify-center w-full"}>*/}
+                                    {/*                        <p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>*/}
+                                    {/*                    </div>*/}
+                                    {/*                </div>*/}
+                                    {/*                <div className={"flex items-center py-0 pb-3 p-5 px-4 sm:px-6"}>*/}
+                                    {/*                    <div className={"flex flex-row items-center justify-center w-full"}>*/}
+                                    {/*                        <PlusIcon className={"h-8 w-8"} />*/}
+                                    {/*                    </div>*/}
+                                    {/*                </div>*/}
+                                    {/*            </div>*/}
+                                    {/*        </Link>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
 
                                     {listView ? (
                                         <>
@@ -277,13 +285,13 @@ export default function Deck(props: DeckProps) {
                                                         <div className={cn("dark:bg-primary-black border border-gray-200 bg-white rounded-md w-full mt-2", selectData.active && selectData.selected.includes(card.id) ? 'outline' : '')}>
                                                             <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                                 <div className={"flex flex-row items-center"}>
-                                                                    <div className="bg-black rounded-md p-3">
-                                                                        {/*    <Image src={`https://ui-avatars.com/api/?name=${deck.name}&size=128&color=fff&background=000`} alt={"Deck icon"} width={64} height={64} className={"h-9 w-9 rounded-md"} />*/}
-                                                                        {/*<BookOpenIcon className="h-6 w-6 text-white" aria-hidden="true" />*/}
-                                                                        {/*<icon className="h-6 w-6 text-white" aria-hidden="true" />*/}
-                                                                        <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{cardX+1}</p>
-                                                                    </div>
-                                                                    <Link href={"/dashboard/decks/"+deck.id+"/cards/"+card.id}><p className="dark:text-gray-400 text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">{card.front}</p></Link>
+                                                                    {/*<div className="bg-black rounded-md p-3">*/}
+                                                                    {/*    /!*    <Image src={`https://ui-avatars.com/api/?name=${deck.name}&size=128&color=fff&background=000`} alt={"Deck icon"} width={64} height={64} className={"h-9 w-9 rounded-md"} />*!/*/}
+                                                                    {/*    /!*<BookOpenIcon className="h-6 w-6 text-white" aria-hidden="true" />*!/*/}
+                                                                    {/*    /!*<icon className="h-6 w-6 text-white" aria-hidden="true" />*!/*/}
+                                                                    {/*    <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{cardX+1}</p>*/}
+                                                                    {/*</div>*/}
+                                                                    <Link href={"/dashboard/decks/"+deck.id+"/cards/"+card.id}><p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">{card.front}</p></Link>
                                                                 </div>
 
                                                                 <div className={"flex flex-row ml-auto"}>
