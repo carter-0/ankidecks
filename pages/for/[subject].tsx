@@ -20,7 +20,6 @@ export default function Home(props: HomeProps) {
             <Navbar />
 
             <main>
-                <h1>{router.query.subject}</h1>
                 <StandardHero />
                 <StandardHeader />
 
