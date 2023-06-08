@@ -7,6 +7,15 @@ type Deck = {
     public: boolean;
 }
 
+type PartialDeck = {
+    id: string,
+    name: string,
+    dateCreated: Date,
+    _count: {
+        cards: number
+    }
+}
+
 type Card = {
     id: string;
     front: string;

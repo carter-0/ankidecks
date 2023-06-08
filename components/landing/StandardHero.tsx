@@ -134,7 +134,7 @@ export default function StandardHero() {
                                     <div className={"flex items-center flex-row"}>
                                         <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
                                         <p className="mx-2 text-black/80">
-                                            Used by over 1,000 customers
+                                            Loved by 1,000 happy users
                                         </p>
 
                                         <StarIcon className="flex-shrink-0 h-3 w-3 text-yellow-500" aria-hidden="true" />
