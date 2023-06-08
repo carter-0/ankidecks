@@ -5,6 +5,7 @@ import StandardHeader from "@/components/landing/StandardHeader";
 import {prisma} from "@/lib/db";
 import DeckListPreview from "@/components/landing/DeckListPreview";
 import FAQ from "@/components/landing/FAQ";
+import MainCTA from "@/components/global/MainCTA";
 
 type HomeProps = {
     decks: PartialDeck[],
@@ -28,6 +29,10 @@ export default function Home(props: HomeProps) {
                 </div>
 
                 <FAQ />
+
+                <div className={"max-w-7xl smpp:px-4 mx-auto py-6 sm:px-6 lg:px-8"}>
+                    <MainCTA />
+                </div>
             </main>
         </>
     )

@@ -9,7 +9,7 @@ export default function Navbar() {
 
     return (
         <nav className={"bg-white shadow relative w-full"}>
-            <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 flex w-full items-center justify-between bg-inherit py-4"}>
+            <div className={"mx-auto max-w-md sm:max-w-3xl smpp:px-4 sm:px-6 lg:max-w-7xl flex w-full items-center justify-between bg-inherit py-4"}>
                 <SignedIn>
                     <Link href={"/dashboard"}>
                         <div className={"flex items-center"}>
