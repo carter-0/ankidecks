@@ -6,7 +6,6 @@ import {prisma} from "@/lib/db";
 import DeckListPreview from "@/components/landing/DeckListPreview";
 import FAQ from "@/components/landing/FAQ";
 import MainCTA from "@/components/global/MainCTA";
-import Features from "@/components/landing/Features";
 import Pricing from "@/components/global/Pricing";
 import Footer from "@/components/global/Footer";
 
@@ -23,7 +22,7 @@ export default function Home(props: HomeProps) {
             <Navbar />
 
             <main>
-                <StandardHero />
+                <StandardHero title={router.query.subject as string} />
                 <StandardHeader />
 
                 <div className={"flex mb-24 flex-col items-center"}>
