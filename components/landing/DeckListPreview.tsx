@@ -55,11 +55,11 @@ export default function DeckListPreview(props: DeckListPreviewProps) {
                     ))}
 
                     <div
-                        className="w-full bg-gradient-to-b from-transparent via-white to-white -bottom-24 absolute z-20 h-[200px]">
+                        className="w-full bg-gradient-to-b from-transparent via-gray-50 to-gray-50 -bottom-24 absolute z-20 h-[200px]">
                         <div className="flex items-end justify-center h-full">
                             <Link href="/decks">
-                                <button aria-label="Primary Button" type="button"
-                                        className="flex content-center items-center justify-center text-center px-6 py-3 border border-white/20 text-base font-medium rounded-md shadow-sm text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-200 flex-shrink-0">
+                                <button type="button"
+                                        className="flex content-center items-center justify-center text-center px-6 py-3 border border-white/20 text-base font-medium rounded-md shadow-sm text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-200 flex-shrink-0">
                                     View all decks
                                 </button>
                             </Link>

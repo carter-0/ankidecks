@@ -90,7 +90,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                                 The maximum number of cards to generate in this batch. 0 means unlimited.
                             </p>
                             <div className="mt-2">
-                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-teal-600 sm:max-w-md">
                                     <input
                                         type="text"
                                         name="name"
@@ -127,7 +127,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                                                 )
                                             }
                                         >
-                                            Plain Text (best)
+                                            Plain Text
                                         </Tab>
                                         <Tab
                                             className={({ selected }) =>
@@ -139,7 +139,19 @@ export default function NewCardForm(props: NewCardFormProps) {
                                                 )
                                             }
                                         >
-                                            Preview
+                                            Word Document
+                                        </Tab>
+                                        <Tab
+                                            className={({ selected }) =>
+                                                cn(
+                                                    selected
+                                                        ? 'text-gray-900 bg-gray-100 hover:bg-gray-200'
+                                                        : 'text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100',
+                                                    'ml-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md'
+                                                )
+                                            }
+                                        >
+                                            Powerpoint
                                         </Tab>
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
@@ -149,17 +161,16 @@ export default function NewCardForm(props: NewCardFormProps) {
                                             </label>
                                             <div>
                                                 <textarea
-                                                    // rows={5}
                                                     style={
                                                         {
-                                                            height: document.getElementById('comment')?.scrollHeight + 'px',
+                                                            // height: document.getElementById('comment')?.scrollHeight + 'px',
                                                         }
                                                     }
                                                     name="comment"
                                                     id="comment"
                                                     value={formData.source}
                                                     onChange={(e) => setFormData({...formData, source: e.target.value})}
-                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                    className="shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                                     placeholder="Paste your notes, documents or data here. (Ensure you remove ALL data that you don't want to be included in your flashcards (introductions, etc))."
                                                     defaultValue={''}
                                                 />
@@ -194,7 +205,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                 <button
                     type="button"
                     onClick={submit}
-                    className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-teal-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                 >
                     {submitting ? (
                         <>

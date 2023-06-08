@@ -6,6 +6,9 @@ import {prisma} from "@/lib/db";
 import DeckListPreview from "@/components/landing/DeckListPreview";
 import FAQ from "@/components/landing/FAQ";
 import MainCTA from "@/components/global/MainCTA";
+import Features from "@/components/landing/Features";
+import Pricing from "@/components/global/Pricing";
+import Footer from "@/components/global/Footer";
 
 type HomeProps = {
     decks: PartialDeck[],
@@ -27,11 +30,15 @@ export default function Home(props: HomeProps) {
                     <DeckListPreview decks={decks} />
                 </div>
 
+                <Pricing />
+
                 <FAQ />
 
-                <div className={"max-w-7xl smpp:px-4 mx-auto py-6 sm:px-6 lg:px-8"}>
+                <div className={"max-w-7xl smpp:px-4 mx-auto mt-24 sm:px-6 lg:px-8"}>
                     <MainCTA />
                 </div>
+
+                <Footer />
             </main>
         </>
     )
@@ -42,7 +49,7 @@ export const getStaticProps: (ctx: any) => Promise<{ redirect: { permanent: bool
         where: {
             public: true,
         },
-        take: 25,
+        take: 16,
         select: {
             id: true,
             name: true,

@@ -20,7 +20,7 @@ export default function MainCTA() {
                             <div className={"flex mt-8 items-center w-full sm:w-auto flex-col sm:flex-row"}>
                                 <Link
                                     href="/new-deck"
-                                    className="hover:scale-[1.05] w-full sm:w-auto transition-transform duration-200 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-white hover:bg-indigo-50"
+                                    className="hover:outline-black hover:outline hover:outline-1 w-full sm:w-auto transition-transform duration-200 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-white hover:bg-indigo-50"
                                 >
                                     Make my deck
                                 </Link>

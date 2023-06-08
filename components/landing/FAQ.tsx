@@ -2,8 +2,13 @@
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/outline'
 import {cn} from "@/lib/utils";
+import Link from "next/link";
 
 const faqs = [
+    {
+        question: "How does it work?",
+        answer: "After you have uploaded your notes and selected the relevant parts, we use a combination of OpenAI's GPT models and proprietary algorithms to generate cards.",
+    },
     {
         question: "Is there a free trial?",
         answer: "Yes, All new accounts get a 25 card free trial, no credit card required.",
@@ -22,9 +27,12 @@ const faqs = [
 export default function FAQ() {
     return (
         <div className="bg-gray-50">
-            <div className="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto divide-y-2 divide-gray-200">
-                    <h2 className="text-center text-3xl font-extrabold text-gray-900 sm:text-4xl">Frequently asked questions</h2>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className=" mx-auto divide-y-2 divide-gray-200">
+                    <div>
+                        <h2 className="text-center text-3xl font-extrabold text-gray-900 sm:text-4xl">Frequently asked questions</h2>
+                        <p className="mt-4 text-center text-base text-gray-600">Can’t find the answer you’re looking for? Talk directly with our <Link href="mailto:carter@carter.red" className="font-medium text-teal-600 hover:text-teal-500">founder</Link>.</p>
+                    </div>
                     <dl className="mt-6 space-y-6 divide-y divide-gray-200">
                         {faqs.map((faq) => (
                             <Disclosure as="div" key={faq.question} className="pt-6">
