@@ -10,6 +10,9 @@ function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPos
      <url>
        <loc>https://ankidecks.app</loc>
      </url>
+     <url>
+       <loc>https://ankidecks.app/decks</loc>
+     </url>
      ${deckPosts
         .map(({ topic, name }) => {
             return `

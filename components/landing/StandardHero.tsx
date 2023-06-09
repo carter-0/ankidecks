@@ -11,8 +11,8 @@ interface NewMap {
 }
 
 const titleMap = {
-    "gcse": "GCSE",
-    "a-level": "A-Level",
+    "gcses": "GCSE",
+    "a-levels": "A-Level",
     "computer-science": "Computer Science",
     "medical-school": "Medical School",
     "mcat": "MCAT",
