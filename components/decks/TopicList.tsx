@@ -65,7 +65,7 @@ export default function TopicList(props: TopicListProps) {
                         <div className="flex-1 flex flex-col pt-4 pb-0 p-8">
                             <h3 className="text-gray-900 text-xl font-medium">{topic.name}</h3>
                             <dl className="mt-1 flex-grow pb-2 flex flex-col justify-between">
-                                <dd className="text-gray-500 text-sm"><b>{topic._count.decks}</b> <b>{topic.name}</b> cards.</dd>
+                                <dd className="text-gray-500 text-sm"><b>{topic._count.decks}</b> <b>{topic.name}</b> decks.</dd>
                             </dl>
                         </div>
 

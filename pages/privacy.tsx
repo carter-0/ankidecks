@@ -8,7 +8,7 @@ import {unified} from "unified";
 
 export default function Privacy(props: Props) {
   const {source} = props;
-  
+
   return (
       <>
         <Head>
@@ -17,7 +17,7 @@ export default function Privacy(props: Props) {
         </Head>
 
         <Navbar />
-        <div className={"mx-auto bg-white max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8"}>
+        <div className={"mx-auto bg-gray-50 max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8"}>
           <article
               className="prose max-w-full pt-16 font-medium text-neutral-600 prose-headings:text-black prose-a:text-sp-green prose-li:my-0.5"
               dangerouslySetInnerHTML={{ __html: source }}
