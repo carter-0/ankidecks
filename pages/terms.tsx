@@ -6,7 +6,9 @@ import path from 'path'
 import Head from "next/head";
 import {unified} from "unified";
 
-export default function Terms({ source }) {
+export default function Terms(props: Props) {
+  const {source} = props;
+  
   return (
       <>
         <Head>

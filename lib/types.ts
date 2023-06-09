@@ -58,3 +58,5 @@ type ScrapedTopicsWithCount = {
         decks: number
     }
 }
+
+type Props = any

@@ -2,7 +2,6 @@ import Navbar from "@/components/global/Navbar";
 import TopicList from "@/components/decks/TopicList";
 
 import {prisma} from "@/lib/db";
-import Navbar from "@/components/global/Navbar";
 import SecondNavbar from "@/components/global/SecondNavbar";
 import Link from "next/link";
 import {ChevronRightIcon, HomeIcon} from "@heroicons/react/solid";
@@ -33,7 +32,7 @@ const choices = [
 export default function Decks(props: DecksProps) {
     const { topics } = props
 
-    const heroText = choices[hashToNumber(topic)].replace("{quantity}", topics.length).replace("{topic}", "");
+    const heroText = choices[hashToNumber("topics")].replace("{quantity}", topics.length.toString()).replace("{topic}", "");
 
     return (
         <>
@@ -76,7 +75,7 @@ export default function Decks(props: DecksProps) {
                 </div>
 
                 <div className={"max-w-3xl"}>
-                    <span className={"text-lg text-teal-500 font-bold"}>{topicCaps}</span>
+                    <span className={"text-lg text-teal-500 font-bold"}>Anki Decks</span>
                     <h1 className={"mt-2 text-3xl font-bold tracking-tight text-primary-500 sm:text-4xl"}>
                         Discover the top {topics.length} Anki decks.
                     </h1>
@@ -100,7 +99,9 @@ export const getStaticProps: (ctx: any) => Promise<{ redirect: { permanent: bool
             id: true,
             name: true,
             _count: {
-                decks: true
+                select: {
+                    decks: true
+                }
             }
         }
     }) as ScrapedTopicsWithCount[];
