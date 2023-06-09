@@ -50,3 +50,11 @@ type ScrapedTopic = {
     name: string;
     decks: ScrapedDeck[];
 }
+
+type ScrapedTopicsWithCount = {
+    id: number;
+    name: string;
+    _count: {
+        decks: number
+    }
+}
