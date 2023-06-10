@@ -4,7 +4,8 @@ import {prisma} from "@/lib/db";
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
-import {getUserTokens} from "@/lib/helper";
+import {calcTokens, getUserTokens} from "@/lib/helper";
+import {GPTTokens} from "gpt-tokens";
 
 const chat = new ChatOpenAI({ temperature: 0.9 });
 
@@ -70,7 +71,16 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
         return;
     }
 
-    if (await getUserTokens(userId) < 1) {
+    const userTokens = await getUserTokens(userId)
+
+    if (userTokens < 1) {
+        res.status(402).json({ success: false, error: "Insufficient tokens" });
+        return;
+    }
+
+    const tokens = calcTokens(source)
+
+    if (userTokens < tokens) {
         res.status(402).json({ success: false, error: "Insufficient tokens" });
         return;
     }
@@ -94,6 +104,19 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
 data: ${source}`
         )
     ]);
+
+    const finalTokens = calcTokens(source)
+
+    await prisma.user.update({
+        where: {
+            userId: userId
+        },
+        data: {
+            tokensUsed: {
+                increment: finalTokens
+            }
+        }
+    })
 
     console.log(response.text)
     const answer = JSON.parse(response.text);

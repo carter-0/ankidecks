@@ -65,4 +65,5 @@ type User = {
     id: number;
     userId: string;
     tokenAllowance: number;
+    tokensUsed: number;
 }
