@@ -1,5 +1,7 @@
 import {prisma} from "@/lib/db";
 import {GPTTokens} from "gpt-tokens";
+import Stripe from "stripe";
+import {clerkClient} from "@clerk/nextjs";
 export const getUserTokens = async (userId: string) => {
     let user = await prisma.user.findUnique({
         where: {
@@ -16,6 +18,24 @@ export const getUserTokens = async (userId: string) => {
     }
 
     return user.tokenAllowance - user.tokensUsed
+}
+
+export const getUser = async (userId: string) => {
+    let user = await prisma.user.findUnique({
+        where: {
+            userId: userId
+        }
+    }) as User
+
+    if (!user) {
+        user = await prisma.user.create({
+            data: {
+                userId: userId,
+            }
+        }) as User
+    }
+
+    return user
 }
 
 export const calcTokens = (source: string, response?: string) => {
@@ -67,4 +87,47 @@ data: ${source}` },
     })
 
     return gptTokenEstimate.usedTokens * 2
+}
+
+export const getOrCreateStripeCustomer = async (userId: string) => {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+        apiVersion: '2022-11-15',
+    })
+
+    let user = await prisma.user.findUnique({
+        where: {
+            userId: userId
+        }
+    }) as User
+
+    if (!user) {
+        user = await prisma.user.create({
+            data: {
+                userId: userId,
+            }
+        }) as User
+    }
+
+    const clerkUser = await clerkClient.users.getUser(userId)
+
+    if (!user.stripeCustomerId) {
+        const customer = await stripe.customers.create({
+            metadata: {
+                userId: userId
+            },
+            email: clerkUser.emailAddresses.length > 0 ? clerkUser.emailAddresses[0].emailAddress : undefined,
+            name: clerkUser.firstName + ' ' + clerkUser.lastName
+        })
+
+        await prisma.user.update({
+            where: {
+                userId: userId
+            },
+            data: {
+                stripeCustomerId: customer.id
+            }
+        })
+
+        return customer.id
+    }
 }

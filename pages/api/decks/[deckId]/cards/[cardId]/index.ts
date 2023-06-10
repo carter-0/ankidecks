@@ -107,16 +107,28 @@ data: ${source}`
 
     const finalTokens = calcTokens(source)
 
-    await prisma.user.update({
-        where: {
-            userId: userId
-        },
-        data: {
-            tokensUsed: {
-                increment: finalTokens
+    await Promise.all([
+        prisma.user.update({
+            where: {
+                userId: userId
+            },
+            data: {
+                tokensUsed: {
+                    increment: finalTokens
+                }
             }
-        }
-    })
+        }),
+        prisma.deck.update({
+            where: {
+                id: deckId
+            },
+            data: {
+                tokensUsed: {
+                    increment: finalTokens
+                }
+            }
+        })
+    ])
 
     console.log(response.text)
     const answer = JSON.parse(response.text);

@@ -3,7 +3,6 @@ import SecondNavbar from "@/components/global/SecondNavbar";
 import NewCardForm from "@/components/dashboard/NewCardForm";
 import {getAuth} from "@clerk/nextjs/server";
 import {prisma} from "@/lib/db";
-import Deck from "@/pages/dashboard/decks/[deckId]";
 
 type NewCardProps = {
     deck: Deck;

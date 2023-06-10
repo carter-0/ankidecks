@@ -5,6 +5,7 @@ type Deck = {
     cards: Card[];
     dateCreated: Date;
     public: boolean;
+    tokensUsed: number;
 }
 
 type PartialDeck = {
@@ -66,4 +67,7 @@ type User = {
     userId: string;
     tokenAllowance: number;
     tokensUsed: number;
+    stripeCustomerId: string;
+    stripeSubscriptionId: string;
+    freeAccount: boolean;
 }

@@ -38,6 +38,7 @@ import {
 import {deleteCards, deleteDeck} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
 import {PlusIcon} from "@heroicons/react/solid";
+import Footer from "@/components/global/Footer";
 
 dayjs.extend(relativeTime)
 
@@ -197,9 +198,9 @@ export default function Deck(props: DeckProps) {
 
                         <div className={"pt-5"}>
                             <div className={"lg:flex lg:flex-row max-w-7xl -mx-5"}>
-                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
-                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
-                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
+                                <StatBox title={"Credits Used"} value={deck.tokensUsed.toLocaleString()} icon={CoinsIcon} />
+                                <StatBox title={"Cards"} value={deck.cards.length.toLocaleString()} icon={CoinsIcon} />
+                                <StatBox title={"Public"} value={deck.public ? "Yes" : "No"} icon={CoinsIcon} />
                             </div>
                         </div>
 
@@ -336,6 +337,8 @@ export default function Deck(props: DeckProps) {
                     </div>
                 </div>
             </main>
+
+            <Footer />
         </>
     )
 }

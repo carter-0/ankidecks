@@ -16,6 +16,7 @@ model Deck {
   name String
   cards Card[]
   dateCreated DateTime @default(now())
+  tokensUsed Int @default(0)
   public Boolean @default(false)
 }
 
@@ -53,6 +54,9 @@ model User {
   userId String @unique
   tokenAllowance Int @default(4000)
   tokensUsed Int @default(0)
+  stripeCustomerId String?
+  stripeSubscriptionId String?
+  freeAccount Boolean @default(true)
 }
 
 enum CardType {

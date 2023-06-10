@@ -1,7 +1,10 @@
+import {ReactNode} from "react";
+
 type StatBoxProps = {
     title: string,
     value: string,
-    icon: any
+    icon: any,
+    children?: ReactNode
 }
 
 export default function StatBox(props: StatBoxProps) {
@@ -20,6 +23,7 @@ export default function StatBox(props: StatBoxProps) {
                     </dt>
                     <dd className="ml-16 flex items-baseline">
                         <p className="dark:text-white text-2xl font-semibold text-gray-900 truncate">{props.value}</p>
+                        {props.children}
                     </dd>
                 </div>
             </dl>

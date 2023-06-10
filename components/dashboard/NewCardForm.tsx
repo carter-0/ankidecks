@@ -6,6 +6,15 @@ import {Tab} from "@headlessui/react";
 import {cn} from "@/lib/utils";
 import {AtSymbolIcon, CodeIcon, LinkIcon} from "@heroicons/react/solid";
 import {getTokenEstimate} from "@/lib/publicHelper";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription, AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog";
 
 type NewCardFormProps = {
     deck: Deck
@@ -16,6 +25,7 @@ export default function NewCardForm(props: NewCardFormProps) {
     const router = useRouter();
 
     const [submitting, setSubmitting] = useState(false);
+    const [upgradeAlertOpen, setUpgradeAlertOpen] = useState(false);
     const [formData, setFormData] = useState({
         source: '',
         maxCards: 0,
@@ -74,6 +84,23 @@ export default function NewCardForm(props: NewCardFormProps) {
 
     return (
         <>
+            <AlertDialog open={upgradeAlertOpen} onOpenChange={(v) => {setUpgradeAlertOpen(v)}}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently cards. You will not be refunded.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => (true)}>
+                            Erase cards
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-5">
                     <h2 className="text-2xl font-bold">Add Cards to Deck &apos;{deck.name}&apos;</h2>

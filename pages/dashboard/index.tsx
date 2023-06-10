@@ -1,6 +1,6 @@
 import Navbar from "@/components/global/Navbar";
 import StatBox from "@/components/dashboard/StatBox";
-import {CurrencyDollarIcon, CursorClickIcon, TrashIcon} from "@heroicons/react/outline";
+import {CurrencyDollarIcon, CursorClickIcon, TrashIcon, BookOpenIcon} from "@heroicons/react/outline";
 import {getAuth} from "@clerk/nextjs/server";
 import {GetServerSideProps} from "next";
 import {prisma} from "@/lib/db";
@@ -30,15 +30,20 @@ import {toast} from "@/components/ui/use-toast";
 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime.js'
+import {getUser, getUserTokens} from "@/lib/helper";
+import FreeAccountBannerCTA from "@/components/global/FreeAccountBannerCTA";
+import Footer from "@/components/global/Footer";
 
 dayjs.extend(relativeTime)
 
 type DashboardProps = {
-    decks: Deck[]
+    decks: Deck[],
+    tokens: number,
+    freeAccount: boolean
 }
 
 export default function Dashboard(props: DashboardProps) {
-    const { decks } = props;
+    const { decks, tokens, freeAccount } = props;
 
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
     const [selectedDeck, setSelectedDeck] = useState<string>("")
@@ -54,6 +59,8 @@ export default function Dashboard(props: DashboardProps) {
     return (
         <>
             <Navbar />
+
+            <FreeAccountBannerCTA />
 
             <main>
                 <AlertDialog open={deleteAlertOpen} onOpenChange={(v) => {setDeleteAlertOpen(v)}}>
@@ -86,9 +93,17 @@ export default function Dashboard(props: DashboardProps) {
                 <div className={"mx-auto sg:max-w-md sg:max-w-3xl mx-auto max-w-md sm:max-w-3xl lg:max-w-7xl lg:px-8"}>
                     <div className={"flex flex-col"}>
                         <div className={"sm:-mx-5 lg:flex lg:flex-row lg:max-w-7xl"}>
-                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
-                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
-                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Credits Used"} value={tokens.toLocaleString()} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Decks"} value={decks.length.toLocaleString()} icon={BookOpenIcon} />
+                            <StatBox title={"Account Status"} value={freeAccount ? 'Free' : 'Premium'} icon={CurrencyDollarIcon}>
+                                {freeAccount ? (
+                                    <>
+                                        <Link href={"/api/stripe/checkout"} className={"text-sm ml-2 text-gray-500 cursor-pointer"}>
+                                            Upgrade
+                                        </Link>
+                                    </>
+                                ) : null}
+                            </StatBox>
                         </div>
 
                         <div className={"mx-5 sm:mx-0"}>
@@ -160,6 +175,8 @@ export default function Dashboard(props: DashboardProps) {
                     </div>
                 </div>
             </main>
+
+            <Footer />
         </>
     )
 }
@@ -187,26 +204,34 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         }
     }
 
-    const decks = await prisma.deck.findMany({
-        where: {
-            user: userId
-        },
-        include: {
-            cards: true
-        }
-    }) as Deck[] | null;
+    const [decks, tokens, freeAccount] = await Promise.all([
+        prisma.deck.findMany({
+            where: {
+                user: userId
+            },
+            include: {
+                cards: true
+            }
+        }),
+        getUserTokens(userId),
+        getUser(userId).then(user => user.freeAccount)
+    ]) as [Deck[] | null, number, boolean]
 
     if (!decks) {
         return {
             props: {
-                decks: []
+                decks: [],
+                tokens: tokens,
+                freeAccount: freeAccount
             }
         }
     }
 
     return {
         props: {
-            decks: JSON.parse(JSON.stringify(decks))
+            decks: JSON.parse(JSON.stringify(decks)),
+            tokens: tokens,
+            freeAccount: freeAccount
         }
     }
 }
