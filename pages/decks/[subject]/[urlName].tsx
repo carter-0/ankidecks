@@ -6,6 +6,7 @@ import Head from "next/head";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import MainCTA from "@/components/global/MainCTA";
+import Footer from "@/components/global/Footer";
 
 dayjs.extend(relativeTime)
 
@@ -129,6 +130,8 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                 <div className={"mt-8"}>
                     <MainCTA />
                 </div>
+
+                <Footer />
             </div>
         </>
     )

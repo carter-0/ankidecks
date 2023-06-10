@@ -86,9 +86,9 @@ export default function Dashboard(props: DashboardProps) {
                 <div className={"mx-auto sg:max-w-md sg:max-w-3xl mx-auto max-w-md sm:max-w-3xl lg:max-w-7xl lg:px-8"}>
                     <div className={"flex flex-col"}>
                         <div className={"sm:-mx-5 lg:flex lg:flex-row lg:max-w-7xl"}>
-                            <StatBox title={"Tokens"} value={"0"} icon={CurrencyDollarIcon} />
-                            <StatBox title={"Tokens"} value={"0"} icon={CurrencyDollarIcon} />
-                            <StatBox title={"Tokens"} value={"0"} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Credits"} value={"0"} icon={CurrencyDollarIcon} />
                         </div>
 
                         <div className={"mx-5 sm:mx-0"}>

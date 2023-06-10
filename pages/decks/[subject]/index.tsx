@@ -6,6 +6,7 @@ import {ChevronRightIcon, HomeIcon} from "@heroicons/react/solid";
 import {ChevronDoubleRightIcon} from "@heroicons/react/outline";
 import DeckList from "@/components/decks/DeckList";
 import Head from "next/head";
+import Footer from "@/components/global/Footer";
 
 type ScrapedDecksProps = {
     topic: string;
@@ -101,6 +102,8 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                     <DeckList decks={decks} topic={topicCaps} />
                 </div>
             </div>
+
+            <Footer />
         </>
     )
 }

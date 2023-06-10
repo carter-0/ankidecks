@@ -195,7 +195,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                 Token Estimate: {tokenEstimate}
             </p>
             <p className="block text-sm font-medium leading-6 text-gray-500">
-                This is an estimate of the number of tokens that will be used to create your flashcards.
+                This is an estimate of the number of credits that will be used to create your flashcards.
             </p>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">

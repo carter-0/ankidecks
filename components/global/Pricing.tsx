@@ -9,7 +9,7 @@ const includedFeatures = [
 
 export default function Pricing() {
     return (
-        <div className="bg-gray-50 py-24 sm:py-32">
+        <div id={"pricing"} className="bg-gray-50 py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6">
                 <div className="mx-auto max-w-2xl sm:text-center">
                     <p className="text-base leading-8 text-teal-600 font-semibold tracking-wide uppercase mb-2">Pricing</p>

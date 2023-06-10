@@ -60,3 +60,9 @@ type ScrapedTopicsWithCount = {
 }
 
 type Props = any
+
+type User = {
+    id: number;
+    userId: string;
+    tokenAllowance: number;
+}

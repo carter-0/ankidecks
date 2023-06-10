@@ -88,7 +88,7 @@ export default function StandardHero(props: StandardHeroProps) {
                                         <div className="sm:flex">
                                             <div className="max-w-lg w-full flex">
                                                 <ClerkLoading>
-                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignIn({})}>
+                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({})}>
                                                         <div className="flex flex-row items-center justify-center">
                                                             <p className="text-white pr-2 text-xl font-bold">Create a Deck</p>
                                                             <ArrowRightIcon className="text-white w-6 h-6" aria-hidden="true" />
@@ -96,7 +96,7 @@ export default function StandardHero(props: StandardHeroProps) {
                                                     </button>
                                                 </ClerkLoading>
                                                 <SignedOut>
-                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignIn({})}>
+                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({})}>
                                                         <div className="flex flex-row items-center justify-center">
                                                             <p className="text-white pr-2 text-xl font-bold">Create a Deck</p>
                                                             <ArrowRightIcon className="text-white w-6 h-6" aria-hidden="true" />
@@ -114,7 +114,7 @@ export default function StandardHero(props: StandardHeroProps) {
                                             </div>
                                         </div>
                                         <p className="mt-3 text-sm max-w-md text-gray-500 sm:mt-4">
-                                            Get started with a free 4,000 token balance. By signing up, you agree to
+                                            Get started with a free 4,000 credit balance. By signing up, you agree to
                                             our{' '}
                                             <Link href="/terms" className="font-medium text-black">
                                                 terms of service

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 export default function Example() {
     return (
-        <div className="bg-gray-50">
+        <div id={"examples"} className="bg-gray-50">
             <div className="max-w-4xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <h2 className="text-base font-semibold text-teal-600 tracking-wide uppercase">Examples</h2>

@@ -48,6 +48,12 @@ model ScrapedDeck {
   urlSafeName String @db.VarChar(4096)
 }
 
+model User {
+  id   Int @id @default(autoincrement())
+  userId String @unique
+  tokenAllowance Int @default(4000)
+}
+
 enum CardType {
   BASIC
   CLOZE

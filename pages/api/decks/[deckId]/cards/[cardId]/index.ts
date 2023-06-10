@@ -4,6 +4,7 @@ import {prisma} from "@/lib/db";
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
+import {getUserTokens} from "@/lib/helper";
 
 const chat = new ChatOpenAI({ temperature: 0.9 });
 
@@ -66,6 +67,11 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
 
     if (!source) {
         res.status(400).json({ success: false, error: "Missing document" });
+        return;
+    }
+
+    if (await getUserTokens(userId) < 1) {
+        res.status(402).json({ success: false, error: "Insufficient tokens" });
         return;
     }
 

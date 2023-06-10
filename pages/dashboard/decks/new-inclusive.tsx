@@ -3,24 +3,55 @@ import {Switch, Tab} from "@headlessui/react";
 import {cn} from "@/lib/utils";
 import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
-import {useClerk} from "@clerk/nextjs";
-import cookieCutter from 'cookie-cutter'
+import Cookies from "cookies";
+import {toast} from "@/components/ui/use-toast";
+import {useRouter} from "next/router";
 
-export default function NewDeck() {
-    const clerk = useClerk()
-
+export default function ResumeDeckCreation(props: any) {
     const [formData, setFormData] = useState({
+        name: "",
         maxCards: 0,
-        source: '',
-        name: '',
+        source: "",
         public: false,
-    });
+    })
+    const router = useRouter()
 
-    const generateDeck = () => {
-        cookieCutter.set('resumeDeck', btoa(JSON.stringify(formData)), {
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+    const generateDeckAndCards = async () => {
+        await fetch("/api/decks/new", {
+            method: "POST",
+            body: JSON.stringify(formData),
+        }).then(async (res) => {
+            if (res.status === 200) {
+                console.log(res)
+                const data = await res.json() as { success: boolean, deckId?: string }
+                if (data.success) {
+                    const newRes = await fetch(`/api/decks/${data.deckId}/cards/new`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            maximumCards: formData.maxCards,
+                            source: formData.source,
+                        })
+                    })
+
+                    if (newRes.status === 200) {
+                        const newData = await newRes.json() as { success: boolean, cardId?: string }
+                        if (newData.success) {
+                            router.push(`/dashboard/decks/${data.deckId}`)
+                        } else {
+                            toast({
+                                title: 'Error',
+                                description: 'An error occurred while creating your card.'
+                            })
+                        }
+                    }
+                }
+            } else {
+                toast({
+                    title: 'Error',
+                    description: 'An error occurred while creating your deck.'
+                })
+            }
         })
-        clerk.openSignUp();
     }
 
     return (
@@ -74,7 +105,7 @@ export default function NewDeck() {
                             <div className="border-b border-gray-900/10 pb-5">
                                 <h2 className="text-2xl font-bold">Add Cards to Deck</h2>
                                 <p className="text-sm text-gray-500 font-medium">
-                                    Credit estimates are not completely accurate.
+                                    You can always add more cards later.
                                 </p>
 
                                 <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -186,7 +217,7 @@ export default function NewDeck() {
                         <div className="mt-6 flex items-center justify-end gap-x-6">
                             <button
                                 type="button"
-                                onClick={() => generateDeck()}
+                                onClick={() => generateDeckAndCards()}
                                 className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Generate Deck ✨

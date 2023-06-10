@@ -197,9 +197,9 @@ export default function Deck(props: DeckProps) {
 
                         <div className={"pt-5"}>
                             <div className={"lg:flex lg:flex-row max-w-7xl -mx-5"}>
-                                <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
-                                <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
-                                <StatBox title={"Tokens"} value={"0"} icon={CoinsIcon} />
+                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
+                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
+                                <StatBox title={"Credits"} value={"0"} icon={CoinsIcon} />
                             </div>
                         </div>
 
@@ -320,7 +320,7 @@ export default function Deck(props: DeckProps) {
                                                                 </div>
 
                                                                 <div className={"flex flex-row justify-between"}>
-                                                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Tokens</p>
+                                                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Credits</p>
                                                                     <p className={"dark:text-gray-400 pb-2 font-medium"}>2,482</p>
                                                                 </div>
                                                             </div>

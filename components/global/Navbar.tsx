@@ -48,6 +48,15 @@ export default function Navbar() {
                             <h1 className={"font-bold pt-0.5 text-xl text-main-white ml-3"}>Anki Decks</h1>
                         </div>
                     </Link>
+
+                    <div className={"hidden lg:ml-16 lg:mr-auto lg:flex lg:items-center lg:justify-start lg:gap-12 xl:ml-20"}>
+                        <Link href={"/#examples"} className={"text-base font-semibold leading-6 text-gray-600 transition-all duration-150 hover:text-gray-900"}>Reviews & Examples</Link>
+                        <Link href={"/#pricing"} className={"text-base font-semibold leading-6 text-gray-600 transition-all duration-150 hover:text-gray-900"}>Pricing</Link>
+                        <Link href={"/decks"} className={"text-base font-semibold leading-6 text-gray-600 transition-all duration-150 hover:text-gray-900"}>Decks</Link>
+                        <Link href={"/#faq"} className={"text-base font-semibold leading-6 text-gray-600 transition-all duration-150 hover:text-gray-900"}>How it works</Link>
+                        <Link href={"/blog"} className={"text-base font-semibold leading-6 text-gray-600 transition-all duration-150 hover:text-gray-900"}>Blog</Link>
+                    </div>
+
                     <button onClick={() => clerk.openSignIn({})}>
                         Sign Up
                     </button>

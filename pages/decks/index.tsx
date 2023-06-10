@@ -7,6 +7,7 @@ import Link from "next/link";
 import {ChevronRightIcon, HomeIcon} from "@heroicons/react/solid";
 import {ChevronDoubleRightIcon} from "@heroicons/react/outline";
 import Head from "next/head";
+import Footer from "@/components/global/Footer";
 
 type DecksProps = {
     topics: ScrapedTopicsWithCount[]
@@ -89,6 +90,8 @@ export default function Decks(props: DecksProps) {
                     <TopicList topics={topics} />
                 </div>
             </div>
+
+            <Footer />
         </>
     )
 }
