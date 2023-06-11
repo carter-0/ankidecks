@@ -156,30 +156,30 @@ export default function NewCardForm(props: NewCardFormProps) {
                                         >
                                             Plain Text
                                         </Tab>
-                                        <Tab
-                                            className={({ selected }) =>
-                                                cn(
-                                                    selected
-                                                        ? 'text-gray-900 bg-gray-100 hover:bg-gray-200'
-                                                        : 'text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100',
-                                                    'ml-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md'
-                                                )
-                                            }
-                                        >
-                                            Word Document
-                                        </Tab>
-                                        <Tab
-                                            className={({ selected }) =>
-                                                cn(
-                                                    selected
-                                                        ? 'text-gray-900 bg-gray-100 hover:bg-gray-200'
-                                                        : 'text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100',
-                                                    'ml-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md'
-                                                )
-                                            }
-                                        >
-                                            Powerpoint
-                                        </Tab>
+                                        {/*<Tab*/}
+                                        {/*    className={({ selected }) =>*/}
+                                        {/*        cn(*/}
+                                        {/*            selected*/}
+                                        {/*                ? 'text-gray-900 bg-gray-100 hover:bg-gray-200'*/}
+                                        {/*                : 'text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100',*/}
+                                        {/*            'ml-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md'*/}
+                                        {/*        )*/}
+                                        {/*    }*/}
+                                        {/*>*/}
+                                        {/*    Word Document*/}
+                                        {/*</Tab>*/}
+                                        {/*<Tab*/}
+                                        {/*    className={({ selected }) =>*/}
+                                        {/*        cn(*/}
+                                        {/*            selected*/}
+                                        {/*                ? 'text-gray-900 bg-gray-100 hover:bg-gray-200'*/}
+                                        {/*                : 'text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100',*/}
+                                        {/*            'ml-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md'*/}
+                                        {/*        )*/}
+                                        {/*    }*/}
+                                        {/*>*/}
+                                        {/*    Powerpoint*/}
+                                        {/*</Tab>*/}
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
                                         <Tab.Panel className="p-0.5 -m-0.5 rounded-lg">

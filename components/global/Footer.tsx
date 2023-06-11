@@ -14,7 +14,6 @@ const navigation = {
         { name: 'Refunds', href: '/refunds' },
     ],
     for: [
-        { name: 'Students', href: '/for/students' },
         { name: 'Teachers', href: '/for/teachers' },
         { name: 'Learning CS', href: '/for/computer-science' },
         { name: 'GCSEs', href: '/for/gcses' },
@@ -67,7 +66,7 @@ export default function Footer() {
                             alt="Company name"
                         />
                         <p className="text-gray-500 text-base">
-                            Anki Deck creator for students, teachers, and anyone else who wants to learn.
+                            Anki Deck creator for students, teachers, and anyone else who wants to learn. We are not affiliated with Ankitects Pty Ltd or the Anki project.
                         </p>
                         <div className="flex space-x-6">
                             {navigation.social.map((item) => (

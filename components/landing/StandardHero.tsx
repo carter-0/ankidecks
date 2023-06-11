@@ -12,6 +12,7 @@ interface NewMap {
 }
 
 const titleMap = {
+    "teachers": "Teaching",
     "gcses": "GCSE",
     "a-levels": "A-Level",
     "computer-science": "Computer Science",
