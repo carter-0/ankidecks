@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
 
-    if (deck.user !== userId) {
+    if (deck.user !== userId && deck.public !== true) {
         res.status(401).json({ success: false, error: "Unauthorized" });
         return;
     }

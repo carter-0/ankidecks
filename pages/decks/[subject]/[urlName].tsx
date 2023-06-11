@@ -131,8 +131,9 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                     <MainCTA />
                 </div>
 
-                <Footer />
             </div>
+
+            <Footer />
         </>
     )
 }
