@@ -4,7 +4,7 @@ import {GetServerSideProps, GetServerSidePropsResult} from "next";
 
 const EXTERNAL_DATA_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPosts: { name: string }[]) {
+function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPosts: { name: string }[], aiDeckPosts: { id: string }[]) {
     return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
@@ -12,6 +12,27 @@ function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPos
      </url>
      <url>
        <loc>https://ankidecks.app/decks</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/teachers</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/computer-science</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/gcses</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/a-levels</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/medical-school</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/MCAT</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/for/interviews</loc>
      </url>
      ${deckPosts
         .map(({ topic, name }) => {
@@ -31,6 +52,15 @@ function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPos
         `;
         })
         .join('')}
+    ${aiDeckPosts
+        .map(({ id }) => {
+            return `
+         <url>
+            <loc>${`https://ankidecks.app/decks/ai/${id}`}</loc>
+         </url>
+        `;
+        })  
+        .join('')}
    </urlset>
  `;
 }
@@ -48,8 +78,19 @@ export async function getServerSideProps(props: any) {
             topics: true
         }
     }) as ScrapedDeck[];
+    const aiDecks = await prisma.deck.findMany({
+        where: {
+            public: true,
+        }
+    }) as Deck[];
 
     console.log(decks[0].topics[0].name)
+
+    const aiDeckPosts = aiDecks.map((deck: Deck) => {
+        return {
+            id: deck.id.toLowerCase(),
+        };
+    });
 
     const deckPosts = decks.map((deck: ScrapedDeck) => {
         console.log(deck.topics[0].name)
@@ -66,7 +107,7 @@ export async function getServerSideProps(props: any) {
     });
 
     // We generate the XML sitemap with the posts data
-    const sitemap = generateSiteMap(deckPosts, topicsPosts);
+    const sitemap = generateSiteMap(deckPosts, topicsPosts, aiDeckPosts);
 
     res.setHeader('Content-Type', 'text/xml');
     // we send the XML to the browser
