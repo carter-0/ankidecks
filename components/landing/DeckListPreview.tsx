@@ -4,6 +4,31 @@ import dayjs from "dayjs";
 
 dayjs.extend(require('dayjs/plugin/relativeTime'))
 
+function getBreakpoint(cols: number) {
+    if (cols == 1) {
+        return 3;
+    } else if (cols == 2) {
+        return 4;
+    } else if (cols == 3) {
+        return 6;
+    }
+
+    return 8;
+}
+
+function getCols(width: number) {
+    console.log(width)
+    if (width < 640) {
+        return 1;
+    } else if (width < 768) {
+        return 2;
+    } else if (width < 1024) {
+        return 3;
+    }
+
+    return 4;
+}
+
 type DeckListPreviewProps = {
     decks: PartialDeck[]
 }
@@ -11,11 +36,16 @@ type DeckListPreviewProps = {
 export default function DeckListPreview(props: DeckListPreviewProps) {
     const {decks} = props;
 
+    const cols = typeof window === 'undefined' ? 4 : getCols(window.innerWidth)
+    const breakpoint = typeof window === 'undefined' ? 8 : getBreakpoint(cols)
+
+    const decksToRender = decks.slice(0, breakpoint);
+
     return (
         <>
             <div className={"relative"}>
                 <ul role="list" className="grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {decks.map((deck, deckX) => (
+                    {decksToRender.map((deck, deckX) => (
                         <>
                             <li
                                 key={deck.id}
@@ -24,21 +54,11 @@ export default function DeckListPreview(props: DeckListPreviewProps) {
                                 <div className="flex-1 flex flex-col pt-4 pb-0 p-8">
                                     <h3 className="text-gray-900 text-xl font-medium">{deck.name}</h3>
                                     <dl className="mt-1 flex-grow pb-2 flex flex-col justify-between">
-                                        <dd className="text-gray-500 text-sm"><b>{deck._count.cards.toLocaleString()}</b> cards. Rated by <b>{2}</b> people. Created <b>{dayjs(deck.dateCreated).fromNow()}</b></dd>
+                                        <dd className="text-gray-500 text-sm"><b>{deck._count.cards.toLocaleString()}</b> cards. AI-generated <b>{dayjs(deck.dateCreated).fromNow()}</b></dd>
                                     </dl>
                                 </div>
                                 <div>
                                     <div className="-mt-px flex divide-x divide-gray-200">
-                                        <div className="w-0 flex-1 flex">
-                                            <Link
-                                                href={`https://ankiweb.net/shared/review/${deck.id}`}
-                                                target={"_blank"}
-                                                className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-                                            >
-                                                <ArrowUpIcon className="w-5 h-5 font-extrabold text-red-500" aria-hidden="true" />
-                                                {/*<span className="ml-3">{deck.positiveRatings - deck.negativeRatings}</span>*/}
-                                            </Link>
-                                        </div>
                                         <div className="-ml-px w-0 flex-1 flex">
                                             <Link
                                                 href={`/decks/ai/${deck.id}`}

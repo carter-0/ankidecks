@@ -86,7 +86,7 @@ async function post(req: NextApiRequest, res: NextApiResponse, userId: string) {
     }
 
     const response = await chat.call([
-        new SystemChatMessage("You are a flashcard maker."),
+        new SystemChatMessage("You are a flashcard maker. You respond in JSON."),
         new HumanChatMessage(
             `Given the following data, make flashcards for me. You should follow these rules when making them:
 - There will be data for you to transform into flashcards

@@ -15,6 +15,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle
 } from "@/components/ui/alert-dialog";
+import TooManyTokens from "@/components/dashboard/TooManyTokens";
 
 type NewCardFormProps = {
     deck: Deck
@@ -100,6 +101,10 @@ export default function NewCardForm(props: NewCardFormProps) {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+
+            {tokenEstimate > 4096 ? (
+                <TooManyTokens />
+            ) : null }
 
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-5">
@@ -232,6 +237,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                 <button
                     type="button"
                     onClick={submit}
+                    disabled={tokenEstimate > 4096}
                     className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-teal-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                 >
                     {submitting ? (
