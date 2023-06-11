@@ -51,7 +51,8 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     },
                     data: {
                         stripeSubscriptionId: session.id,
-                        freeAccount: false
+                        freeAccount: false,
+                        tokenAllowance: 10000000
                     }
                 })
 

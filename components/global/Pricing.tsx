@@ -1,6 +1,9 @@
-import {CheckIcon} from "@heroicons/react/solid";
+import {CheckIcon, StarIcon} from "@heroicons/react/solid";
 import {ClerkLoading, SignedIn, SignedOut, useClerk} from "@clerk/nextjs";
 import Link from "next/link";
+import {ArrowUpIcon} from "@heroicons/react/outline";
+import {CornerLeftUp} from "lucide-react";
+import Image from "next/image";
 
 const includedFeatures = [
     '50,000 Monthly Card Limit',
@@ -90,6 +93,57 @@ export default function Pricing() {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className={"flex flex-col justify-center items-center"}>
+                    <div className={"flex justify-center items-center flex-row"}>
+                        <CornerLeftUp className={"sm:block hidden h-6 w-6 text-gray-500 mt-4"}/>
+                        <div className="flex mt-3 sm:ml-3 p-1 -space-x-2 overflow-hidden">
+                            <Image
+                                width={64}
+                                height={64}
+                                className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                                src="/assets/person_1.avif"
+                                alt=""
+                            />
+                            <Image
+                                width={64}
+                                height={64}
+                                className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                                src="/assets/person_2.avif"
+                                alt=""
+                            />
+                            <Image
+                                width={64}
+                                height={64}
+                                className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                                src="/assets/person_3.avif"
+                                alt=""
+                            />
+                            <Image
+                                width={64}
+                                height={64}
+                                className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                                src="/assets/person_4.avif"
+                                alt=""
+                            />
+                            <Image
+                                width={64}
+                                height={64}
+                                className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover"
+                                src="/assets/person_5.avif"
+                                alt=""
+                            />
+                        </div>
+
+                        <div className="flex mt-3 sm:ml-3">
+                            <StarIcon className="h-6 w-6 text-yellow-400" aria-hidden="true" />
+                            <StarIcon className="h-6 w-6 text-yellow-400" aria-hidden="true" />
+                            <StarIcon className="h-6 w-6 text-yellow-400" aria-hidden="true" />
+                            <StarIcon className="h-6 w-6 text-yellow-400" aria-hidden="true" />
+                            <StarIcon className="h-6 w-6 text-yellow-400" aria-hidden="true" />
+                        </div>
+                    </div>
+                    <h3 className="mt-3 text-black/60 leading-6 max-w-md text-center">Join our community of 100+ happy customers. On average, our decks take just <span className={"font-bold"}>2 minutes</span> to create.</h3>
                 </div>
             </div>
         </>

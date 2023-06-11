@@ -48,6 +48,9 @@ export default function Dashboard(props: DashboardProps) {
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
     const [selectedDeck, setSelectedDeck] = useState<string>("")
 
+    const tokenAllowance = freeAccount ? (4000).toLocaleString() : "∞"
+    const tokensUsed = freeAccount ? (4000 - tokens).toLocaleString() : 10000000 - tokens
+
     const mostRecentCard = decks.map((deck) => {
         return deck.cards.sort((a, b) => {
             return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
@@ -60,7 +63,9 @@ export default function Dashboard(props: DashboardProps) {
         <>
             <Navbar />
 
-            <FreeAccountBannerCTA />
+            {freeAccount ? (
+                <FreeAccountBannerCTA />
+            ) : null}
 
             <main>
                 <AlertDialog open={deleteAlertOpen} onOpenChange={(v) => {setDeleteAlertOpen(v)}}>
@@ -93,7 +98,7 @@ export default function Dashboard(props: DashboardProps) {
                 <div className={"mx-auto sg:max-w-md sg:max-w-3xl mx-auto max-w-md sm:max-w-3xl lg:max-w-7xl lg:px-8"}>
                     <div className={"flex flex-col"}>
                         <div className={"sm:-mx-5 lg:flex lg:flex-row lg:max-w-7xl"}>
-                            <StatBox title={"Credits Used"} value={tokens.toLocaleString()} icon={CurrencyDollarIcon} />
+                            <StatBox title={"Credits Used"} value={`${tokensUsed.toLocaleString()} / ${tokenAllowance}`} icon={CurrencyDollarIcon} />
                             <StatBox title={"Decks"} value={decks.length.toLocaleString()} icon={BookOpenIcon} />
                             <StatBox title={"Account Status"} value={freeAccount ? 'Free' : 'Premium'} icon={CurrencyDollarIcon}>
                                 {freeAccount ? (

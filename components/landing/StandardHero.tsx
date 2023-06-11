@@ -5,6 +5,7 @@ import {ArrowRightIcon, CheckIcon, ChevronRightIcon, StarIcon} from '@heroicons/
 import {ClerkLoading, SignedIn, SignedOut, useClerk} from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
+import {TextCursorIcon} from "lucide-react";
 
 interface NewMap {
     [key: string]: string | undefined
@@ -88,7 +89,10 @@ export default function StandardHero(props: StandardHeroProps) {
                                         <div className="sm:flex">
                                             <div className="max-w-lg w-full flex">
                                                 <ClerkLoading>
-                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({})}>
+                                                    <button type={"button"} className="bg-teal-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({
+                                                        afterSignInUrl: "/dashboard",
+                                                        afterSignUpUrl: "/dashboard/after-sign-up",
+                                                    })}>
                                                         <div className="flex flex-row items-center justify-center">
                                                             <p className="text-white pr-2 text-xl font-bold">Create a Deck</p>
                                                             <ArrowRightIcon className="text-white w-6 h-6" aria-hidden="true" />
@@ -96,7 +100,10 @@ export default function StandardHero(props: StandardHeroProps) {
                                                     </button>
                                                 </ClerkLoading>
                                                 <SignedOut>
-                                                    <button type={"button"} className="bg-red-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({})}>
+                                                    <button type={"button"} className="bg-teal-500 cursor-pointer p-4 w-full rounded-md hover:scale-[1.02] transition-transform duration-200" onClick={() => clerk.openSignUp({
+                                                        afterSignInUrl: "/dashboard",
+                                                        afterSignUpUrl: "/dashboard/after-sign-up",
+                                                    })}>
                                                         <div className="flex flex-row items-center justify-center">
                                                             <p className="text-white pr-2 text-xl font-bold">Create a Deck</p>
                                                             <ArrowRightIcon className="text-white w-6 h-6" aria-hidden="true" />
@@ -125,8 +132,13 @@ export default function StandardHero(props: StandardHeroProps) {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
+                        <div className="mt-12 lg:py-24 -mb-16 sm:-mb-48 lg:relative">
                             <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+                                {/*<div className={"flex flex-row"}>*/}
+                                {/*    <p className={"text-base text-black/80"}>"A GCSE Geography Deck"</p>*/}
+                                {/*    <p className={"text-base animate-pulse text-gray-500"}>|</p>*/}
+                                {/*    <img className={"h-8 w-auto ml-2 mt-2.5"} src={"data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTUiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCA1NSAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggb3BhY2l0eT0iMC4yIiBkPSJNMC4yNzY3NjYgMi42MjA3MkMyLjAxNzA0IDAuNjU4Mjg5IDQuMzEwMjggMC4yOTUwODYgNi40NDYzNSAwLjIwMTA3NkM5LjQxNTkgMC4xMDUzNTIgMTIuMzk5NCAwLjI5MTI2NyAxNS4yMjU4IDAuNzQ2MzY0QzI4LjE1MTYgMy4xNTIzNiAzNy42NjMzIDkuNjc1MTIgNDQuMDgzMiAxOS41NTg2QzQ1LjcwNDggMjIuMDc3NSA0Ni45MjM2IDI0Ljg3ODggNDguNDU0NCAyNy44NTg3QzUwLjkyNTcgMjUuMzU3MSA1MS40OTQ5IDIxLjkzNzUgNTMuODk5OSAxOS4yNDRDNTQuNzE0NyAyMC4zOTQ1IDU0LjI1NzIgMjEuNDgzNyA1My45MDQ1IDIyLjM5MzVDNTIuNDQxMyAyNi4xMjIxIDUwLjkwMzYgMjkuODc2NiA0OS4yNjkzIDMzLjU5MjhDNDguNDY3MyAzNS4zNzQgNDcuNTQzIDM1LjgzNjggNDUuODAzOCAzNS4xNDkxQzQyLjE1NDUgMzMuNzYxIDM5LjQ0NTcgMzEuNDc0OSAzNy43NzQgMjguMzI4OEMzNy43Mjk4IDI4LjIwMDggMzcuODg2OSAyNy45MzE3IDM4LjA3NDMgMjcuNTA4OEM0MS41MjEyIDI3LjEwNDggNDEuOTkyNiAzMC44ODA3IDQ1LjE5MTUgMzEuMjA3QzQ0Ljg1NzQgMjYuMzgxIDQyLjUwMzYgMjIuNDY4MSAzOS43NDcxIDE4LjgzNzdDMzYuODQ5NyAxNS4wNDEyIDMzLjU3MTYgMTEuNTkxMiAyOS4zMzA5IDguOTc1MjhDMjUuMTg2OCA2LjM5NzYgMjAuNTQwOSA0Ljc4MTE3IDE1LjU4OSAzLjQ4NTQ1QzEwLjY4OTQgMi4xIDUuNjIyMTggMS45MTgzNyAwLjI3Njc2NiAyLjYyMDcyWiIgZmlsbD0iIzBEMTkyNyIvPgo8L3N2Zz4K"} />*/}
+                                {/*</div>*/}
                                 <Image
                                     className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
                                     src="/images/cloud-illustration-indigo-400.svg"
