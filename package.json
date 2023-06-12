@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.350.0",
     "@clerk/nextjs": "^4.19.1-staging.3",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "v1",
@@ -24,6 +25,7 @@
     "@types/node": "20.2.3",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
+    "amqplib": "^0.10.3",
     "anki-apkg-export": "^4.0.3",
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.6.0",
@@ -38,6 +40,7 @@
     "lucide-react": "^0.223.0",
     "micro": "^10.0.1",
     "micro-cors": "^0.1.1",
+    "multer": "^1.4.5-lts.1",
     "next": "^13.4.4",
     "postcss": "8.4.23",
     "react": "18.2.0",
