@@ -8,10 +8,10 @@ const AnkiExport = require('anki-apkg-export').default;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { userId } = getAuth(req);
 
-    if (!userId) {
-        res.status(401).json({ success: false, error: "Unauthorized" });
-        return;
-    }
+    // if (!userId) {
+    //     res.status(401).json({ success: false, error: "Unauthorized" });
+    //     return;
+    // }
 
     const deck = await prisma.deck.findUnique({
         where: {
