@@ -31,7 +31,7 @@ export default function Document() {
         </Script>
 
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-xxxxxxxxxx"
+          src="https://www.googletagmanager.com/gtag/js?id=G-FQZP7CTJBP"
           strategy="afterInteractive"
         />
 
