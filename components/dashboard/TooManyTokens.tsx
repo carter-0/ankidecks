@@ -8,8 +8,8 @@ export default function TooManyTokens() {
                     <div className="flex items-center justify-between flex-wrap">
                         <div className="w-0 flex-1 flex items-center">
                             <p className="ml-3 font-medium text-white line-clamp-3">
-                                <span className="md:hidden">You have exceeded 4000 tokens! Please split your data and submit multiple times.</span>
-                                <span className="hidden md:inline">You have exceeded 4000 tokens! Please split your data and submit multiple times.</span>
+                                <span className="md:hidden">You have exceeded 8192 tokens! Please split your data and submit multiple times.</span>
+                                <span className="hidden md:inline">You have exceeded 8192 tokens! Please split your data and submit multiple times.</span>
                             </p>
                         </div>
                         <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">

@@ -7,11 +7,7 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime.js'
 import StatBox from "@/components/dashboard/StatBox";
 import {
-    AlignJustify,
-    AlignJustifyIcon,
     CoinsIcon, DownloadIcon,
-    ListIcon,
-    LucideAlignCenterHorizontal,
     MoreVertical
 } from "lucide-react";
 import SecondNavbar from "@/components/global/SecondNavbar";
@@ -39,6 +35,7 @@ import {deleteCards, deleteDeck} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
 import {PlusIcon} from "@heroicons/react/solid";
 import Footer from "@/components/global/Footer";
+import ActionsList from "@/components/decks/ActionsList";
 
 dayjs.extend(relativeTime)
 
@@ -174,7 +171,7 @@ export default function Deck(props: DeckProps) {
                         } />
 
                         <div className={"flex mt-10 flex-row items-center"}>
-                            <Image alt={"Artist image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
+                            <Image alt={"Deck Image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
                             <div className={"dark:bg-primary-black w-full p-4"}>
                                 <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
@@ -201,6 +198,26 @@ export default function Deck(props: DeckProps) {
                                 <StatBox title={"Credits Used"} value={deck.tokensUsed.toLocaleString()} icon={CoinsIcon} />
                                 <StatBox title={"Cards"} value={deck.cards.length.toLocaleString()} icon={CoinsIcon} />
                                 <StatBox title={"Public"} value={deck.public ? "Yes" : "No"} icon={CoinsIcon} />
+                            </div>
+                        </div>
+
+                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
+                            <div className={"dark:bg-secondary-black pb-4"}>
+                                <div className={"flex flex-row items-center justify-between"}>
+                                    <h1 className={"text-2xl font-bold"}>Actions</h1>
+                                    <div className={"flex flex-row items-center space-x-2 lg:space-x-5"}>
+                                        <Link
+                                            type="button"
+                                            href={`/dashboard/decks/${deck.id}/cards/new`}
+                                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                        >
+                                            New Cards +
+                                        </Link>
+                                    </div>
+                                </div>
+                                <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Perform actions to this deck</p>
+
+                                <ActionsList />
                             </div>
                         </div>
 

@@ -5,9 +5,8 @@ import {prisma} from "@/lib/db";
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
 import {calcTokens, getUserTokens} from "@/lib/helper";
-import {GPTTokens} from "gpt-tokens";
 
-const chat = new ChatOpenAI({ temperature: 0.9 });
+const chat = new ChatOpenAI({ temperature: 0.9, modelName: "gpt-3.5-turbo-16k" });
 
 async function get(req: NextApiRequest, res: NextApiResponse, userId: string) {
     // const { deckId } = req.query as { deckId: string }

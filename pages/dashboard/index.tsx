@@ -1,6 +1,6 @@
 import Navbar from "@/components/global/Navbar";
 import StatBox from "@/components/dashboard/StatBox";
-import {CurrencyDollarIcon, CursorClickIcon, TrashIcon, BookOpenIcon} from "@heroicons/react/outline";
+import {CurrencyDollarIcon, CursorClickIcon, TrashIcon, BookOpenIcon, UploadIcon} from "@heroicons/react/outline";
 import {getAuth} from "@clerk/nextjs/server";
 import {GetServerSideProps} from "next";
 import {prisma} from "@/lib/db";
@@ -167,7 +167,18 @@ export default function Dashboard(props: DashboardProps) {
                                                 <div className={"cursor-pointer border-2 py-9 border-dashed border-gray-200 bg-white p-5 rounded-md w-full mt-2"}>
                                                     <div className={"flex flex-col justify-center items-center"}>
                                                         <PlusIcon className={"h-6 w-6"} />
-                                                        <p className={"font-medium"}>New Deck</p>
+                                                        <p className={"font-medium"}>Create Deck</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+
+                                        <div className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>
+                                            <Link href={"/dashboard/decks/new"}>
+                                                <div className={"cursor-pointer border-2 py-9 border-dashed border-gray-200 bg-white p-5 rounded-md w-full mt-2"}>
+                                                    <div className={"flex flex-col justify-center items-center"}>
+                                                        <UploadIcon className={"h-6 w-6"} />
+                                                        <p className={"font-medium"}>Upload Existing Deck</p>
                                                     </div>
                                                 </div>
                                             </Link>

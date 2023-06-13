@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {ArrowUpIcon, LinkIcon} from "@heroicons/react/solid";
+import {LinkIcon} from "@heroicons/react/solid";
 import dayjs from "dayjs";
 
 dayjs.extend(require('dayjs/plugin/relativeTime'))
