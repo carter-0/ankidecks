@@ -25,7 +25,11 @@ export default withClerkMiddleware((request: NextRequest) => {
         const { userId } = getAuth(request)
 
         if (userId) {
-            return NextResponse.redirect(new URL('/dashboard/decks/new', request.url))
+            let baseUrl = new URL('request.url')
+            baseUrl.hostname = 'ankidecks.app'
+            baseUrl.protocol = 'https'
+
+            return NextResponse.redirect(new URL('/dashboard/decks/new', baseUrl))
         }
 
         return NextResponse.next()
@@ -40,10 +44,19 @@ export default withClerkMiddleware((request: NextRequest) => {
 
     if (!userId) {
         // redirect the users to /pages/sign-in/[[...index]].ts
+        if (process.env.NODE_ENV === 'production') {
+            let baseUrl = new URL('request.url')
+            baseUrl.hostname = 'ankidecks.app'
+            baseUrl.protocol = 'https'
 
-        const signInUrl = new URL('/sign-in', request.url)
-        signInUrl.searchParams.set('redirect_url', request.url)
-        return NextResponse.redirect(signInUrl)
+            const signInUrl = new URL('/sign-in', baseUrl)
+            signInUrl.searchParams.set('redirect_url', baseUrl.toString())
+            return NextResponse.redirect(signInUrl)
+        } else {
+            const signInUrl = new URL('/sign-in', request.url)
+            signInUrl.searchParams.set('redirect_url', request.url)
+            return NextResponse.redirect(signInUrl)
+        }
     }
     return NextResponse.next()
 })
