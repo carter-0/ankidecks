@@ -18,6 +18,8 @@ model Deck {
   dateCreated DateTime @default(now())
   tokensUsed Int @default(0)
   public Boolean @default(false)
+  imported Boolean @default(false)
+  key String? @unique
 }
 
 model Card {
@@ -25,8 +27,9 @@ model Card {
   deck   Deck           @relation(fields: [deckId], references: [id])
   deckId String
   type   CardType
-  front  String         @db.VarChar(4096)
+  front  String?        @db.VarChar(4096)
   back   String?        @db.VarChar(4096)
+  tags   String         @default("")
   dateCreated DateTime  @default(now())
   dateModified DateTime @default(now())
 }
@@ -52,7 +55,7 @@ model ScrapedDeck {
 model User {
   id   Int @id @default(autoincrement())
   userId String @unique
-  tokenAllowance Int @default(4000)
+  tokenAllowance Int @default(8192)
   tokensUsed Int @default(0)
   stripeCustomerId String?
   stripeSubscriptionId String?

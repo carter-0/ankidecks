@@ -29,14 +29,9 @@ export const config = {
 
 export default async function handler(req: any, res: any) {
     const { userId } = getAuth(req);
-    const { guildId } = req.query;
 
     if (!userId) {
         return res.status(401).json({message: "Unauthorized"});
-    }
-
-    if (guildId == undefined) {
-        return res.status(400).json({message: "Please provide a guildId"});
     }
 
     await new Promise(resolve => {
@@ -44,27 +39,32 @@ export default async function handler(req: any, res: any) {
         mw(req, res, resolve)
     })
 
-    for (const file of req.files) {
-        if (file.buffer.byteLength > 100 * 1024 * 1024) {
-            return res.status(400).json({message: "File too large :("});
-        }
+    const file = req.files[0];
 
-        let id = String(crypto.randomBytes(20).toString('hex'))
-
-        const params = {
-            Bucket: bucket,
-            Key: `test/${id}`,
-            Body: file.buffer,
-            ContentType: file.mimetype
-        };
-
-        const command = new PutObjectCommand(params);
-        await s3.send(command);
+    if (file.buffer.byteLength > 100 * 1024 * 1024) {
+        return res.status(400).json({message: "This deck is currently too large for us to process :("});
     }
 
+    if (file.mimetype !== 'application/zip') {
+        return res.status(400).json({message: "Invalid file type or corrupted deck. Please ensure you are uploading a valid Anki deck file (.apkg)."});
+    }
+
+    let id = String(crypto.randomBytes(20).toString('hex'))
+
+    const params = {
+        Bucket: bucket,
+        Key: `${userId}/${id}.apkg`,
+        Body: file.buffer,
+        ContentType: file.mimetype
+    };
+
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
+
     await sendRabbitMQMessage({
-        type: "update",
-        guildId: guildId,
+        userId: userId,
+        type: 'UPLOAD_DECK',
+        key: `${userId}/${id}.apkg`,
     })
 
     return res.status(200).json({message: "Successfully uploaded file"});
