@@ -3,28 +3,73 @@ import {
 } from '@heroicons/react/outline'
 import {FactoryIcon} from "lucide-react";
 import {cn} from "@/lib/utils";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription, AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog";
+import {useState} from "react";
+import Toggle from "@/components/ui/toggle";
 
-const actions = [
-    {
-        title: 'Add Tags',
-        href: '#',
-        icon: TagIcon,
-        iconForeground: 'text-teal-700',
-        iconBackground: 'bg-teal-50',
-        description: 'Use AI to generate tags for your cards.',
-    },
-    {
-        title: 'Generate Variation',
-        href: '#',
-        icon: FactoryIcon,
-        iconForeground: 'text-purple-700',
-        iconBackground: 'bg-purple-50',
-        description: 'Create a copy of this deck re-phrased by AI.',
+type ActionsListProps = {
+    deck: Deck
+}
+
+export default function ActionsList(props: ActionsListProps) {
+    const {deck} = props
+    const [addTagsOpen, setAddTagsOpen] = useState(false);
+
+    const [AddTagsSettings, setAddTagsSettings] = useState({
+        customTags: false,
+        customTagsList: [],
+        
     }
-]
-export default function ActionsList() {
+
+    const actions = [
+        {
+            title: 'Add Tags',
+            onClick: () => setAddTagsOpen(true),
+            icon: TagIcon,
+            iconForeground: 'text-teal-700',
+            iconBackground: 'bg-teal-50',
+            description: 'Use AI to generate tags for your cards.',
+        },
+        {
+            title: 'Generate Variation',
+            onClick: () => (true),
+            icon: FactoryIcon,
+            iconForeground: 'text-purple-700',
+            iconBackground: 'bg-purple-50',
+            description: 'Create a copy of this deck re-phrased by AI.',
+        }
+    ]
+
     return (
-        <div className="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+        <>
+            <AlertDialog open={addTagsOpen} onOpenChange={(v) => {setAddTagsOpen(v)}}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Add AI Generated Tags to {deck.name}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            <div className={"flex flex-col"}>
+                                <Toggle />
+                            </div>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => (true)}>
+                            Erase cards
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <div className="rounded-lg cursor-pointer bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
             {actions.map((action, actionIdx) => (
                 <div
                     key={action.title}
@@ -49,11 +94,11 @@ export default function ActionsList() {
                     </div>
                     <div className="mt-8">
                         <h3 className="text-lg font-medium">
-                            <a href={action.href} className="focus:outline-none">
+                            <div onClick={action.onClick} className="focus:outline-none">
                                 {/* Extend touch target to entire panel */}
                                 <span className="absolute inset-0" aria-hidden="true" />
                                 {action.title}
-                            </a>
+                            </div>
                         </h3>
                         <p className="mt-2 text-sm text-gray-500">
                             {action.description}
@@ -70,5 +115,6 @@ export default function ActionsList() {
                 </div>
             ))}
         </div>
+        </>
     )
 }

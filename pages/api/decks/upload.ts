@@ -45,10 +45,6 @@ export default async function handler(req: any, res: any) {
         return res.status(400).json({message: "This deck is currently too large for us to process :("});
     }
 
-    if (file.mimetype !== 'application/zip') {
-        return res.status(400).json({message: "Invalid file type or corrupted deck. Please ensure you are uploading a valid Anki deck file (.apkg)."});
-    }
-
     let id = String(crypto.randomBytes(20).toString('hex'))
 
     const params = {

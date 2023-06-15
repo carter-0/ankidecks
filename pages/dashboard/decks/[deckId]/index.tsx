@@ -33,7 +33,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import {deleteCards, deleteDeck} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
-import {PlusIcon} from "@heroicons/react/solid";
 import Footer from "@/components/global/Footer";
 import ActionsList from "@/components/decks/ActionsList";
 
@@ -217,7 +216,7 @@ export default function Deck(props: DeckProps) {
                                 </div>
                                 <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Perform actions to this deck</p>
 
-                                <ActionsList />
+                                <ActionsList deck={deck} />
                             </div>
                         </div>
 
