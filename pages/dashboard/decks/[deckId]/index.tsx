@@ -35,6 +35,7 @@ import {deleteCards, deleteDeck} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
 import Footer from "@/components/global/Footer";
 import ActionsList from "@/components/decks/ActionsList";
+import Tasks from "@/components/decks/Tasks";
 
 dayjs.extend(relativeTime)
 
@@ -161,7 +162,7 @@ export default function Deck(props: DeckProps) {
                     </div>
                 </div>
 
-                <div className={"flex flex-col items-center dark:text-white text-black"}>
+                <div className={"flex flex-col items-center text-black"}>
                     <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
                         <SecondNavbar pages={
                             [
@@ -172,7 +173,7 @@ export default function Deck(props: DeckProps) {
                         <div className={"flex mt-10 flex-row items-center"}>
                             <Image alt={"Deck Image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
-                            <div className={"dark:bg-primary-black w-full p-4"}>
+                            <div className={"w-full p-4"}>
                                 <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
                                 <div className={"flex flex-col"}>
                                     <p className={"truncate text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
@@ -200,28 +201,30 @@ export default function Deck(props: DeckProps) {
                             </div>
                         </div>
 
-                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
-                            <div className={"dark:bg-secondary-black pb-4"}>
+                        <div className={"bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
+                            <div className={"pb-4"}>
                                 <div className={"flex flex-row items-center justify-between"}>
                                     <h1 className={"text-2xl font-bold"}>Actions</h1>
-                                    <div className={"flex flex-row items-center space-x-2 lg:space-x-5"}>
-                                        <Link
-                                            type="button"
-                                            href={`/dashboard/decks/${deck.id}/cards/new`}
-                                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                                        >
-                                            New Cards +
-                                        </Link>
-                                    </div>
                                 </div>
-                                <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Perform actions to this deck</p>
+                                <p className={"text-gray-500 pb-2 font-medium"}>Perform actions to this deck</p>
 
                                 <ActionsList deck={deck} />
                             </div>
                         </div>
 
-                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
-                            <div className={"dark:bg-secondary-black "}>
+                        <div className={"bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
+                            <div className={"pb-4"}>
+                                <div className={"flex flex-row items-center justify-between"}>
+                                    <h1 className={"text-2xl font-bold"}>Tasks</h1>
+                                </div>
+                                <p className={"text-gray-500 pb-2 font-medium"}>Monitor the currently running tasks on this deck</p>
+
+                                <Tasks deck={deck} />
+                            </div>
+                        </div>
+
+                        <div className={"bg-white shadow rounded-md mt-5 w-full pb-0 p-4"}>
+                            <div className={""}>
                                 <div className={"flex flex-row items-center justify-between"}>
                                     <h1 className={"text-2xl font-bold"}>Cards</h1>
                                     <div className={"flex flex-row items-center space-x-2 lg:space-x-5"}>
@@ -253,14 +256,14 @@ export default function Deck(props: DeckProps) {
                                         </Link>
                                     </div>
                                 </div>
-                                <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
+                                <p className={"text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
                                     {/*<div className={"grid grid-cols-1 gap-4 pb-5"}>*/}
                                     {/*    <div className={"col-span-1"}>*/}
                                     {/*        <Link href={`/dashboard/decks/${deck.id}/cards/new`}>*/}
-                                    {/*            <div className={"dark:bg-primary-black border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>*/}
+                                    {/*            <div className={"border border-gray-200 bg-gray-50 rounded-md w-full mt-2"}>*/}
                                     {/*                <div className={"flex flex-row items-center justify-center w-full py-3 p-5 px-4"}>*/}
                                     {/*                    <div className={"flex flex-row items-center justify-center w-full"}>*/}
-                                    {/*                        <p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>*/}
+                                    {/*                        <p className="text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">New Cards</p>*/}
                                     {/*                    </div>*/}
                                     {/*                </div>*/}
                                     {/*                <div className={"flex items-center py-0 pb-3 p-5 px-4 sm:px-6"}>*/}
@@ -299,7 +302,7 @@ export default function Deck(props: DeckProps) {
                                             <div className={"grid smpp:grid-cols-1 grid-cols-2 lg:grid-cols-2 gap-4 pb-5"}>
                                                 {deck.cards.map((card: Card, cardX) => (
                                                     <div key={cardX} onClick={() => addCard(card.id)} className={cn("col-span-1", selectData.active ? 'cursor-pointer' : '')}>
-                                                        <div className={cn("dark:bg-primary-black border border-gray-200 bg-white rounded-md w-full mt-2", selectData.active && selectData.selected.includes(card.id) ? 'outline' : '')}>
+                                                        <div className={cn("border border-gray-200 bg-white rounded-md w-full mt-2", selectData.active && selectData.selected.includes(card.id) ? 'outline' : '')}>
                                                             <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                                 <div className={"flex flex-row items-center"}>
                                                                     {/*<div className="bg-black rounded-md p-3">*/}
@@ -308,7 +311,7 @@ export default function Deck(props: DeckProps) {
                                                                     {/*    /!*<icon className="h-6 w-6 text-white" aria-hidden="true" />*!/*/}
                                                                     {/*    <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{cardX+1}</p>*/}
                                                                     {/*</div>*/}
-                                                                    <Link href={"/dashboard/decks/"+deck.id+"/cards/"+card.id}><p className="dark:text-gray-400 text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">{card.front}</p></Link>
+                                                                    <Link href={"/dashboard/decks/"+deck.id+"/cards/"+card.id}><p className="text-sm font-medium lg:text-xl text-lg overflow-wrap line-clamp-2 min-w-0">{card.front}</p></Link>
                                                                 </div>
 
                                                                 <div className={"flex flex-row ml-auto"}>
@@ -327,18 +330,18 @@ export default function Deck(props: DeckProps) {
                                                                             {/*<DropdownMenuItem>Subscription</DropdownMenuItem>*/}
                                                                         </DropdownMenuContent>
                                                                     </DropdownMenu>
-                                                                    {/*<Link href={"/"} className={"dark:bg-secondary-black ml-2 dark:text-white hover:bg-gray-200 bg-gray-100 text-gray-900 px-4 py-2 rounded-md text-sm font-medium"}>View</Link>*/}
+                                                                    {/*<Link href={"/"} className={"ml-2 hover:bg-gray-200 bg-gray-100 text-gray-900 px-4 py-2 rounded-md text-sm font-medium"}>View</Link>*/}
                                                                 </div>
                                                             </div>
                                                             <div className={"flex flex-col py-3 p-5 px-4 sm:px-6"}>
                                                                 <div className={"flex flex-row justify-between"}>
-                                                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Type</p>
-                                                                    <p className={"dark:text-gray-400 pb-2 font-medium"}>{capitalizeFirstLetter(card.type.toLowerCase())}</p>
+                                                                    <p className={"text-gray-500 pb-2 font-medium"}>Type</p>
+                                                                    <p className={"pb-2 font-medium"}>{capitalizeFirstLetter(card.type.toLowerCase())}</p>
                                                                 </div>
 
                                                                 <div className={"flex flex-row justify-between"}>
-                                                                    <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Credits</p>
-                                                                    <p className={"dark:text-gray-400 pb-2 font-medium"}>2,482</p>
+                                                                    <p className={"text-gray-500 pb-2 font-medium"}>Credits</p>
+                                                                    <p className={"pb-2 font-medium"}>2,482</p>
                                                                 </div>
                                                             </div>
                                                         </div>

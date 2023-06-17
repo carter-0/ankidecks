@@ -17,12 +17,11 @@ export default function StatBox(props: StatBoxProps) {
                     <dt>
                         <div className="absolute bg-teal-500 rounded-md p-3">
                             <props.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                            {/*<icon className="h-6 w-6 text-white" aria-hidden="true" />*/}
                         </div>
-                        <p className="dark:text-gray-400 ml-16 text-sm font-medium text-gray-500 truncate">{props.title}</p>
+                        <p className="ml-16 text-sm font-medium text-gray-500 truncate">{props.title}</p>
                     </dt>
                     <dd className="ml-16 flex items-baseline">
-                        <p className="dark:text-white text-2xl font-semibold text-gray-900 truncate">{props.value}</p>
+                        <p className="text-2xl font-semibold text-gray-900 truncate">{props.value}</p>
                         {props.children}
                     </dd>
                 </div>

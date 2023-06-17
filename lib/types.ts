@@ -71,3 +71,13 @@ type User = {
     stripeSubscriptionId: string;
     freeAccount: boolean;
 }
+
+type Task = {
+    id: number;
+    type: string;
+    title: string;
+    status: string;
+    startedAt: Date;
+    finishedAt?: Date;
+    error?: string;
+}

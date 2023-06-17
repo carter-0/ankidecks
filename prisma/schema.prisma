@@ -34,6 +34,16 @@ model Card {
   dateModified DateTime @default(now())
 }
 
+model Tasks {
+  id   Int @id @default(autoincrement())
+  type String
+  title String
+  status String
+  startedAt DateTime
+  finishedAt DateTime?
+  error String?
+}
+
 model ScrapedTopics {
   id   Int @id @default(autoincrement())
   name String @db.VarChar(4096)
