@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
+import {toast} from "@/components/ui/use-toast";
 
 type ActionsListProps = {
     deck: Deck
@@ -25,9 +26,8 @@ export default function ActionsList(props: ActionsListProps) {
 
     const [AddTagsSettings, setAddTagsSettings] = useState({
         customTags: false,
-        customTagsList: [],
-        
-    }
+        customTagsList: []
+    })
 
     const actions = [
         {
@@ -48,6 +48,27 @@ export default function ActionsList(props: ActionsListProps) {
         }
     ]
 
+    const addTags = async () => {
+        await fetch(`/api/decks/${deck.id}/add-tags`, {
+            "method": "POST",
+            "body": JSON.stringify(AddTagsSettings)
+        }).then((r) => {
+            if (!r.ok) {
+                toast({
+                    title: "Error",
+                    description: "Failed to add tags",
+                })
+                return;
+            }
+
+            console.log(r);
+            toast({
+                title: "Success",
+                description: "Added tags successfully!",
+            })
+        })
+    }
+
     return (
         <>
             <AlertDialog open={addTagsOpen} onOpenChange={(v) => {setAddTagsOpen(v)}}>
@@ -56,14 +77,16 @@ export default function ActionsList(props: ActionsListProps) {
                         <AlertDialogTitle>Add AI Generated Tags to {deck.name}</AlertDialogTitle>
                         <AlertDialogDescription>
                             <div className={"flex flex-col"}>
-                                <Toggle />
+                                <div className={"flex flex-row gap-2 items-center"}>
+                                    Use Custom Tags <Toggle setEnabled={(v) => {setAddTagsSettings({...AddTagsSettings, customTags: v})}} enabled={AddTagsSettings.customTags} />
+                                </div>
                             </div>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => (true)}>
-                            Erase cards
+                        <AlertDialogAction onClick={() => addTags()}>
+                            Add to Queue
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
