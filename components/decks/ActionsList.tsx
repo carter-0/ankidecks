@@ -15,6 +15,7 @@ import {
 import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
 import {toast} from "@/components/ui/use-toast";
+import {mutate} from "swr";
 
 type ActionsListProps = {
     deck: Deck
@@ -60,6 +61,8 @@ export default function ActionsList(props: ActionsListProps) {
                 })
                 return;
             }
+
+            mutate(`/api/decks/${deck.id}/tasks`)
 
             console.log(r);
             toast({

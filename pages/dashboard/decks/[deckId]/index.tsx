@@ -36,6 +36,7 @@ import {toast} from "@/components/ui/use-toast";
 import Footer from "@/components/global/Footer";
 import ActionsList from "@/components/decks/ActionsList";
 import Tasks from "@/components/decks/Tasks";
+import useSWR from "swr";
 
 dayjs.extend(relativeTime)
 
@@ -46,6 +47,8 @@ type DeckProps = {
 function capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Deck(props: DeckProps) {
     const { deck: initialDeck } = props;
@@ -58,6 +61,11 @@ export default function Deck(props: DeckProps) {
         selected: []
     });
     const [deleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false);
+
+    const { data: tasks } = useSWR(`/api/decks/${deck.id}/tasks`, fetcher, {
+        fallbackData: deck.tasks as Task[],
+        refreshInterval: 1000
+    });
 
     const addCard = (cardId: string) => {
         if (selectData.selected.includes(cardId)) {
@@ -219,7 +227,7 @@ export default function Deck(props: DeckProps) {
                                 </div>
                                 <p className={"text-gray-500 pb-2 font-medium"}>Monitor the currently running tasks on this deck</p>
 
-                                <Tasks deck={deck} />
+                                <Tasks deck={deck} tasks={tasks} />
                             </div>
                         </div>
 
@@ -343,6 +351,11 @@ export default function Deck(props: DeckProps) {
                                                                     <p className={"text-gray-500 pb-2 font-medium"}>Credits</p>
                                                                     <p className={"pb-2 font-medium"}>2,482</p>
                                                                 </div>
+
+                                                                <div className={"flex flex-row justify-between"}>
+                                                                    <p className={"text-gray-500 pb-2 font-medium"}>Tags</p>
+                                                                    <p className={"pb-2 font-medium"}>{card.tags.replace(" ", ", ")}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -379,7 +392,8 @@ export const getServerSideProps: (ctx: any) => Promise<{ redirect: { permanent: 
             id: ctx.query.deckId
         },
         include: {
-            cards: true
+            cards: true,
+            tasks: true,
         }
     }) as Deck | null;
 

@@ -14,29 +14,7 @@ type TasksProps = {
 }
 
 export default function Tasks(props: TasksProps) {
-    // const {deck, tasks} = props
-
-    const tasks = [
-        {
-            id: 1,
-            type: "ADD_TAGS",
-            title: "Add Tags",
-            status: "completed"
-        },
-        {
-            id: 2,
-            status: "failed",
-            type: "ADD_TAGS",
-            title: "Add Tags",
-            fail_reason: "Failed to connect to AnkiConnect"
-        },
-        {
-            id: 3,
-            type: "GENERATE_VARIATION",
-            title: "Generate Variation",
-            status: "in_progress",
-        }
-    ] as Task[]
+    const {tasks} = props
 
     return (
         <>
@@ -49,14 +27,14 @@ export default function Tasks(props: TasksProps) {
                                     <div className="min-w-0 flex-1 flex items-center">
                                         <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                                             <div>
-                                                <p className="text-sm font-medium text-teal-600 truncate">{task.title} #{task.id}</p>
+                                                <p className="text-sm font-medium text-teal-600 truncate">{task.title} (task #{task.id})</p>
                                                 <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                    {task.status == "failed" ? (
+                                                    {task.status == "FAILED" ? (
                                                         <>
                                                             <XCircleIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400" aria-hidden="true" />
                                                             Failed ({task?.fail_reason})
                                                         </>
-                                                    ) : task.status == "completed" ? (
+                                                    ) : task.status == "COMPLETED" ? (
                                                         <>
                                                             <CheckCircleIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
                                                             Completed

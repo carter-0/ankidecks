@@ -6,6 +6,7 @@ type Deck = {
     dateCreated: Date;
     public: boolean;
     tokensUsed: number;
+    tasks: Task[];
 }
 
 type PartialDeck = {
@@ -22,6 +23,7 @@ type Card = {
     front: string;
     back: string;
     type: 'CLOZE' | 'BASIC';
+    tags: string;
     dateCreated: Date;
     dateModified: Date;
     deckId?: string;
@@ -80,4 +82,6 @@ type Task = {
     startedAt: Date;
     finishedAt?: Date;
     error?: string;
+    deck: Deck;
+    deckId: string;
 }

@@ -8,11 +8,11 @@ export default async function handler(req: any, res: any) {
     const {tags} = JSON.parse(req.body);
 
     if (!deckId) {
-        return res.status(400).json({message: "Missing deckId"});
+        return res.status(400).json({success: false, message: "Missing deckId"});
     }
 
     if (!userId) {
-        return res.status(401).json({message: "Unauthorized"});
+        return res.status(401).json({success: false, message: "Unauthorized"});
     }
 
     const deck = await prisma.deck.findUnique({
@@ -22,11 +22,29 @@ export default async function handler(req: any, res: any) {
     }) as Deck;
 
     if (!deck || deck.user !== userId) {
-        return res.status(401).json({message: "Unauthorized"});
+        return res.status(401).json({success: false, message: "Unauthorized"});
     }
+
+    const task = await prisma.task.create({
+        data: {
+            userId: userId,
+            type: 'ADD_TAGS',
+            title: `Adding tags to ${deck.name}`,
+            deck: {
+                connect: {
+                    id: deckId
+                }
+            },
+            status: 'PENDING',
+            startedAt: new Date()
+        }
+    }) as Task;
 
     await sendRabbitMQMessage({
         type: 'ADD_TAGS',
         deckId: `${deckId}`,
+        taskId: task.id
     })
+
+    return res.status(200).json({success: true});
 }

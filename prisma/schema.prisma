@@ -20,6 +20,7 @@ model Deck {
   public Boolean @default(false)
   imported Boolean @default(false)
   key String? @unique
+  tasks Task[]
 }
 
 model Card {
@@ -34,10 +35,13 @@ model Card {
   dateModified DateTime @default(now())
 }
 
-model Tasks {
+model Task {
   id   Int @id @default(autoincrement())
+  userId String
   type String
   title String
+  deckId String
+  deck Deck @relation(fields: [deckId], references: [id])
   status String
   startedAt DateTime
   finishedAt DateTime?
