@@ -1,7 +1,8 @@
 import {
+    PencilIcon,
     TagIcon,
 } from '@heroicons/react/outline'
-import {FactoryIcon} from "lucide-react";
+import {FactoryIcon, LucideCreditCard} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {
     AlertDialog,
@@ -16,8 +17,10 @@ import {useState} from "react";
 import Toggle from "@/components/ui/toggle";
 import {toast} from "@/components/ui/use-toast";
 import {mutate} from "swr";
+import Link from "next/link";
 
 type ActionsListProps = {
+    onEditMode: () => void;
     deck: Deck
 }
 
@@ -32,8 +35,18 @@ export default function ActionsList(props: ActionsListProps) {
 
     const actions = [
         {
+            title: 'Edit Deck',
+            href: false,
+            onClick: () => {props.onEditMode},
+            icon: PencilIcon,
+            iconForeground: 'text-pink-700',
+            iconBackground: 'bg-pink-50',
+            description: 'Edit the metadata of this deck.',
+        },
+        {
             title: 'Add Tags',
-            onClick: () => setAddTagsOpen(true),
+            href: false,
+            onClick: () => {setAddTagsOpen(true)},
             icon: TagIcon,
             iconForeground: 'text-teal-700',
             iconBackground: 'bg-teal-50',
@@ -42,11 +55,21 @@ export default function ActionsList(props: ActionsListProps) {
         {
             title: 'Generate Variation',
             onClick: () => (true),
+            href: false,
             icon: FactoryIcon,
             iconForeground: 'text-purple-700',
             iconBackground: 'bg-purple-50',
             description: 'Create a copy of this deck re-phrased by AI.',
-        }
+        },
+        {
+            title: 'Add Cards',
+            onClick: () => (true),
+            href: `/dashboard/decks/${deck.id}/cards/new`,
+            icon: LucideCreditCard,
+            iconForeground: 'text-amber-700',
+            iconBackground: 'bg-amber-50',
+            description: 'Add AI-generated cards to this deck.',
+        },
     ]
 
     const addTags = async () => {
@@ -120,11 +143,18 @@ export default function ActionsList(props: ActionsListProps) {
                     </div>
                     <div className="mt-8">
                         <h3 className="text-lg font-medium">
-                            <div onClick={action.onClick} className="focus:outline-none">
-                                {/* Extend touch target to entire panel */}
-                                <span className="absolute inset-0" aria-hidden="true" />
-                                {action.title}
-                            </div>
+                            {action.href ? (
+                                <Link href={action.href as string} className="focus:outline-none">
+                                    <span className="absolute inset-0" aria-hidden="true" />
+                                    {action.title}
+                                </Link>
+                            ) : (
+                                <div onClick={action.onClick} className="focus:outline-none">
+                                    {/* Extend touch target to entire panel */}
+                                    <span className="absolute inset-0" aria-hidden="true" />
+                                    {action.title}
+                                </div>
+                            )}
                         </h3>
                         <p className="mt-2 text-sm text-gray-500">
                             {action.description}

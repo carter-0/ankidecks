@@ -33,6 +33,7 @@ model Card {
   tags   String         @default("")
   dateCreated DateTime  @default(now())
   dateModified DateTime @default(now())
+  remoteId String?
 }
 
 model Task {

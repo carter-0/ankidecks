@@ -7,11 +7,12 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime.js'
 import StatBox from "@/components/dashboard/StatBox";
 import {
+    AlignJustifyIcon,
     CoinsIcon, DownloadIcon,
     MoreVertical
 } from "lucide-react";
 import SecondNavbar from "@/components/global/SecondNavbar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import {
     DropdownMenu,
@@ -37,6 +38,7 @@ import Footer from "@/components/global/Footer";
 import ActionsList from "@/components/decks/ActionsList";
 import Tasks from "@/components/decks/Tasks";
 import useSWR from "swr";
+import UnsavedChangesBar from "@/components/global/UnsavedChangesBar";
 
 dayjs.extend(relativeTime)
 
@@ -60,12 +62,27 @@ export default function Deck(props: DeckProps) {
         active: false,
         selected: []
     });
+
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    const [initialDeckData, setInitialDeckData] = useState<Deck>(deck);
+    const [deckData, setDeckData] = useState<Deck>(deck);
+
     const [deleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false);
+    const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
 
     const { data: tasks } = useSWR(`/api/decks/${deck.id}/tasks`, fetcher, {
         fallbackData: deck.tasks as Task[],
         refreshInterval: 1000
     });
+
+    useEffect(() => {
+        if (deckData !== initialDeckData) {
+            setUnsavedChanges(true);
+        } else {
+            setUnsavedChanges(false);
+        }
+    }, [deckData, initialDeckData])
 
     const addCard = (cardId: string) => {
         if (selectData.selected.includes(cardId)) {
@@ -136,7 +153,7 @@ export default function Deck(props: DeckProps) {
                     </AlertDialogContent>
                 </AlertDialog>
 
-                <div className={cn("fixed bottom-0 inset-x-0 pb-2 sm:pb-5 transition-all ease-in-out", selectData.active ? 'opacity-100' : 'opacity-0')}>
+                <div className={cn("fixed bottom-0 inset-x-0 pb-2 sm:pb-5 z-20 transition-all ease-in-out", selectData.active ? 'opacity-100' : 'opacity-0')}>
                     <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="p-2 rounded-lg bg-blue-200 shadow-lg sm:p-3">
                             <div className="flex items-center justify-between flex-wrap">
@@ -182,7 +199,16 @@ export default function Deck(props: DeckProps) {
                             <Image alt={"Deck Image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
                             <div className={"w-full p-4"}>
-                                <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
+                                {editMode ? (
+                                    <input
+                                        type={"text"}
+                                        value={deckData.name}
+                                        onChange={(e) => setDeckData({...deckData, name: e.target.value})}
+                                        className={"text-2xl font-bold w-full bg-transparent outline-none"}
+                                    />
+                                ) : (
+                                    <h1 className={"text-2xl overflow-wrap font-bold min-w-0"}>{deck.name}</h1>
+                                )}
                                 <div className={"flex flex-col"}>
                                     <p className={"truncate text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
                                     <Link className={"truncate w-6 text-black cursor-pointer"} href={`/api/decks/${deck.id}/export`} target={"_blank"}><DownloadIcon /></Link>
@@ -216,7 +242,7 @@ export default function Deck(props: DeckProps) {
                                 </div>
                                 <p className={"text-gray-500 pb-2 font-medium"}>Perform actions to this deck</p>
 
-                                <ActionsList deck={deck} />
+                                <ActionsList onEditMode={() => setEditMode(!editMode)} deck={deck} />
                             </div>
                         </div>
 
@@ -236,32 +262,32 @@ export default function Deck(props: DeckProps) {
                                 <div className={"flex flex-row items-center justify-between"}>
                                     <h1 className={"text-2xl font-bold"}>Cards</h1>
                                     <div className={"flex flex-row items-center space-x-2 lg:space-x-5"}>
-                                        {/*<div className={"cursor-pointer hidden lg:block"}>*/}
-                                        {/*    <p className={"font-medium text-gray-500"} onClick={() => setSelectData(*/}
-                                        {/*        {*/}
-                                        {/*            selected: [],*/}
-                                        {/*            active: !selectData.active,*/}
-                                        {/*        }*/}
-                                        {/*    )}>Select Cards</p>*/}
-                                        {/*</div>*/}
+                                        <div className={"cursor-pointer hidden lg:block"}>
+                                            <p className={"inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 font-medium text-gray-500"} onClick={() => setSelectData(
+                                                {
+                                                    selected: [],
+                                                    active: !selectData.active,
+                                                }
+                                            )}>Select Cards</p>
+                                        </div>
 
-                                        {/*<div className={"cursor-pointer"}>*/}
-                                        {/*    {listView ? (*/}
-                                        {/*        <svg onClick={() => setListView(false)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">*/}
-                                        {/*            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />*/}
-                                        {/*        </svg>*/}
-                                        {/*    ) : (*/}
-                                        {/*        <AlignJustifyIcon onClick={() => setListView(true)} className={"h-6 w-6"} />*/}
-                                        {/*    )}*/}
-                                        {/*</div>*/}
+                                        <div className={"cursor-pointer"}>
+                                            {listView ? (
+                                                <svg onClick={() => setListView(false)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                                                </svg>
+                                            ) : (
+                                                <AlignJustifyIcon onClick={() => setListView(true)} className={"h-6 w-6"} />
+                                            )}
+                                        </div>
 
-                                        <Link
-                                            type="button"
-                                            href={`/dashboard/decks/${deck.id}/cards/new`}
-                                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                                        >
-                                            New Cards +
-                                        </Link>
+                                        {/*<Link*/}
+                                        {/*    type="button"*/}
+                                        {/*    href={`/dashboard/decks/${deck.id}/cards/new`}*/}
+                                        {/*    className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"*/}
+                                        {/*>*/}
+                                        {/*    New Cards +*/}
+                                        {/*</Link>*/}
                                     </div>
                                 </div>
                                 <p className={"text-gray-500 pb-2 font-medium"}>Cards from deck &apos;{deck.name}&apos;</p>
@@ -368,6 +394,8 @@ export default function Deck(props: DeckProps) {
 
                     </div>
                 </div>
+
+                <UnsavedChangesBar visible={unsavedChanges} save={() => (true)} reset={() => (true)}/>
             </main>
 
             <Footer />
