@@ -28,8 +28,8 @@ model Card {
   deck   Deck           @relation(fields: [deckId], references: [id])
   deckId String
   type   CardType
-  front  String?        @db.VarChar(4096)
-  back   String?        @db.VarChar(4096)
+  front  String?        @db.Text
+  back   String?        @db.Text
   tags   String         @default("")
   dateCreated DateTime  @default(now())
   dateModified DateTime @default(now())
