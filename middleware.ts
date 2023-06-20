@@ -11,18 +11,17 @@
 // export default authMiddleware();
 //
 
+import { withClerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-import {authMiddleware, redirectToSignIn} from '@clerk/nextjs';
-
-export default authMiddleware({
-    afterAuth(auth, req, evt) {
-        // handle users who aren't authenticated
-        if (!auth.userId && !auth.isPublicRoute) {
-            return redirectToSignIn({ returnBackUrl: req.url });
-        }
-    }
+export default withClerkMiddleware((_req: NextRequest) => {
+    return NextResponse.next();
 });
 
+// Stop Middleware running on static files
 export const config = {
-    matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+    matcher: [
+        "/(.*?trpc.*?|(?!static|.*\\..*|_next|favicon.ico|/api/keep-alive).*)",
+    ],
 };
