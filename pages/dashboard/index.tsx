@@ -34,6 +34,7 @@ import {getUser, getUserTokens} from "@/lib/helper";
 import FreeAccountBannerCTA from "@/components/global/FreeAccountBannerCTA";
 import Footer from "@/components/global/Footer";
 import FileUpload from "@/components/dashboard/FileUpload";
+import useFetch from "@/lib/useFetch";
 
 dayjs.extend(relativeTime)
 
@@ -45,6 +46,7 @@ type DashboardProps = {
 
 export default function Dashboard(props: DashboardProps) {
     const { decks, tokens, freeAccount } = props;
+    const fetch = useFetch()
 
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
     const [selectedDeck, setSelectedDeck] = useState<string>("")
@@ -79,7 +81,7 @@ export default function Dashboard(props: DashboardProps) {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => deleteDeck(selectedDeck).then((r) => {
+                            <AlertDialogAction onClick={() => deleteDeck(selectedDeck, fetch).then((r) => {
                                 if (r.status == "success") {
                                     toast({
                                         title: "Deck deleted",

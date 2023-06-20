@@ -111,7 +111,7 @@ export default function Deck(props: DeckProps) {
     }
 
     const deleteCardsLocal = () => {
-        deleteCards(deck.id, selectData.selected).then(async (r) => {
+        deleteCards(deck.id, selectData.selected, fetch).then(async (r) => {
             if (r.success) {
                 toast({
                     title: "Cards deleted",

@@ -20,6 +20,7 @@ import {
 import {deleteCards} from "@/lib/publicHelper";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/router";
+import useFetch from "@/lib/useFetch";
 
 dayjs.extend(relativeTime)
 
@@ -35,11 +36,12 @@ function capitalizeFirstLetter(string: string) {
 export default function Deck(props: DeckProps) {
     const { card, deck } = props;
     const router = useRouter();
+    const fetch = useFetch()
 
     const [deleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false);
 
     const deleteCardsLocal = () => {
-        deleteCards(deck.id, [card.id]).then(async (r) => {
+        deleteCards(deck.id, [card.id], fetch).then(async (r) => {
             if (r.success) {
                 toast({
                     title: "Cards deleted",

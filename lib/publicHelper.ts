@@ -1,8 +1,4 @@
-import useFetch from "@/lib/useFetch";
-
-export const deleteDeck = async (deckId: string) => {
-    const fetch = useFetch();
-
+export const deleteDeck = async (deckId: string, fetch: any) => {
     const response = await fetch(`/api/decks/${deckId}`, {
         method: "DELETE",
     })
@@ -14,9 +10,7 @@ export const deleteDeck = async (deckId: string) => {
     return response.json()
 }
 
-export const deleteCards = async (deckId: string, cardIds: string[]) => {
-    const fetch = useFetch();
-
+export const deleteCards = async (deckId: string, cardIds: string[], fetch: any) => {
     cardIds.forEach(async (cardId) => {
         const response = await fetch(`/api/decks/${deckId}/cards/${cardId}`, {
             method: "DELETE",
