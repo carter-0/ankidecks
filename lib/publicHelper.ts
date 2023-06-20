@@ -1,4 +1,8 @@
+import useFetch from "@/lib/useFetch";
+
 export const deleteDeck = async (deckId: string) => {
+    const fetch = useFetch();
+
     const response = await fetch(`/api/decks/${deckId}`, {
         method: "DELETE",
     })
@@ -11,6 +15,8 @@ export const deleteDeck = async (deckId: string) => {
 }
 
 export const deleteCards = async (deckId: string, cardIds: string[]) => {
+    const fetch = useFetch();
+
     cardIds.forEach(async (cardId) => {
         const response = await fetch(`/api/decks/${deckId}/cards/${cardId}`, {
             method: "DELETE",

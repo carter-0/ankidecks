@@ -39,6 +39,7 @@ import ActionsList from "@/components/decks/ActionsList";
 import Tasks from "@/components/decks/Tasks";
 import useSWR from "swr";
 import UnsavedChangesBar from "@/components/global/UnsavedChangesBar";
+import useFetch from "@/lib/useFetch";
 
 dayjs.extend(relativeTime)
 
@@ -54,6 +55,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Deck(props: DeckProps) {
     const { deck: initialDeck } = props;
+    const fetch = useFetch();
 
     const [deck, setDeck] = useState<Deck>(initialDeck);
 

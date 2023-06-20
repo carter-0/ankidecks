@@ -6,6 +6,7 @@ import Toggle from "@/components/ui/toggle";
 import Cookies from "cookies";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/router";
+import useFetch from "@/lib/useFetch";
 
 export default function ResumeDeckCreation(props: any) {
     const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ export default function ResumeDeckCreation(props: any) {
         source: "",
         public: false,
     })
+
+    const fetch = useFetch();
     const router = useRouter()
 
     const generateDeckAndCards = async () => {

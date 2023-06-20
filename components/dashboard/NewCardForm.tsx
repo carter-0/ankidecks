@@ -16,6 +16,7 @@ import {
     AlertDialogTitle
 } from "@/components/ui/alert-dialog";
 import TooManyTokens from "@/components/dashboard/TooManyTokens";
+import useFetch from "@/lib/useFetch";
 
 type NewCardFormProps = {
     deck: Deck
@@ -24,6 +25,7 @@ type NewCardFormProps = {
 export default function NewCardForm(props: NewCardFormProps) {
     const {deck} = props;
     const router = useRouter();
+    const fetch = useFetch();
 
     const [submitting, setSubmitting] = useState(false);
     const [upgradeAlertOpen, setUpgradeAlertOpen] = useState(false);

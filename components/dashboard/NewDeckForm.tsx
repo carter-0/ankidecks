@@ -7,7 +7,7 @@ import useFetch from "@/lib/useFetch";
 
 export default function NewDeckForm() {
     const router = useRouter();
-    const authenticatedFetch = useFetch();
+    const fetch = useFetch();
 
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ export default function NewDeckForm() {
     const submit = () => {
         setSubmitting(true);
 
-        authenticatedFetch('/api/decks/new', {
+        fetch('/api/decks/new', {
             method: 'POST',
             body: JSON.stringify(formData),
         }).then((res) => {

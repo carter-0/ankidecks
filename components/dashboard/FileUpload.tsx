@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import {UploadIcon} from "@heroicons/react/outline";
 import Link from "next/link";
+import useFetch from "@/lib/useFetch";
 
 export default function FileUpload() {
+    const fetch = useFetch();
     const [uploadButtonText, setUploadButtonText] = useState('Continue')
 
     const onDrop = useCallback((acceptedFiles: File[]) => {

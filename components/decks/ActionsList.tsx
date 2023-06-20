@@ -18,6 +18,7 @@ import Toggle from "@/components/ui/toggle";
 import {toast} from "@/components/ui/use-toast";
 import {mutate} from "swr";
 import Link from "next/link";
+import useFetch from "@/lib/useFetch";
 
 type ActionsListProps = {
     onEditMode: () => void;
@@ -26,6 +27,7 @@ type ActionsListProps = {
 
 export default function ActionsList(props: ActionsListProps) {
     const {deck} = props
+    const fetch = useFetch();
     const [addTagsOpen, setAddTagsOpen] = useState(false);
 
     const [AddTagsSettings, setAddTagsSettings] = useState({
