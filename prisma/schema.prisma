@@ -41,8 +41,8 @@ model Task {
   userId String
   type String
   title String
+  deck   Deck           @relation(fields: [deckId], references: [id])
   deckId String
-  deck Deck @relation(fields: [deckId], references: [id])
   status String
   startedAt DateTime
   finishedAt DateTime?

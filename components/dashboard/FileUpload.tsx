@@ -16,7 +16,7 @@ import Link from "next/link";
 export default function FileUpload() {
     const [uploadButtonText, setUploadButtonText] = useState('Continue')
 
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
         acceptedFiles.forEach((file) => {
             const reader = new FileReader()
 

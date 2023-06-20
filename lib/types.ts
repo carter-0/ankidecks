@@ -4,9 +4,11 @@ type Deck = {
     name: string;
     cards: Card[];
     dateCreated: Date;
-    public: boolean;
     tokensUsed: number;
-    tasks: Task[];
+    public: boolean;
+    imported: boolean;
+    key: string;
+    tasks?: Task[];
 }
 
 type PartialDeck = {
@@ -76,12 +78,13 @@ type User = {
 
 type Task = {
     id: number;
+    userId: string;
     type: string;
     title: string;
     status: string;
     startedAt: Date;
     finishedAt?: Date;
     error?: string;
-    deck: Deck;
-    deckId: string;
+    deckId?: string;
+    deck?: Deck;
 }

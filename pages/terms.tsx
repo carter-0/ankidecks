@@ -5,6 +5,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import Head from "next/head";
 import {unified} from "unified";
+import Footer from "@/components/global/Footer";
 
 export default function Terms(props: Props) {
   const {source} = props;
@@ -23,6 +24,7 @@ export default function Terms(props: Props) {
               dangerouslySetInnerHTML={{ __html: source }}
           />
         </div>
+          <Footer />
       </>
   )
 }
