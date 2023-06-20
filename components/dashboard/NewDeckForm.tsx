@@ -1,15 +1,13 @@
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/router";
 import Toggle from "@/components/ui/toggle";
 import {Switch} from "@headlessui/react";
-import {useAuth} from "@clerk/nextjs";
 import useFetch from "@/lib/useFetch";
 
 export default function NewDeckForm() {
     const router = useRouter();
-    const auth = useAuth();
-    const aFetch = useFetch();
+    const authenticatedFetch = useFetch();
 
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -20,7 +18,7 @@ export default function NewDeckForm() {
     const submit = () => {
         setSubmitting(true);
 
-        aFetch('/api/decks/new', {
+        authenticatedFetch('/api/decks/new', {
             method: 'POST',
             body: JSON.stringify(formData),
         }).then((res) => {
