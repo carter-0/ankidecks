@@ -1,12 +1,15 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/router";
 import Toggle from "@/components/ui/toggle";
-import {cn} from "@/lib/utils";
 import {Switch} from "@headlessui/react";
+import {useAuth} from "@clerk/nextjs";
+import useFetch from "@/lib/useFetch";
 
 export default function NewDeckForm() {
     const router = useRouter();
+    const auth = useAuth();
+    const aFetch = useFetch();
 
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -16,12 +19,13 @@ export default function NewDeckForm() {
 
     const submit = () => {
         setSubmitting(true);
-        fetch('/api/decks/new', {
+
+        aFetch('/api/decks/new', {
             method: 'POST',
             body: JSON.stringify(formData),
         }).then((res) => {
             if (res.status === 200) {
-                res.json().then((data: {success: boolean, deckId?: string}) => {
+                res.json().then((data: { success: boolean, deckId?: string }) => {
                     if (data.success) {
                         toast({
                             title: 'Deck created!',
@@ -79,7 +83,8 @@ export default function NewDeckForm() {
                                             Make your deck public so that other users can see it.
                                         </Switch.Description>
                                     </span>
-                                    <Toggle enabled={formData.public} setEnabled={(enabled) => setFormData({...formData, public: enabled})} />
+                                    <Toggle enabled={formData.public}
+                                            setEnabled={(enabled) => setFormData({...formData, public: enabled})}/>
                                 </Switch.Group>
                             </div>
                         </div>
