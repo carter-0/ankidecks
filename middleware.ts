@@ -6,12 +6,21 @@
 // const publicPaths = ['/', '/sign-in*', '/sign-up*', '/images*', '/favicon.ico', '/api/*', '/*.png', '/*.ico', '/*.svg', '/*.mp4', '/*.webmanifest']
 // const privatePaths = ['/dashboard']
 
-import { authMiddleware } from "@clerk/nextjs";
+// import { authMiddleware } from "@clerk/nextjs";
+//
+// export default authMiddleware();
+//
+// export const config = {
+//     matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+// };
+
+import {authMiddleware, redirectToSignIn} from '@clerk/nextjs';
 
 export default authMiddleware({
-    publicRoutes: ['/', '/sign-in*', '/sign-up*', '/images*', '/favicon.ico', '/api/*', '/*.png', '/*.ico', '/*.svg', '/*.mp4', '/*.webmanifest']
+    afterAuth(auth, req, evt) {
+        // handle users who aren't authenticated
+        if (!auth.userId && !auth.isPublicRoute) {
+            return redirectToSignIn({ returnBackUrl: req.url });
+        }
+    }
 });
-
-export const config = {
-    matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
-};
