@@ -120,8 +120,11 @@ export const getStaticProps: (ctx: any) => Promise<{ redirect: { permanent: bool
                 }
             },
         },
+        orderBy: {
+            positiveRatings: "desc"
+        } as any,
         take: 100,
-    });
+    }) as ScrapedDeck[];
 
     return {
         props: {
