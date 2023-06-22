@@ -1,30 +1,31 @@
 import React, { useState, useRef } from 'react';
 
-const TagInput = () => {
+const TagInput = (setAddTagsSettings: any, tagSettings: any) => {
     const [tags, setTags] = useState([]);
     const inputRef = useRef(null);
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: any) => {
         if (e.key === ' ') {
             e.preventDefault();
             const tag = e.target.value.trim();
             if (tag && !tags.includes(tag)) {
                 setTags([...tags, tag]);
+                setAddTagsSettings({...tagSettings, customTagList: [...tags, tag]});
             }
             e.target.value = '';
         }
     };
 
-    const handleTagRemove = (tagToRemove) => {
+    const handleTagRemove = (tagToRemove: any) => {
         setTags(tags.filter((tag) => tag !== tagToRemove));
+        setAddTagsSettings({...tagSettings, customTagList: tags.filter((tag) => tag !== tagToRemove)});
     };
 
     return (
         <div className="flex flex-wrap p-2 border border-gray-300 rounded">
             {tags.map((tag, index) => (
-                <div className={"bg-indigo-200 text-indigo-700 text-sm font-medium mx-1 my-1 px-2 py-1 rounded cursor-pointer"} onClick={() => handleTagRemove(tag)}>
+                <div key={index} className={"bg-indigo-200 text-indigo-700 text-sm font-medium mx-1 my-1 px-2 py-1 rounded cursor-pointer"} onClick={() => handleTagRemove(tag)}>
                     <span
-                        key={index}
                         className="mr-2"
                     >
                       {tag}

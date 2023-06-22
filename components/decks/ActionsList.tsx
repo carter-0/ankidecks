@@ -78,7 +78,7 @@ export default function ActionsList(props: ActionsListProps) {
     const addTags = async () => {
         await fetch(`/api/decks/${deck.id}/add-tags`, {
             "method": "POST",
-            "body": JSON.stringify(AddTagsSettings)
+            "body": JSON.stringify(addTagsSettings)
         }).then((r) => {
             if (!r.ok) {
                 toast({
@@ -111,12 +111,12 @@ export default function ActionsList(props: ActionsListProps) {
                                 </div>
 
                                 {addTagsSettings.customTags && (
-                                    <TagInput />
+                                    <TagInput setAddTagsSettings={setAddTagsSettings} tagSettings={addTagsSettings} />
                                 )}
 
                                 <div className={"bg-white shadow rounded-lg p-3"}>
                                     <p>
-                                        Operation confirmation: <span className={"font-bold"}>Custom AI-generated Tags</span> will be added to <span className={"font-bold"}>{deck.name}&#39;s</span> <span className={"font-bold"}>{deck.cards.length}</span> cards.
+                                        Operation confirmation: <span className={"font-bold"}>Custom AI-generated Tags</span> will be added to <span className={"font-bold"}>{deck.name}&#39;s</span> <span className={"font-bold"}>{deck.cards.length}</span> cards. <span className={"text-red-500 font-bold"}>This will overwrite existing tags. Taking a backup is recommended.</span>
                                     </p>
                                 </div>
 

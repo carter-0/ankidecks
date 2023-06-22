@@ -5,7 +5,7 @@ import {sendRabbitMQMessage} from "@/lib/rabbitmq";
 export default async function handler(req: any, res: any) {
     const {userId} = getAuth(req);
     const {deckId} = req.query;
-    const {tags} = JSON.parse(req.body);
+    const {customTags, customTagsList} = JSON.parse(req.body);
 
     if (!deckId) {
         return res.status(400).json({success: false, message: "Missing deckId"});
@@ -13,6 +13,16 @@ export default async function handler(req: any, res: any) {
 
     if (!userId) {
         return res.status(401).json({success: false, message: "Unauthorized"});
+    }
+
+    let newTags: string[] = [];
+
+    if (customTags && customTagsList && customTagsList.length > 0) {
+        customTags.forEach((tag: string) => {
+            if (!tag.includes(" ")) {
+                newTags.push(tag);
+            }
+        })
     }
 
     const deck = await prisma.deck.findUnique({
@@ -43,6 +53,7 @@ export default async function handler(req: any, res: any) {
     await sendRabbitMQMessage({
         type: 'ADD_TAGS',
         deckId: `${deckId}`,
+        tags: newTags,
         taskId: task.id
     })
 
