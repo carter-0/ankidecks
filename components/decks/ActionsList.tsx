@@ -19,6 +19,7 @@ import {toast} from "@/components/ui/use-toast";
 import {mutate} from "swr";
 import Link from "next/link";
 import useFetch from "@/lib/useFetch";
+import TagInput from "@/components/decks/TagInput";
 
 type ActionsListProps = {
     onEditMode: () => void;
@@ -30,7 +31,7 @@ export default function ActionsList(props: ActionsListProps) {
     const fetch = useFetch();
     const [addTagsOpen, setAddTagsOpen] = useState(false);
 
-    const [AddTagsSettings, setAddTagsSettings] = useState({
+    const [addTagsSettings, setAddTagsSettings] = useState({
         customTags: false,
         customTagsList: []
     })
@@ -56,7 +57,7 @@ export default function ActionsList(props: ActionsListProps) {
         },
         {
             title: 'Generate Variation',
-            onClick: () => (true),
+            onClick: () => true,
             href: false,
             icon: FactoryIcon,
             iconForeground: 'text-purple-700',
@@ -65,7 +66,7 @@ export default function ActionsList(props: ActionsListProps) {
         },
         {
             title: 'Add Cards',
-            onClick: () => (true),
+            onClick: () => true,
             href: `/dashboard/decks/${deck.id}/cards/new`,
             icon: LucideCreditCard,
             iconForeground: 'text-amber-700',
@@ -104,10 +105,21 @@ export default function ActionsList(props: ActionsListProps) {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Add AI Generated Tags to {deck.name}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            <div className={"flex flex-col"}>
-                                <div className={"flex flex-row gap-2 items-center"}>
-                                    Use Custom Tags <Toggle setEnabled={(v) => {setAddTagsSettings({...AddTagsSettings, customTags: v})}} enabled={AddTagsSettings.customTags} />
+                            <div className={"flex gap-3 flex-col"}>
+                                <div className={"flex text-black font-medium flex-row gap-2 items-center"}>
+                                    Also generate tag names <Toggle setEnabled={(v) => {setAddTagsSettings({...addTagsSettings, customTags: !v})}} enabled={!addTagsSettings.customTags} />
                                 </div>
+
+                                {addTagsSettings.customTags && (
+                                    <TagInput />
+                                )}
+
+                                <div className={"bg-white shadow rounded-lg p-3"}>
+                                    <p>
+                                        Operation confirmation: <span className={"font-bold"}>Custom AI-generated Tags</span> will be added to <span className={"font-bold"}>{deck.name}&#39;s</span> <span className={"font-bold"}>{deck.cards.length}</span> cards.
+                                    </p>
+                                </div>
+
                             </div>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
