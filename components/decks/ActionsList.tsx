@@ -98,6 +98,10 @@ export default function ActionsList(props: ActionsListProps) {
         })
     }
 
+    const changeTags = (tagList: string[]) => {
+        setAddTagsSettings({...addTagsSettings, customTagsList: tagList})
+    }
+
     return (
         <>
             <AlertDialog open={addTagsOpen} onOpenChange={(v) => {setAddTagsOpen(v)}}>
@@ -111,7 +115,7 @@ export default function ActionsList(props: ActionsListProps) {
                                 </div>
 
                                 {addTagsSettings.customTags && (
-                                    <TagInput setAddTagsSettings={setAddTagsSettings} tagSettings={addTagsSettings} />
+                                    <TagInput changeTags={changeTags} tagSettings={addTagsSettings} />
                                 )}
 
                                 <div className={"bg-white shadow rounded-lg p-3"}>

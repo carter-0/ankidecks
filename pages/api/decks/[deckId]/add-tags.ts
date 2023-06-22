@@ -18,7 +18,7 @@ export default async function handler(req: any, res: any) {
     let newTags: string[] = [];
 
     if (customTags && customTagsList && customTagsList.length > 0) {
-        customTags.forEach((tag: string) => {
+        customTagsList.forEach((tag: string) => {
             if (!tag.includes(" ")) {
                 newTags.push(tag);
             }

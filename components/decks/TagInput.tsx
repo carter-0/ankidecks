@@ -1,6 +1,16 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
-const TagInput = (setAddTagsSettings: any, tagSettings: any) => {
+type TagInputProps = {
+    changeTags: (tags: string[]) => void;
+    tagSettings: {
+        customTags: boolean;
+        customTagsList: string[];
+    }
+}
+
+export default function TagInput(props: TagInputProps) {
+    const {changeTags, tagSettings} = props;
+
     const [tags, setTags] = useState([]);
     const inputRef = useRef(null);
 
@@ -10,7 +20,7 @@ const TagInput = (setAddTagsSettings: any, tagSettings: any) => {
             const tag = e.target.value.trim();
             if (tag && !tags.includes(tag)) {
                 setTags([...tags, tag]);
-                setAddTagsSettings({...tagSettings, customTagList: [...tags, tag]});
+                changeTags([...tags, tag])
             }
             e.target.value = '';
         }
@@ -18,7 +28,7 @@ const TagInput = (setAddTagsSettings: any, tagSettings: any) => {
 
     const handleTagRemove = (tagToRemove: any) => {
         setTags(tags.filter((tag) => tag !== tagToRemove));
-        setAddTagsSettings({...tagSettings, customTagList: tags.filter((tag) => tag !== tagToRemove)});
+        changeTags(tags.filter((tag) => tag !== tagToRemove))
     };
 
     return (
@@ -43,5 +53,3 @@ const TagInput = (setAddTagsSettings: any, tagSettings: any) => {
         </div>
     );
 };
-
-export default TagInput;
