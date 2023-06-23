@@ -9,7 +9,7 @@ type TagInputProps = {
 }
 
 export default function TagInput(props: TagInputProps) {
-    const {changeTags, tagSettings} = props;
+    const {changeTags} = props;
 
     const [tags, setTags] = useState([]);
     const inputRef = useRef(null);

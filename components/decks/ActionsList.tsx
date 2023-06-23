@@ -30,6 +30,11 @@ export default function ActionsList(props: ActionsListProps) {
     const {deck} = props
     const fetch = useFetch();
     const [addTagsOpen, setAddTagsOpen] = useState(false);
+    const [variationOpen, setVariationOpen] = useState(false);
+
+    const [variationSettings, setVariationSettings] = useState({
+        onlyGenerateFirstField: true,
+    })
 
     const [addTagsSettings, setAddTagsSettings] = useState({
         customTags: false,
@@ -57,7 +62,7 @@ export default function ActionsList(props: ActionsListProps) {
         },
         {
             title: 'Generate Variation',
-            onClick: () => true,
+            onClick: () => {setVariationOpen(true)},
             href: false,
             icon: FactoryIcon,
             iconForeground: 'text-purple-700',
@@ -98,6 +103,29 @@ export default function ActionsList(props: ActionsListProps) {
         })
     }
 
+    const generateVariation = async () => {
+        await fetch(`/api/decks/${deck.id}/generate-variation`, {
+            "method": "POST",
+            "body": JSON.stringify(variationSettings)
+        }).then((r) => {
+            if (!r.ok) {
+                toast({
+                    title: "Error",
+                    description: "Failed to generate variation",
+                })
+                return;
+            }
+
+            mutate(`/api/decks/${deck.id}/tasks`)
+
+            console.log(r);
+            toast({
+                title: "Success",
+                description: "Added to queue successfully!",
+            })
+        })
+    }
+
     const changeTags = (tagList: string[]) => {
         setAddTagsSettings({...addTagsSettings, customTagsList: tagList})
     }
@@ -130,6 +158,34 @@ export default function ActionsList(props: ActionsListProps) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction onClick={() => addTags()}>
+                            Add to Queue
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={variationOpen} onOpenChange={(v) => {setVariationOpen(v)}}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Generate a variation of {deck.name}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            <div className={"flex gap-3 flex-col"}>
+                                <div className={"flex text-black font-medium flex-row gap-2 items-center"}>
+                                    Only generate a variation of the first field <Toggle setEnabled={(v) => {setVariationSettings({...variationSettings, onlyGenerateFirstField: v})}} enabled={variationSettings.onlyGenerateFirstField} />
+                                </div>
+
+                                <div className={"bg-white shadow rounded-lg p-3"}>
+                                    <p>
+                                        Operation confirmation: Deck <span className={"font-bold"}>Variation of {deck.name}</span> will be created. This will not effect the original deck.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => generateVariation()}>
                             Add to Queue
                         </AlertDialogAction>
                     </AlertDialogFooter>
