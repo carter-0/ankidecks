@@ -2,6 +2,8 @@
 
 A [web-based](https://ankidecks.app) suite of tools for managing and modifying [Anki](https://apps.ankiweb.net/) decks (using AI).
 
+Open source because I realised lots of people already made the same thing but much better
+
 ## License
 
 ```
