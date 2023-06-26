@@ -110,7 +110,22 @@ export default function Dashboard(props: DashboardProps) {
                                             Upgrade
                                         </Link>
                                     </>
-                                ) : null}
+                                ) : <>
+                                        <p onClick={
+                                            (e: any) => {
+                                                if (e.target.classList.contains("text-red-500")) {
+                                                    e.target.classList.remove("text-red-500")
+                                                    e.target.classList.add("text-teal-500")
+                                                } else {
+                                                    e.target.classList.add("text-red-500")
+                                                    e.target.classList.remove("text-teal-500")
+                                                }
+                                            }
+                                        } className={"text-teal-500 ml-2 text-xl cursor-pointer"}>
+                                            ❤
+                                        </p>
+                                    </>
+                                }
                             </StatBox>
                         </div>
 
