@@ -61,9 +61,9 @@ export default function ResumeDeckCreation(props: any) {
         <>
             <Navbar />
 
-            <main className={"flex flex-col items-center dark:text-white text-black"}>
+            <main className={"flex flex-col items-center text-black"}>
                 <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
-                    <div className={"dark:bg-primary-black bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>
+                    <div className={"bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>
                         <div className="md:grid md:grid-cols-3 md:gap-6">
                             <div className="mt-5 md:col-span-3 md:mt-0">
                                 <h2 className="text-2xl font-bold">Create new Deck</h2>
@@ -82,7 +82,7 @@ export default function ResumeDeckCreation(props: any) {
                                                 id="first-name"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                                className="dark:bg-quaternary-black mt-1 block w-full rounded-md dark:text-white dark:border-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-green-500 sm:text-sm"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-green-500 sm:text-sm"
                                             />
                                         </div>
 

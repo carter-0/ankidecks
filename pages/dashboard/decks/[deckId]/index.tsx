@@ -218,10 +218,10 @@ export default function Deck(props: DeckProps) {
                                 <div className={"flex items-center flex-row"}>
                                     {/*<SpotifyLink object="artist" spotify_id={spotify_id} platform={"desktop"} />*/}
                                     <div className={"ml-1 rounded-md p-1 flex flex-row"}>
-                                        {/*<div onClick={() => tryEnableMyStats()} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", !globalStats ? "bg-sp-green dark:text-black" : "dark:text-white text-black")}>*/}
+                                        {/*<div onClick={() => tryEnableMyStats()} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", !globalStats ? "bg-sp-green dark:text-black" : "text-black")}>*/}
                                         {/*    <p className={"font-medium"}>My Stats</p>*/}
                                         {/*</div>*/}
-                                        {/*<div onClick={() => setGlobalStats(true)} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", globalStats ? "bg-sp-green dark:text-black" : "dark:text-white text-black")}>*/}
+                                        {/*<div onClick={() => setGlobalStats(true)} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", globalStats ? "bg-sp-green dark:text-black" : "text-black")}>*/}
                                         {/*    <p className={"font-medium"}>Global Stats</p>*/}
                                         {/*</div>*/}
                                     </div>

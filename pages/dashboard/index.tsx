@@ -134,7 +134,7 @@ export default function Dashboard(props: DashboardProps) {
                                 <div className={"rounded-md"}>
                                     <h1 className={"text-2xl font-bold"}>Decks</h1>
                                     <div className={"flex flex-row"}>
-                                        <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Your current decks</p>
+                                        <p className={"text-gray-500 pb-2 font-medium"}>Your current decks</p>
                                     </div>
 
                                     <div className={"grid sg:grid-cols-1 grid-cols-2 gap-4"}>
@@ -146,7 +146,7 @@ export default function Dashboard(props: DashboardProps) {
                                                             <div className="bg-teal-500 rounded-md p-3">
                                                                 <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{deck.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</p>
                                                             </div>
-                                                            <Link href={"/dashboard/decks/"+deck.id}><p className="dark:text-gray-400 text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
+                                                            <Link href={"/dashboard/decks/"+deck.id}><p className="text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
                                                         </div>
 
                                                         <div className={"flex flex-row ml-auto"}>
@@ -167,13 +167,13 @@ export default function Dashboard(props: DashboardProps) {
                                                     </div>
                                                     <div className={"flex flex-col py-3 p-5 px-4 sm:px-6"}>
                                                         <div className={"flex flex-row justify-between"}>
-                                                            <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Cards</p>
-                                                            <p className={"dark:text-gray-400 pb-2 font-medium"}>{deck.cards.length}</p>
+                                                            <p className={"text-gray-500 pb-2 font-medium"}>Cards</p>
+                                                            <p className={"pb-2 font-medium"}>{deck.cards.length}</p>
                                                         </div>
 
                                                         <div className={"flex flex-row justify-between"}>
-                                                            <p className={"dark:text-gray-400 text-gray-500 pb-2 font-medium"}>Last Modified</p>
-                                                            <p className={"dark:text-gray-400 pb-2 font-medium"}>{dayjs(mostRecentCard.dateModified).fromNow()}</p>
+                                                            <p className={"text-gray-500 pb-2 font-medium"}>Last Modified</p>
+                                                            <p className={"pb-2 font-medium"}>{dayjs(mostRecentCard.dateModified).fromNow()}</p>
                                                         </div>
                                                     </div>
                                                 </div>

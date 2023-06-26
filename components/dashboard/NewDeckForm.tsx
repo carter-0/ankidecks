@@ -67,7 +67,7 @@ export default function NewDeckForm() {
                                     id="first-name"
                                     value={formData.name}
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                    className="dark:bg-quaternary-black mt-1 block w-full rounded-md dark:text-white dark:border-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-green-500 sm:text-sm"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-green-500 sm:text-sm"
                                 />
                             </div>
 

@@ -10,7 +10,6 @@ export default function AfterUpgrade() {
 
                 <div className={"mx-auto sg:max-w-md sg:max-w-3xl mx-auto max-w-md sm:max-w-3xl lg:max-w-7xl lg:px-8"}>
                     <div className={"flex flex-col w-full justify-center items-center"}>
-
                         <div className={"mx-auto mt-4 w-full max-w-lg space-y-4"}>
                             <div className={"bg-white shadow rounded-md w-full mt-5 py-3 p-5 px-4 sm:px-6"}>
                                 <h1 className={"text-2xl mt-3 font-bold"}>Your Purchase was Successful!</h1>

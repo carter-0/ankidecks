@@ -80,7 +80,7 @@ export default function Deck(props: DeckProps) {
                     </AlertDialogContent>
                 </AlertDialog>
 
-                <div className={"flex flex-col items-center dark:text-white text-black"}>
+                <div className={"flex flex-col items-center text-black"}>
                     <div className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 w-full items-center justify-between bg-inherit py-4"}>
                         <SecondNavbar pages={
                             [
@@ -92,7 +92,7 @@ export default function Deck(props: DeckProps) {
                         <div className={"flex mt-10 flex-row items-center"}>
                             <Image alt={"Artist image"} priority={true} width={300} height={300} src={`https://ui-avatars.com/api/?name=${deck.name}&size=128`} className={"w-32 h-32 rounded-md"} />
                             {/* Solid secondary-black section with artist name and genres */}
-                            <div className={"dark:bg-primary-black w-full p-4"}>
+                            <div className={"w-full p-4"}>
                                 <h1 className={"sm:text-2xl text-lg overflow-wrap font-bold min-w-0"}>{card.front}</h1>
                                 <div className={"flex flex-row"}>
                                     <p className={"overflow-wrap text-gray-500"}>Created {dayjs(deck.dateCreated).fromNow()}</p>
@@ -101,10 +101,10 @@ export default function Deck(props: DeckProps) {
                                 <div className={"flex items-center flex-row"}>
                                     {/*<SpotifyLink object="artist" spotify_id={spotify_id} platform={"desktop"} />*/}
                                     <div className={"ml-1 rounded-md p-1 flex flex-row"}>
-                                        {/*<div onClick={() => tryEnableMyStats()} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", !globalStats ? "bg-sp-green dark:text-black" : "dark:text-white text-black")}>*/}
+                                        {/*<div onClick={() => tryEnableMyStats()} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", !globalStats ? "bg-sp-green dark:text-black" : "text-black")}>*/}
                                         {/*    <p className={"font-medium"}>My Stats</p>*/}
                                         {/*</div>*/}
-                                        {/*<div onClick={() => setGlobalStats(true)} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", globalStats ? "bg-sp-green dark:text-black" : "dark:text-white text-black")}>*/}
+                                        {/*<div onClick={() => setGlobalStats(true)} className={cn("p-1 ml-2 rounded-md ease-in-out duration-300 cursor-pointer", globalStats ? "bg-sp-green dark:text-black" : "text-black")}>*/}
                                         {/*    <p className={"font-medium"}>Global Stats</p>*/}
                                         {/*</div>*/}
                                     </div>
@@ -112,11 +112,11 @@ export default function Deck(props: DeckProps) {
                             </div>
                         </div>
 
-                        <div className={"dark:bg-primary-black bg-white shadow rounded-md mt-5 pb-5 w-full pb-0 p-5"}>
-                            <div className={"dark:bg-secondary-black"}>
+                        <div className={"bg-white shadow rounded-md mt-5 pb-5 w-full pb-0 p-5"}>
+                            <div className={""}>
                                 <div className={"flex flex-col space-y-2 items-center justify-center"}>
                                     <h1 className={"sm:text-2xl text-xl font-medium sm:max-w-[80%]"}>{card.front}</h1>
-                                    <span className={"w-full flex-grow bg-gray-200 dark:bg-gray-800 h-px ml-3"} />
+                                    <span className={"w-full flex-grow bg-gray-200 h-px ml-3"} />
                                     <h1 className={"sm:text-2xl text-xl font-medium sm:max-w-[80%]"}>{card.back}</h1>
                                 </div>
                             </div>
