@@ -100,7 +100,7 @@ export default function NewCardForm(props: NewCardFormProps) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction onClick={() => (true)}>
-                            <Link href={"/#pricing"}>Upgrade Me</Link>
+                            <Link href={"/#pricing"}>Get Unlimited Access</Link>
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

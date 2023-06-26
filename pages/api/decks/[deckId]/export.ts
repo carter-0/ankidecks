@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     deck.cards.forEach((card) => {
         if (card.type !== 'CLOZE') {
-            apkg.addCard(card.front, card.back);
+            apkg.addCard(card.front, card.back, { tags: card.tags.split(" ") });
         }
     })
 
