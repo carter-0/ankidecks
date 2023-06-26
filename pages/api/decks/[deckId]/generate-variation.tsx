@@ -49,6 +49,7 @@ export default async function handler(req: any, res: any) {
     await sendRabbitMQMessage({
         type: 'VARIATION',
         deckId: `${deckId}`,
+        taskId: `${task.id}`,
         firstField: firstField,
     })
 
