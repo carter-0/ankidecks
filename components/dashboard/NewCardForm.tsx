@@ -28,7 +28,7 @@ export default function NewCardForm(props: NewCardFormProps) {
     const fetch = useFetch();
 
     const [submitting, setSubmitting] = useState(false);
-    const [upgradeAlertOpen, setUpgradeAlertOpen] = useState(false);
+    const [insufficientTokens, setInsufficientTokens] = useState(false);
     const [formData, setFormData] = useState({
         source: '',
         maxCards: 0,
@@ -57,7 +57,7 @@ export default function NewCardForm(props: NewCardFormProps) {
             }),
         }).then((res) => {
             if (res.status === 200) {
-                res.json().then((data: {success: boolean, deckId?: string}) => {
+                res.json().then((data: {success: boolean, deckId?: string, error?: string}) => {
                     if (data.success) {
                         toast({
                             title: 'Deck created!',
@@ -68,12 +68,14 @@ export default function NewCardForm(props: NewCardFormProps) {
                     } else {
                         toast({
                             title: 'Error',
-                            description: 'An error occurred while creating your deck.'
+                            description: data.error
                         })
 
                         setSubmitting(false);
                     }
                 })
+            } else if (res.status === 402) {
+                setInsufficientTokens(true);
             } else {
                 toast({
                     title: 'Error',
@@ -87,18 +89,18 @@ export default function NewCardForm(props: NewCardFormProps) {
 
     return (
         <>
-            <AlertDialog open={upgradeAlertOpen} onOpenChange={(v) => {setUpgradeAlertOpen(v)}}>
+            <AlertDialog open={insufficientTokens} onOpenChange={(v) => {setInsufficientTokens(v)}}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogTitle>You have insufficient tokens.</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This action cannot be undone. This will permanently cards. You will not be refunded.
+                            This request exceeds your free token balance. You can upgrade your account to get unlimited access.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction onClick={() => (true)}>
-                            Erase cards
+                            <Link href={"/#pricing"}>Upgrade Me</Link>
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
