@@ -83,7 +83,7 @@ export default function TopicList(props: TopicListProps) {
                                 </div>
                                 <div className="-ml-px w-0 flex-1 flex">
                                     <Link
-                                        href={`/decks/${topic.name.toLowerCase().replace(" ", "-")}`}
+                                        href={`/decks/${topic.name.toLowerCase().replaceAll(" ", "-")}`}
                                         className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
                                     >
                                         <LinkIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />

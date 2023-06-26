@@ -61,7 +61,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                                 <div className="flex items-center">
                                     <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                                     <Link
-                                        href={"/decks/"+topic.toLowerCase().replace(" ", "-")}
+                                        href={"/decks/"+topic.toLowerCase().replaceAll(" ", "-")}
                                         className="ml-4 text-gray-500 hover:text-gray-700 line-clamp-2"
                                     >
                                         {topicCaps}
@@ -72,7 +72,7 @@ export default function ScrapedDeck(props: ScrapedDeckProps) {
                                 <div className="flex items-center">
                                     <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                                     <Link
-                                        href={"/decks/"+topic.toLowerCase().replace(" ", "-")+"/"+deck.urlSafeName.toLowerCase()}
+                                        href={"/decks/"+topic.toLowerCase().replaceAll(" ", "-")+"/"+deck.urlSafeName.toLowerCase()}
                                         className="ml-4 text-gray-500 hover:text-gray-700 line-clamp-2"
                                     >
                                         {deck.name}

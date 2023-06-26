@@ -375,14 +375,16 @@ export default function Deck(props: DeckProps) {
                                                                     <p className={"pb-2 font-medium"}>{capitalizeFirstLetter(card.type.toLowerCase())}</p>
                                                                 </div>
 
-                                                                <div className={"flex flex-row justify-between"}>
-                                                                    <p className={"text-gray-500 pb-2 font-medium"}>Credits</p>
-                                                                    <p className={"pb-2 font-medium"}>2,482</p>
-                                                                </div>
+                                                                {/*<div className={"flex flex-row justify-between"}>*/}
+                                                                {/*    <p className={"text-gray-500 pb-2 font-medium"}>Credits</p>*/}
+                                                                {/*    <p className={"pb-2 font-medium"}>2,482</p>*/}
+                                                                {/*</div>*/}
 
                                                                 <div className={"flex flex-row justify-between"}>
                                                                     <p className={"text-gray-500 pb-2 font-medium"}>Tags</p>
-                                                                    <p className={"pb-2 font-medium"}>{card.tags.replace(" ", ", ")}</p>
+                                                                    <p className={"pb-2 font-medium"}>{card.tags ? card.tags.trim().replaceAll(" ", ", ") : (
+                                                                        <span className={"text-gray-500"}>No tags</span>
+                                                                    )}</p>
                                                                 </div>
                                                             </div>
                                                         </div>

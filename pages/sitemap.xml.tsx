@@ -95,14 +95,14 @@ export async function getServerSideProps(props: any) {
     const deckPosts = decks.map((deck: ScrapedDeck) => {
         console.log(deck.topics[0].name)
         return {
-            topic: deck.topics[0].name.toLowerCase().replace(" ", "-"),
+            topic: deck.topics[0].name.toLowerCase().replaceAll(" ", "-"),
             name: deck.urlSafeName.toLowerCase(),
         };
     });
 
     const topicsPosts = topics.map((topic) => {
         return {
-            name: topic.name.toLowerCase().replace(" ", "-"),
+            name: topic.name.toLowerCase().replaceAll(" ", "-"),
         };
     });
 

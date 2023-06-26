@@ -247,7 +247,7 @@ export async function getServerSideProps(context: any) {
         }
     }
 
-    cookieLocal = cookieLocal.replace(/%3D/g, "=")
+    cookieLocal = cookieLocal.replaceAll(/%3D/g, "=")
 
     cookies.set("resumeDeck", null, {maxAge: 0})
 

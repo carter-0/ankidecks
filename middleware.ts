@@ -8,7 +8,7 @@ const privatePaths = ['/dashboard']
 
 const isPublic = (path: string) => {
     // return publicPaths.find(x =>
-    //     path.match(new RegExp(`^${x}$`.replace('*$', '($|/)')))
+    //     path.match(new RegExp(`^${x}$`.replaceAll('*$', '($|/)')))
     // )
 
     for (const privatePath of privatePaths) {

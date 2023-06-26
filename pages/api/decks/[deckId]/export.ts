@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             };
 
             let signedUrl = await getSignedUrl(s3, new GetObjectCommand(getObjectParams));
-            signedUrl = signedUrl.replace("https://ankidecks.6c7add82567c8755e3f0022bfd49e5e0.r2.cloudflarestorage.com", "https://r2.ankidecks.app")
+            signedUrl = signedUrl.replaceAll("https://ankidecks.6c7add82567c8755e3f0022bfd49e5e0.r2.cloudflarestorage.com", "https://r2.ankidecks.app")
 
             console.log(signedUrl)
 

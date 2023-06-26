@@ -33,7 +33,7 @@ const choices = [
 export default function Decks(props: DecksProps) {
     const { topics } = props
 
-    const heroText = choices[hashToNumber("topics")].replace("{quantity}", topics.length.toString()).replace("{topic}", "");
+    const heroText = choices[hashToNumber("topics")].replaceAll("{quantity}", topics.length.toString()).replaceAll("{topic}", "");
 
     return (
         <>

@@ -34,7 +34,7 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
     const { topic, decks } = props;
     const topicCaps = topic.split(/ /g).map(val => val[0].toUpperCase() + val.slice(1)).join(' ')
 
-    const heroText = choices[hashToNumber(topic)].replace("{quantity}", decks.length.toString()).replace("{topic}", topicCaps);
+    const heroText = choices[hashToNumber(topic)].replaceAll("{quantity}", decks.length.toString()).replaceAll("{topic}", topicCaps);
 
     return(
         <>
@@ -76,7 +76,7 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
                                 <div className="flex items-center">
                                     <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                                     <Link
-                                        href={"/decks/"+topic.toLowerCase().replace(" ", "-")}
+                                        href={"/decks/"+topic.toLowerCase().replaceAll(" ", "-")}
                                         className="ml-4 text-gray-500 hover:text-gray-700 line-clamp-2"
                                     >
                                         {topicCaps}
@@ -110,7 +110,7 @@ export default function ScrapedDecks(props: ScrapedDecksProps) {
 
 export const getStaticProps: (ctx: any) => Promise<{ redirect: { permanent: boolean; destination: string } } | { redirect: { destination: string } } | { props: {} }> = async (ctx: any) => {
     const { params } = ctx;
-    const subject = params.subject.replace(/-/g, " ");
+    const subject = params.subject.replaceAll(/-/g, " ");
 
     const decks = await prisma.scrapedDeck.findMany({
         where: {
