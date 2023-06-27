@@ -96,6 +96,12 @@ async function del(req: NextApiRequest, res: NextApiResponse, userId: string) {
         return;
     }
 
+    await prisma.card.deleteMany({
+        where: {
+            deckId: deckId
+        }
+    })
+
     await prisma.deck.delete({
         where: {
             id: deckId

@@ -11,7 +11,7 @@ export const deleteDeck = async (deckId: string, fetch: any) => {
 }
 
 export const deleteCards = async (deckId: string, cardIds: string[], fetch: any) => {
-    cardIds.forEach(async (cardId) => {
+    for (const cardId of cardIds) {
         const response = await fetch(`/api/decks/${deckId}/cards/${cardId}`, {
             method: "DELETE",
         })
@@ -19,7 +19,7 @@ export const deleteCards = async (deckId: string, cardIds: string[], fetch: any)
         if (!response.ok) {
             throw new Error(response.statusText)
         }
-    })
+    }
 
     return { success: true }
 }

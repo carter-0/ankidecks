@@ -54,13 +54,13 @@ export default function Dashboard(props: DashboardProps) {
     const tokenAllowance = freeAccount ? (4000).toLocaleString() : "∞"
     const tokensUsed = freeAccount ? (4000 - tokens).toLocaleString() : 10000000 - tokens
 
-    const mostRecentCard = decks.map((deck) => {
-        return deck.cards.sort((a, b) => {
-            return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
-        })[0]
-    }).sort((a, b) => {
-        return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
-    })[0]
+    // const mostRecentCard = decks.map((deck) => {
+    //     return deck.cards.sort((a, b) => {
+    //         return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
+    //     })[0]
+    // }).sort((a, b) => {
+    //     return dayjs(b.dateModified).unix() - dayjs(a.dateModified).unix()
+    // })[0]
 
     return (
         <>
@@ -82,7 +82,7 @@ export default function Dashboard(props: DashboardProps) {
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction onClick={() => deleteDeck(selectedDeck, fetch).then((r) => {
-                                if (r.status == "success") {
+                                if (r.success) {
                                     toast({
                                         title: "Deck deleted",
                                         description: "Your deck has been deleted.",
@@ -143,9 +143,6 @@ export default function Dashboard(props: DashboardProps) {
                                                 <div className={"border border-gray-200 bg-white rounded-md w-full mt-2"}>
                                                     <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                         <div className={"flex flex-row items-center"}>
-                                                            {/*<div className="bg-teal-500 rounded-md p-3">*/}
-                                                            {/*    <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{deck.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</p>*/}
-                                                            {/*</div>*/}
                                                             <Link href={"/dashboard/decks/"+deck.id}><p className="text-sm font-medium lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
                                                         </div>
 
@@ -192,18 +189,6 @@ export default function Dashboard(props: DashboardProps) {
                                         </div>
 
                                         <FileUpload />
-
-
-                                        {/*<div className={"col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1"}>*/}
-                                        {/*    <Link href={"/dashboard/decks/new"}>*/}
-                                        {/*        <div className={"cursor-pointer border-2 py-9 border-dashed border-gray-200 bg-white p-5 rounded-md w-full mt-2"}>*/}
-                                        {/*            <div className={"flex flex-col justify-center items-center"}>*/}
-                                        {/*                <UploadIcon className={"h-6 w-6"} />*/}
-                                        {/*                <p className={"font-medium"}>Upload Existing Deck</p>*/}
-                                        {/*            </div>*/}
-                                        {/*        </div>*/}
-                                        {/*    </Link>*/}
-                                        {/*</div>*/}
 
                                     </div>
                                 </div>
