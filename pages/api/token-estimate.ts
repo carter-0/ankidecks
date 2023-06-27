@@ -1,4 +1,3 @@
-import { GPTTokens } from 'gpt-tokens'
 import { NextApiRequest, NextApiResponse } from "next";
 import {calcTokens} from "@/lib/helper";
 

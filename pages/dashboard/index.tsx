@@ -143,10 +143,10 @@ export default function Dashboard(props: DashboardProps) {
                                                 <div className={"border border-gray-200 bg-white rounded-md w-full mt-2"}>
                                                     <div className={"flex flex-row items-center bg-gray-50 border-b border-gray-200 w-full py-3 p-5 px-4"}>
                                                         <div className={"flex flex-row items-center"}>
-                                                            <div className="bg-teal-500 rounded-md p-3">
-                                                                <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{deck.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</p>
-                                                            </div>
-                                                            <Link href={"/dashboard/decks/"+deck.id}><p className="text-sm font-medium ml-4 lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
+                                                            {/*<div className="bg-teal-500 rounded-md p-3">*/}
+                                                            {/*    <p className="text-white text-sm font-medium -my-0.5 mx-[0.25px] py-[0.5px] lg:text-xl text-lg overflow-wrap min-w-0">{deck.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()}</p>*/}
+                                                            {/*</div>*/}
+                                                            <Link href={"/dashboard/decks/"+deck.id}><p className="text-sm font-medium lg:text-xl text-lg overflow-wrap min-w-0">{deck.name}</p></Link>
                                                         </div>
 
                                                         <div className={"flex flex-row ml-auto"}>
@@ -172,8 +172,8 @@ export default function Dashboard(props: DashboardProps) {
                                                         </div>
 
                                                         <div className={"flex flex-row justify-between"}>
-                                                            <p className={"text-gray-500 pb-2 font-medium"}>Last Modified</p>
-                                                            <p className={"pb-2 font-medium"}>{dayjs(mostRecentCard.dateModified).fromNow()}</p>
+                                                            <p className={"text-gray-500 pb-2 font-medium"}>Created</p>
+                                                            <p className={"pb-2 font-medium"}>{dayjs(deck.dateCreated).fromNow()}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,7 +248,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
             },
             include: {
                 cards: true
-            }
+            },
+            orderBy: {
+                dateCreated: "desc"
+            } as any
         }),
         getUserTokens(userId),
         getUser(userId).then(user => user.freeAccount)

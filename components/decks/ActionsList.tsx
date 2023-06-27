@@ -88,7 +88,7 @@ export default function ActionsList(props: ActionsListProps) {
             if (!r.ok) {
                 toast({
                     title: "Error",
-                    description: "Failed to add tags",
+                    description: "Failed to add to queue",
                 })
                 return;
             }
@@ -98,7 +98,7 @@ export default function ActionsList(props: ActionsListProps) {
             console.log(r);
             toast({
                 title: "Success",
-                description: "Added tags successfully!",
+                description: "Added to queue successfully!",
             })
         })
     }
@@ -111,8 +111,9 @@ export default function ActionsList(props: ActionsListProps) {
             if (!r.ok) {
                 toast({
                     title: "Error",
-                    description: "Failed to generate variation",
+                    description: "Failed to add to queue",
                 })
+
                 return;
             }
 

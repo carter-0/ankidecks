@@ -8,7 +8,7 @@ const cors = Cors({
     allowMethods: ['POST', 'HEAD'],
 });
 
-const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!
+const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export const config = {
     api: {
@@ -52,7 +52,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     data: {
                         stripeSubscriptionId: session.id,
                         freeAccount: false,
-                        tokenAllowance: 10000000
+                        tokenAllowance: 100000000
                     }
                 })
 
