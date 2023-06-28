@@ -39,6 +39,11 @@ const subtextMap = {
     "adding-tags": "Say goodbye to spending hours adding tags to your Anki decks. With Anki Decks AI, you can generate tags for your decks in seconds.",
 }
 
+const titleTagMap = {
+    "rephrasing-decks": "Rephrase your Anki Decks with AI",
+    "adding-tags": "Generate tags for your Anki Decks with AI",
+}
+
 type StandardHeroProps = {
     title?: string
 }
@@ -69,14 +74,18 @@ export default function StandardHero(props: StandardHeroProps) {
         metaDescription = subtext.toString().replaceAll(/(<([^>]+)>)/gi, "")
     }
 
-    const titleTag = title ? title in titleMap ? titleMap[title as keyof typeof titleMap] : "flashcards" : "flashcards"
+    let titleTag = title && title in titleTagMap ? titleTagMap[title as keyof typeof titleTagMap] : `Anki Decks AI - Create Anki Decks from your notes`
+
+    if (title && title in titleMap && !(title in titleTagMap)) {
+        titleTag = `Anki Decks AI - Create ${titleMap[title]} Anki Decks from your notes`
+    }
 
     const clerk = useClerk()
 
     return (
         <div className="relative overflow-hidden">
             <Head>
-                <title>{`Anki Decks AI - Create ${titleTag} from your notes`}</title>
+                <title>{titleTag}</title>
                 <meta key={"description"} name="description" content={`${metaDescription}`} />
             </Head>
             <div className="pt-10 bg-gray-50 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
