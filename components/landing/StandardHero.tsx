@@ -46,11 +46,11 @@ type StandardHeroProps = {
 export default function StandardHero(props: StandardHeroProps) {
     const {title} = props
     let finalTitle = <></>
-    let subtext = <><span className="block">Say goodbye to spending hours creating flashcards. With <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Anki Decks AI</span>, you can create decks from your notes in seconds.</span></>
+    let subtext: any = <><span className="block">Say goodbye to spending hours creating flashcards. With <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Anki Decks AI</span>, you can create decks from your notes in seconds.</span></>
 
-    if (title && customMap[title]) {
-        finalTitle = customMap[title]
-    } else if (title && titleMap[title]) {
+    if (title && title in customMap) {
+        finalTitle = customMap[title as keyof typeof customMap]
+    } else if (title && title in titleMap) {
         finalTitle = <>
             <span className="block">Create <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>{titleMap[title] as any}</span> Anki Decks</span>
             <span className="block ">from your notes</span>
@@ -64,12 +64,12 @@ export default function StandardHero(props: StandardHeroProps) {
 
     let metaDescription = "Say goodbye to spending hours creating flashcards. With Anki Decks AI, you can create decks from your notes in seconds."
 
-    if (title && subtextMap[title]) {
-        subtext = subtextMap[title]
+    if (title && title in subtextMap) {
+        subtext = subtextMap[title as keyof typeof subtextMap]
         metaDescription = subtext.toString().replaceAll(/(<([^>]+)>)/gi, "")
     }
 
-    const titleTag = title ? titleMap[title] ? titleMap[title] : "flashcards" : "flashcards"
+    const titleTag = title ? title in titleMap ? titleMap[title as keyof typeof titleMap] : "flashcards" : "flashcards"
 
     const clerk = useClerk()
 
