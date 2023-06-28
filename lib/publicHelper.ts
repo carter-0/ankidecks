@@ -38,5 +38,13 @@ export const getTokenEstimate = async (document: string) : Promise<{ success: bo
 }
 
 export const getVariationTokenEstimate = (cards: number) : number => {
-    return cards * 250
+    // In this case, input is the number of cards present in the deck of which a variation will be generated.
+    // To simplify this code, I'm just assuming each card will use about 100 tokens. This *could* be abused later on, but it's fine for now.
+    return cards * 100
+}
+
+export const getTagTokenEstimate = (tags: number) : number => {
+    // In this case, input is the number of cards present in the deck of which tags will be added.
+    // To simplify this code, I'm just assuming each card will use about 100 tokens. This *could* be abused later on, but it's fine for now.
+    return tags * 100
 }

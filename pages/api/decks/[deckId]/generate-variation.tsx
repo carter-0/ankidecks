@@ -47,10 +47,6 @@ export default async function handler(req: any, res: any) {
         }
     }) as User;
 
-    console.log(deck._count.cards)
-    console.log(getVariationTokenEstimate(deck._count.cards))
-    console.log(user.tokenAllowance)
-
     if (getVariationTokenEstimate(deck._count.cards) > (user.tokenAllowance - user.tokensUsed)) {
         return res.status(402).json({success: false, message: "Too many tokens"});
     }

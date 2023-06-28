@@ -31,6 +31,7 @@ export default function ActionsList(props: ActionsListProps) {
     const fetch = useFetch();
     const [addTagsOpen, setAddTagsOpen] = useState(false);
     const [variationOpen, setVariationOpen] = useState(false);
+    const [insufficientTokens, setInsufficientTokens] = useState(false);
 
     const [variationSettings, setVariationSettings] = useState({
         onlyGenerateFirstField: true,
@@ -85,6 +86,11 @@ export default function ActionsList(props: ActionsListProps) {
             "method": "POST",
             "body": JSON.stringify(addTagsSettings)
         }).then((r) => {
+            if (r.status === 402) {
+                setInsufficientTokens(true)
+                return;
+            }
+
             if (!r.ok) {
                 toast({
                     title: "Error",
@@ -108,6 +114,11 @@ export default function ActionsList(props: ActionsListProps) {
             "method": "POST",
             "body": JSON.stringify(variationSettings)
         }).then((r) => {
+            if (r.status === 402) {
+                setInsufficientTokens(true)
+                return;
+            }
+
             if (!r.ok) {
                 toast({
                     title: "Error",
@@ -188,6 +199,23 @@ export default function ActionsList(props: ActionsListProps) {
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction onClick={() => generateVariation()}>
                             Add to Queue
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={insufficientTokens} onOpenChange={(v) => {setInsufficientTokens(v)}}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>You have insufficient tokens.</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This request exceeds your free token balance. You can upgrade your account to get unlimited access.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => (true)}>
+                            <Link href={"/#pricing"}>Get Unlimited Access</Link>
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
