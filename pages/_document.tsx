@@ -9,6 +9,7 @@ export default function Document() {
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
           <link rel="manifest" href="/site.webmanifest" />
+          <meta key={"description"} name={"description"} content={"Say goodbye to spending hours creating flashcards. With Anki Decks AI, you can create decks from your notes in seconds."} />
       </Head>
       <body className={"bg-gray-50"}>
         <Main />
