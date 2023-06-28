@@ -36,3 +36,7 @@ export const getTokenEstimate = async (document: string) : Promise<{ success: bo
 
     return response.json()
 }
+
+export const getVariationTokenEstimate = (cards: number) : number => {
+    return cards * 250
+}
