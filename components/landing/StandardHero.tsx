@@ -6,6 +6,7 @@ import {ClerkLoading, SignedIn, SignedOut, useClerk} from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import {TextCursorIcon} from "lucide-react";
+import Head from "next/head";
 
 interface NewMap {
     [key: string]: string | undefined
@@ -22,38 +23,68 @@ const titleMap = {
     "ai": "AI",
 } as NewMap
 
+const customMap = {
+    "rephrasing-decks": <>
+        <span className="block"><span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Rephrase</span> your Anki</span>
+        <span className="block ">Decks with <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>AI</span></span>
+    </>,
+    "adding-tags": <>
+        <span className="block"><span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Generate tags</span> for your</span>
+        <span className="block ">Anki Decks with <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>AI</span></span>
+    </>,
+}
+
+const subtextMap = {
+    "rephrasing-decks": "By rephrasing the prompts in your Anki decks, you can prevent yourself from memorising the answer to the prompt instead of the actual concept.",
+    "adding-tags": "Say goodbye to spending hours adding tags to your Anki decks. With Anki Decks AI, you can generate tags for your decks in seconds.",
+}
+
 type StandardHeroProps = {
     title?: string
 }
 
 export default function StandardHero(props: StandardHeroProps) {
     const {title} = props
+    let finalTitle = <></>
+    let subtext = <>Say goodbye to spending hours creating flashcards. With <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Anki Decks AI</span>, you can create decks from your notes in seconds.</>
+
+    if (title && customMap[title]) {
+        finalTitle = customMap[title]
+    } else if (title && titleMap[title]) {
+        finalTitle = <>
+            <span className="block">Create <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>{titleMap[title] as any}</span> Anki Decks</span>
+            <span className="block ">from your notes</span>
+        </>
+    } else {
+        finalTitle = <>
+            <span className="block">Create <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Anki Decks</span></span>
+            <span className="block ">from your notes</span>
+        </>
+    }
+
+    if (title && subtextMap[title]) {
+        subtext = subtextMap[title]
+    }
 
     const clerk = useClerk()
 
     return (
         <div className="relative overflow-hidden">
+            <Head>
+                <title>Anki Decks AI - Create {title ? titleMap[title] : "Anki Decks"} from your notes</title>
+                <meta key={"description"} name="description" content="Say goodbye to spending hours creating flashcards. With Anki Decks AI, you can create decks from your notes in seconds." />
+            </Head>
             <div className="pt-10 bg-gray-50 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
                 <div className="mx-auto max-w-7xl sm:px-6">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-8">
                         <div className="smpp:mx-auto smpp:max-w-md smpp:px-4 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center">
                             <div className="lg:py-24">
                                 <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
-                                    { title ? (
-                                        <>
-                                            <span className="block">Create <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>{titleMap[title] as any}</span> Anki Decks</span>
-                                            <span className="block ">from your notes</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span className="block">From <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>notes to cards</span></span>
-                                            <span className="block ">in seconds</span>
-                                        </>
-                                    )}
+                                    {finalTitle}
                                 </h1>
 
                                 <p className="mt-3 text-base text-black/80 max-w-md sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                                    Say goodbye to spending hours creating flashcards. With <span className={"text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"}>Anki Decks AI</span>, you can create decks from your notes in seconds.
+                                    {subtext}
                                 </p>
 
                                 <div className={"flex flex-col gap-y-2 text-sm mt-5"}>
