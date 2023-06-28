@@ -10,7 +10,7 @@ To use Anki Decks, you must be at least 13 years of age and have the requisite p
 
 3. Free Trial
 
-Upon sign-up, users will receive a free trial of 4,000 tokens. This free trial is limited to one per person.
+Upon sign-up, users will receive a free trial of 8,192 tokens. This free trial is limited to one per person.
 
 4. Lifetime Deal
 

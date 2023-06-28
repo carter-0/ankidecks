@@ -158,7 +158,7 @@ export default function StandardHero(props: StandardHeroProps) {
                                             </div>
                                         </div>
                                         <p className="mt-3 text-sm max-w-md text-gray-500 sm:mt-4">
-                                            Get started with a free 4,000 credit balance. By signing up, you agree to
+                                            Get started with a free 8,192 credit balance. By signing up, you agree to
                                             our{' '}
                                             <Link href="/terms" className="font-medium text-black">
                                                 terms of service

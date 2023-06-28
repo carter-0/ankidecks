@@ -11,11 +11,11 @@ const faqs = [
     },
     {
         question: "Is there a free trial?",
-        answer: "Yes, All new accounts get a 25 card free trial, no credit card required.",
+        answer: "Yes, all new accounts get 8,192 tokens to explore our services, no credit card required.",
     },
     {
         question: "Can I get a refund?",
-        answer: "Yes, we approve refunds for any reason within 7 days of purchase, no questions asked.",
+        answer: "Yes - we approve refunds for any reason within 24 hours of purchase, no questions asked. If it's been longer, be sure to reach out and we'll see what we can do.",
     },
     {
         question: "Are payments secure?",

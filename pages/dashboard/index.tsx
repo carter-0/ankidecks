@@ -51,8 +51,8 @@ export default function Dashboard(props: DashboardProps) {
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
     const [selectedDeck, setSelectedDeck] = useState<string>("")
 
-    const tokenAllowance = freeAccount ? (4000).toLocaleString() : "∞"
-    const tokensUsed = freeAccount ? (4000 - tokens).toLocaleString() : 100000000 - tokens
+    const tokenAllowance = freeAccount ? (8192).toLocaleString() : "∞"
+    const tokensUsed = freeAccount ? (8192 - tokens).toLocaleString() : 100000000 - tokens
 
     // const mostRecentCard = decks.map((deck) => {
     //     return deck.cards.sort((a, b) => {
