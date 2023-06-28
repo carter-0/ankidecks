@@ -16,19 +16,7 @@ export default function Document() {
         <NextScript />
 
         <Script id="analytics" strategy="lazyOnload">
-            {`
-                  var _paq = window._paq = window._paq || [];
-                  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-                  _paq.push(['trackPageView']);
-                  _paq.push(['enableLinkTracking']);
-                  (function() {
-                    var u="https://analytics.carter.red/";
-                    _paq.push(['setTrackerUrl', u+'matomo.php']);
-                    _paq.push(['setSiteId', '2']);
-                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-              })();
-                `}
+            {`var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']);_paq.push(['enableLinkTracking']);(function(){var u="https://analytics.carter.red/";_paq.push(['setTrackerUrl',u+'js/']);_paq.push(['setRequestMethod','POST']);_paq.push(['setSiteId','2']);var d=document,g=d.createElement('script'),s=d.getElementsByTagName('script')[0];g.async=true;g.src=u+'js/';s.parentNode.insertBefore(g,s)})();`}
         </Script>
 
         <Script

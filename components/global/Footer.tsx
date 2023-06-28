@@ -11,9 +11,10 @@ const navigation = {
     legal: [
         { name: 'Terms', href: '/terms' },
         { name: 'Privacy', href: '/privacy' },
-        { name: 'Refunds', href: '/refunds' },
     ],
     for: [
+        { name: 'Rephrasing decks', href: '/for/rephrasing-decks' },
+        { name: 'Generating tags', href: '/for/adding-tags' },
         { name: 'Teachers', href: '/for/teachers' },
         { name: 'Learning CS', href: '/for/computer-science' },
         { name: 'GCSEs', href: '/for/gcses' },
