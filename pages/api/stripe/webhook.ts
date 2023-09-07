@@ -60,6 +60,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         console.log('✅ Success:', event.id)
+        res.status(204)
     }
 }
 
