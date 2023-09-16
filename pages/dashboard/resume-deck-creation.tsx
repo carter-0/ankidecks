@@ -10,12 +10,10 @@ import useFetch from "@/lib/useFetch";
 
 export default function ResumeDeckCreation(props: any) {
     const [formData, setFormData] = useState(JSON.parse(atob(props.resumeDeck)))
-    const [submitting, setSubmitting] = useState(false)
     const fetch = useFetch();
     const router = useRouter()
 
     const generateDeckAndCards = async () => {
-        setSubmitting(true)
         await fetch("/api/decks/new", {
             method: "POST",
             body: JSON.stringify(formData),
@@ -35,14 +33,8 @@ export default function ResumeDeckCreation(props: any) {
                     if (newRes.status === 200) {
                         const newData = await newRes.json() as { success: boolean, cardId?: string }
                         if (newData.success) {
-                            toast({
-                                title: 'Success',
-                                description: 'Your deck and cards have been created.'
-                            })
                             router.push(`/dashboard/decks/${data.deckId}`)
-                            setSubmitting(false)
                         } else {
-                            setSubmitting(false)
                             toast({
                                 title: 'Error',
                                 description: 'An error occurred while creating your card.'
@@ -51,7 +43,6 @@ export default function ResumeDeckCreation(props: any) {
                     }
                 }
             } else {
-                setSubmitting(false)
                 toast({
                     title: 'Error',
                     description: 'An error occurred while creating your deck.'
@@ -226,23 +217,13 @@ export default function ResumeDeckCreation(props: any) {
                         </p>
 
                         <div className="mt-6 flex items-center justify-end gap-x-6">
-                            {submitting ? (
-                                <button
-                                    type="button"
-                                    onClick={() => true}
-                                    className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Generating...
-                                </button>
-                            ) : (
-                                <button
-                                    type="button"
-                                    onClick={() => generateDeckAndCards()}
-                                    className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Generate Deck ✨
-                                </button>
-                            )}
+                            <button
+                                type="button"
+                                onClick={() => generateDeckAndCards()}
+                                className="rounded-md bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            >
+                                Generate Deck ✨
+                            </button>
                         </div>
                     </div>
                 </div>
