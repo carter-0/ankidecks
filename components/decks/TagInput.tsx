@@ -34,7 +34,7 @@ export default function TagInput(props: TagInputProps) {
     return (
         <div className="flex flex-wrap p-2 border border-gray-300 rounded">
             {tags.map((tag, index) => (
-                <div key={index} className={"bg-indigo-200 text-indigo-700 text-sm font-medium mx-1 my-1 px-2 py-1 rounded cursor-pointer"} onClick={() => handleTagRemove(tag)}>
+                <div key={index} className={"bg-teal-200 text-teal-700 text-sm font-medium mx-1 my-1 px-2 py-1 rounded cursor-pointer"} onClick={() => handleTagRemove(tag)}>
                     <span
                         className="mr-2"
                     >
