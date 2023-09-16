@@ -112,7 +112,7 @@ export default function StandardHero(props: StandardHeroProps) {
                                     <div className={"flex items-center flex-row"}>
                                         <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
                                         <p className="mx-2 text-black/80">
-                                            Loved by 1,000 happy users
+                                            Loved by 1,298 happy users
                                         </p>
 
                                         <StarIcon className="flex-shrink-0 h-3 w-3 text-yellow-500" aria-hidden="true" />
@@ -187,9 +187,9 @@ export default function StandardHero(props: StandardHeroProps) {
                                 {/*</div>*/}
                                 <Image
                                     className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                                    src="/images/cloud-illustration-indigo-400.svg"
-                                    width={580}
-                                    height={580}
+                                    src="/assets/hero.png"
+                                    width={2080}
+                                    height={2080}
                                     priority={true}
                                     alt=""
                                 />
