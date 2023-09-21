@@ -27,11 +27,11 @@ export default function howToSeeYourSpotifyListeningTime() {
                         </div>
 
                         <div className={"prose text-lg pt-10"}>
-                            <p>If you're tired of spending hours creating flashcards, leaving no time to actually learn them - AI generated cards might be for you.</p>
+                            <p>If you&apos;re tired of spending hours creating flashcards, leaving no time to actually learn them - AI generated cards might be for you.</p>
 
-                            <p>In this article, we'll show you how to automatically convert lecture sides and notes into effective Anki decks.</p>
+                            <p>In this article, we&apos;ll show you how to automatically convert lecture sides and notes into effective Anki decks.</p>
 
-                            <p>1. Go to the <Link href={"/"}>Anki Decks website</Link> and click on the "Create a Deck" button.</p>
+                            <p>1. Go to the <Link href={"/"}>Anki Decks website</Link> and click on the &apos;Create a Deck&apos; button.</p>
                             <div className={"flex justify-center"}>
                                 <Image className={"rounded-md w-[600px]"} src={"/assets/blog/step-1.png"} width={500} height={500} alt={''} />
                             </div>
@@ -41,22 +41,22 @@ export default function howToSeeYourSpotifyListeningTime() {
                                 <Image className={"rounded-md w-[600px]"} src={"/assets/blog/step-2.png"} width={500} height={500} alt={''} />
                             </div>
 
-                            <p>3. Once you're logged in, you'll be given the option to either "Create a deck" or "Explore the dashboard".</p>
+                            <p>3. Once you&apos;re logged in, you&apos;ll be given the option to either &apos;Create a deck&apos; or &apos;Explore the dashboard&apos;.</p>
                             <div className={"flex justify-center"}>
                                 <Image className={"rounded-md w-[600px]"} src={"/assets/blog/step-3.png"} width={500} height={500} alt={''} />
                             </div>
 
-                            <p>4. Click on "Create a deck" and fill out all the required information. In the "Flashcard Source" box make sure to put your notes. You can always add more cards later so don't worry if they don't all fit in one request.</p>
+                            <p>4. Click on &apos;Create a deck&apos; and fill out all the required information. In the &apos;Flashcard Source&apos; box make sure to put your notes. You can always add more cards later so don&apos;t worry if they don&apos;t all fit in one request.</p>
                             <div className={"flex justify-center"}>
                                 <Image className={"rounded-md w-[600px]"} src={"/assets/blog/step-4.png"} width={500} height={500} alt={''} />
                             </div>
 
                             <h2 className={"font-bold text-2xl"}>Benefits of AI Generated Anki Decks</h2>
-                            <p>Now that you know how to see your Spotify listening time, let's talk about why you should start tracking it with Trackify. Here are some benefits to consider:</p>
+                            <p>Now that you know how to generate AI Anki cards, lets discuss why you should start creating with Anki Decks. Here are some benefits to consider:</p>
 
                             {/*<h3 className={"font-bold text-xl"}>Method 2a: Change Your Username in the App</h3>*/}
 
-                            <p>1. <b>Save time</b>: By deferring the creation of Anki Decks to an AI model, you can save hours. If you've already made notes, why waste more time writing them out again in a different format?</p>
+                            <p>1. <b>Save time</b>: By deferring the creation of Anki Decks to an AI model, you can save hours. If you&apos;ve already made notes, why waste more time writing them out again in a different format?</p>
                             <p>2. <b>Increase productivity</b>: Anki Decks forces AI models to use the minimum information principle along with other research-backed methods to increase the effectiveness of the flashcards we generate. This means less time learning the science of making flashcards and more time learning!</p>
                             <p>3. <b>Add tags to learn specific subjects</b>: Anki Decks recently added a new feature: AI tagging. If you want to learn just a particular topic out of your deck, you can rely on us to tag your cards, allowing you to study how you want.</p>
 

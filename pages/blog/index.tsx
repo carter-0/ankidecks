@@ -37,7 +37,7 @@ export default function Blog() {
                         <div className="text-center">
                             <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">Anki Decks Blog</h2>
                             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-                                Read what we're up to and how we're making Anki Decks better.
+                                Read what we&apos;re up to and how we&apos;re making Anki Decks better.
                             </p>
                         </div>
                         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
