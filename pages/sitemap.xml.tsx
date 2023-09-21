@@ -34,6 +34,12 @@ function generateSiteMap(deckPosts: { topic: string, name: string }[], topicsPos
      <url>
        <loc>https://ankidecks.app/for/interviews</loc>
      </url>
+     <url>
+       <loc>https://ankidecks.app/blog</loc>
+     </url>
+     <url>
+       <loc>https://ankidecks.app/blog/posts/how-to-create-anki-decks-with-ai</loc>
+     </url>
      ${deckPosts
         .map(({ topic, name }) => {
             return `
