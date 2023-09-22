@@ -12,7 +12,7 @@ export default function howToSeeYourSpotifyListeningTime() {
                 <meta key={'og:title'} property="og:title" content="How to create Anki decks with AI" />
             </Head>
 
-            <div className={"bg-[#EEEEEE] dark:bg-[#111111] text-[#444] dark:text-[#BBBBBB]"}>
+            <div className={"bg-[#EEEEEE] text-[#444]"}>
                 <Navbar />
                 <main>
                     <article className={"mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8 flex flex-col items-center justify-left w-full bg-inherit py-4"}>
